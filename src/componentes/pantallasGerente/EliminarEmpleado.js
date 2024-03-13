@@ -2,6 +2,7 @@ import './style/AgregarEmpleado.css';
 import './style/EliminarEmpleado.css';
 import MenuHamburguesa from '../MenuHamburguesa';
 import React, { useState, useEffect } from "react";
+import { Link } from 'react-router-dom';
 
 const EliminarEmpleado = () => {
   const [nombre, setNombre] = useState('');
@@ -61,8 +62,10 @@ const EliminarEmpleado = () => {
 
   return (
     <div className='contenedor'>
-      <h1>Eliminar Empleado</h1>
       <MenuHamburguesa />
+      <h1>Eliminar Empleado</h1>
+      <Link to="/registroEmpleado">Volver al Registro de Empleados</Link><br /><br />
+      
       {userRole && userRole.rol && userRole.rol === "Encargado_Departamento" ? (
         <form>
           <div>

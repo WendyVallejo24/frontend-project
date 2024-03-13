@@ -491,7 +491,7 @@ const Pedidos = () => {
             <div className="fecha">
                 <label className="fecha"><b>Fecha: </b>{hoy.toDateString()}</label> <br />
                 <label className="fecha"><b>Empleado: </b>{nombre}</label><br />
-                <label className="fehca"><b>No. de Pedido: </b>{noteNumber}</label>
+                <label className="fehca"><b>No. de Nota: </b>{noteNumber}</label>
             </div>
             <br />
             <div className="pedidos">

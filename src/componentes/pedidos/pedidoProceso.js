@@ -127,7 +127,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
   return (
     <div className='registro'>
       <MenuHamburguesa />
-      <h1 className='titulos'>Estados de Pedidos</h1>
+      <h1 className='titulos'>Pedidos en Proceso</h1>
       <div className='btns'>
         <h4>Buscar nota:</h4>
         <input
@@ -179,7 +179,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
             <div className="rectangulo-header" style={{ backgroundColor: '#ddd' }}>
               <div className='r-1'>
                 <p><b>Fecha Anticipo: </b>{nota.fechaAnticipo}</p>
-                <p><b>Departamento: </b>{nota.nombreDepartamento}</p>
+                <p><b>Estado Pedido: </b>{nota.estado}</p>
               </div>
               <div className='r-1'>
                 <p><b>Total: </b>{nota.total}</p>
@@ -189,7 +189,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
             </div>
             <div className="rectangulo-header" style={{ backgroundColor: '#c6c6c6' }}>
               <div className='r-1'>
-                <button className='btn-finalizar rh' onClick={() => handleVerDetalles(nota)}>
+                <button className='btn-detalles' onClick={() => handleVerDetalles(nota)}>
                   Ver Detalles
                   <IoMdArrowDropdownCircle className='icon' />
                 </button>

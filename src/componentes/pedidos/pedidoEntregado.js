@@ -68,14 +68,19 @@ const PedidoEntregado = () => {
     };
 
     return (
-        <div className='registro'>
+        <div className='contenedor-pedidos-entregados'>
             <MenuHamburguesa />
             <h1>Pedidos Entregados</h1>
             <h4>Filtros:</h4>
             <div className='filtro'>
                 <div className='filter-container'>
                     <label>Filtrar por Cliente:</label>
-                    <input className='fecha-entrega' type="text" value={filtroCliente} onChange={handleFiltroClienteChange} />
+                    <input 
+                        className='fecha-entrega' 
+                        type="text" 
+                        placeholder='Nombre cliente'
+                        value={filtroCliente} 
+                        onChange={handleFiltroClienteChange} />
                 </div>
                 <div className='filter-container'>
                     <label>Filtrar por Fecha Nota:</label>
@@ -87,7 +92,7 @@ const PedidoEntregado = () => {
                 <div className='filter-container'>
                     <label>Filtrar por Estado de Pago:</label>
                     <select 
-                    className='rectangulos-container' 
+                    className='filter-container' 
                     value={filtroEstadoPago} 
                     onChange={handleFiltroEstadoPagoChange}>
                         <option value="">Selecciona un estado de pago</option>
@@ -113,7 +118,7 @@ const PedidoEntregado = () => {
                         <th>Empleado</th>
                         <th>Fecha Nota</th>
                         <th>Estado de Pago</th>
-                        <th>Depto.</th>
+                        <th>Estado Pedido</th>
                         <th>Total</th>
                     </tr>
                 </thead>
@@ -130,7 +135,7 @@ const PedidoEntregado = () => {
                             <td>{nota.nombreCompletoEmpleado}</td>
                             <td>{nota.fechaNota}</td>
                             <td>{nota.estadoPago}</td>
-                            <td>{nota.nombreDepartamento}</td>
+                            <td>{nota.estado}</td>
                             <td>{nota.total}</td>
                         </tr>
                     ))}

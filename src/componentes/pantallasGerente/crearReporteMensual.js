@@ -67,11 +67,9 @@ const CrearReporteMensual = () => {
         <div style={{ textAlign: 'center' }} className="registro">
             <h1>Crear y Actualizar Reportes Mensuales</h1>
             <MenuHamburguesa />
-            <label>
-                Report ID:
-                <input type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
-            </label>
+            <label>Report ID: </label><input className="producto" type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
 
+            <br /><br />
             {userRole && userRole.rol && userRole.rol.includes("Encargado_Departamento") ? (
 
                 <button className="btn-crud" onClick={handleUpdateClick}>

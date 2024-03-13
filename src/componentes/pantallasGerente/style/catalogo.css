@@ -14,6 +14,15 @@
     text-align: center;
 }
 
+.contenedor-pedidos-entregados {
+    width: 75%;
+    padding-bottom:40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+}
+
 .titulos {
     color: #333;
     text-align: center;
@@ -182,24 +191,40 @@
 }
 
 .filter-container {
-    flex: 1;
-    margin: 0 30px; /* Ajusta el margen según sea necesario */
+    margin: 0; /* Ajusta el margen según sea necesario */
+    align-items: center;
+    box-sizing: border-box;
 }
 
 /* Estilos adicionales para los elementos de filtro si es necesario */
 .filter-container label {
     display: block;
     margin-bottom: 5px;
+    align-items: center;
 }
 
 .filter-container input,
 .filter-container select {
-    width: 100%;
+    width: auto;
     padding: 5px;
     box-sizing: border-box;
+    align-items: center;
+    border-radius: 15px;
+    margin-bottom: 5px;
 }
 
 .encabezado {
     background-color: #3498db;
     color: #ffffff;
+}
+
+.btn-detalles {
+    background-color: #4caf50;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 98%;
+    margin: 5px;
 }

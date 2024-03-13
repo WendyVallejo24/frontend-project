@@ -1,6 +1,7 @@
 import './style/AgregarEmpleado.css';
 import MenuHamburguesa from '../MenuHamburguesa';
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const AgregarEmpleado = () => {
 
@@ -62,6 +63,7 @@ const AgregarEmpleado = () => {
         <div className="contenedor">
             <MenuHamburguesa />
             <h1>Agregar Empleado</h1>
+            <Link to="/registroEmpleado">Volver al Registro de Empleados</Link><br /><br />
             {userRole && userRole.rol && userRole.rol.includes("Encargado_Departamento") ? (
                 <form onSubmit={handleSubmit}>
                     <label>

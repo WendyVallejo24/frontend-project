@@ -42,8 +42,8 @@ const InformeReportes = () => {
             <MenuHamburguesa />
             <h1>Reportes</h1>
             <div style={{ textAlign: 'center' }}>
-                <label htmlFor="cveInput">Buscar por CVE:</label>
-                <input type="text" id="cveInput" onChange={handleCveInputChange} />
+                <label htmlFor="cveInput">Buscar por CVE: </label>
+                <input className='producto' type="text" id="cveInput" onChange={handleCveInputChange} />
             </div>
  
             <br />

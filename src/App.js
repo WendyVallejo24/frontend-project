@@ -10,9 +10,6 @@ import UpdateProduct from './componentes/pantallasGerente/productos/modificar';
 import MarcaList from './componentes/pantallasGerente/productos/marcas-all';
 import CategoriaList from './componentes/pantallasGerente/productos/categoria-all';
 import UnidadMedidaList from './componentes/pantallasGerente/productos/unidadMedida';
-import NotasPagadas from './componentes/notas/notasPagadas';
-import NotasCanceladas from './componentes/notas/notasCanceladas';
-import NotasPendientes from './componentes/notas/notasPendientes';
 import Pedidos from './componentes/Pedidos';
 import PedidoEnProcesoComponent from './componentes/pedidos/pedidoProceso';
 import PedidoCancelado from './componentes/pedidos/pedidoCancelado';
@@ -39,9 +36,6 @@ function App() {
         <Route path="/marcas" element={<MarcaList />} />
         <Route path="/categoria" element={<CategoriaList />} />
         <Route path="/unidadMedida" element={<UnidadMedidaList />} />
-        <Route path="/notasPagadas" element={<NotasPagadas />} />
-        <Route path="/notasCanceladas" element={<NotasCanceladas />} />
-        <Route path="/notasPendientes" element={<NotasPendientes />} />
         <Route path="/pedidos" element={<Pedidos />} />
         <Route path="/pedidoProceso" element={<PedidoEnProcesoComponent />} />
         <Route path="/pedidoCancelado" element={<PedidoCancelado />} />

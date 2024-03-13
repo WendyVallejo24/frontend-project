@@ -22,17 +22,12 @@ const MenuHamburguesa = ({ items, activeIndex, onItemClick }) => {
 
                     <li className='titulo'>Pedidos</li>
                     <Link to='/pedidos' className='no-underline'><li className='opc'>Crear Pedidos</li></Link>
-                    <Link to='/pedidoProceso' className='no-underline'><li className='opc'>Estado Pedidos</li></Link>
+                    <Link to='/pedidoProceso' className='no-underline'><li className='opc'>Pedidos en Proceso</li></Link>
                     <Link to='/pedidoEntregado' className='no-underline'><li className='opc'>Pedidos Entregados</li></Link>
                     <Link to='/pedidoCancelado' className='no-underline'><li className='opc'>Pedidos Cancelados</li></Link>
 
                     <li className='titulo'>Empleados</li>
                     <Link to='/registroEmpleado' className='no-underline'><li className='opc'>Registrar Empleado</li></Link>
-
-                    <li className='titulo'>Notas</li>
-                    <Link to='/notasPendientes' className='no-underline'><li className='opc'>Pendientes</li></Link>
-                    <Link to='/notasPagadas' className='no-underline'><li className='opc'>Pagadas</li></Link>
-                    <Link to='/notasCanceladas' className='no-underline'><li className='opc'>Canceladas</li></Link>
 
                     <li className='titulo'>Productos</li>
                     <Link to='/catalogo' className='no-underline'><li className='opc'>Catalogo</li></Link>
@@ -42,7 +37,7 @@ const MenuHamburguesa = ({ items, activeIndex, onItemClick }) => {
                     <Link to='/informeReportes' className='no-underline'><li className='opc'>Reportes</li></Link>
                     <Link to='/crearReporteSemanal' className='no-underline'><li className='opc'>Reporte Semanal</li></Link>
                     <Link to='/crearReporteMensual' className='no-underline'><li className='opc'>Reporte Mensual</li></Link>
-                    
+
                     <li className='titulo'>Otros</li>
                     <Link to='/marcas' className='no-underline'><li className='opc'>Listado marcas</li></Link>
                     <Link to='/categoria' className='no-underline'><li className='opc'>Categoria</li></Link>
