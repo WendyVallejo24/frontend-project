@@ -79,17 +79,19 @@ const Pedidos = () => {
         }
     };
 
+    const fetchLastNoteNumber = async () => {
+        try {
+            const response = await axios.get(URL_API + 'api/notasventas/lastNoteNumber');
+            const lastNoteNumberFromAPI = response.data + 1; // Suponiendo que la respuesta es el número de nota más reciente
+            setNoteNumber(lastNoteNumberFromAPI);
+        } catch (error) {
+            console.error('Error al obtener el último número de nota:', error);
+        }
+    };
+
     useEffect(() => {
-        // Generar el número de nota automáticamente al montar el componente
         fetchLastNoteNumber();
     }, []);
-
-    const fetchLastNoteNumber = () => {
-        // Realizar una llamada a la API para obtener el último número de nota generado
-        // Suponiendo que obtienes el número de nota desde la API, simulamos una llamada aquí
-        const lastNoteNumberFromAPI = 0; // Supongamos que el último número de nota es 10
-        setNoteNumber(generateNoteNumber(lastNoteNumberFromAPI));
-    };
 
     const generateNoteNumber = (lastNoteNumber) => {
         // Obtener el número de nota actual y aumentar en 1
