@@ -1,0 +1,205 @@
+/* Catalogo.css */
+.body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    width: 100%;
+    text-align: center;
+}
+
+.titulos {
+    color: #333;
+    text-align: center;
+}
+
+.tabla {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.input-producto,
+.select-producto {
+    display: block;
+    margin: 0 auto;
+    /* O simplemente no agregar display ya que el valor predeterminado es inline-block */
+    padding: 8px;
+    margin-bottom: 8px;
+    /* Agrega margen en la parte inferior para separar los elementos */
+}
+
+.producto-encontrado {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    padding: 12px;
+    background-color: #fff;
+}
+
+.btn-ventas {
+    text-align: center;
+}
+
+.rectangulos-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.rectangulo {
+    width: 45%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    padding: 12px;
+    background-color: #fff;
+    margin: 10px;
+    /* width: 200px; */
+}
+
+.rectangulo:hover {
+    background-color: #ddd;
+}
+
+.rectangulo-header {
+    display: flex;
+    flex-direction: column;
+    /* Cambiado a columna */
+    align-items: center;
+}
+
+.r-1 {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.r-2 {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 2px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 14%;
+}
+
+/* Estilo para el overlay que cubre la pantalla */
+.Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fondo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Estilo para el contenido del modal */
+.Modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* Sombra ligera */
+}
+
+/* Estilo para el botón de cerrar el modal */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333;
+}
+
+.btn-icons {
+    font-size: 300%;
+    position: absolute;
+    top: 15%;
+    right: 33%;
+    height: 6%;
+    display: flex;
+    align-items: center;
+    padding: 0 0px; 
+    /* background: none; */
+    /* border: none; */
+    cursor: pointer;
+  }
+
+.rh {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.icon {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    padding: 0 0px;
+    cursor: pointer;
+    font-size: 150%;
+}
+
+.c {
+    background-color: #af4c4c;
+    color: white;
+}
+
+.e {
+    background-color: #4c4eaf;
+    color: white;
+}
+
+.d {
+    display: flex;
+    align-items: center;
+}
+
+.filtro {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.filter-container {
+    flex: 1;
+    margin: 0 30px; /* Ajusta el margen según sea necesario */
+}
+
+/* Estilos adicionales para los elementos de filtro si es necesario */
+.filter-container label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.filter-container input,
+.filter-container select {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.encabezado {
+    background-color: #3498db;
+    color: #ffffff;
+}

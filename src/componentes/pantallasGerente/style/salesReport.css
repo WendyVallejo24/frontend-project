@@ -1,0 +1,85 @@
+/* salesReport.css */
+
+/* Estilos para el contenedor principal del informe de ventas */
+div {
+    margin: auto;
+  }
+
+  .registro {
+    width: 70%;
+    padding-bottom:40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+}
+  
+  /* Estilos para el encabezado del informe de ventas */
+  h1 {
+    color: #333;
+  }
+  
+  /* Estilos para la tabla de ventas */
+  table {
+    width: 80%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin: auto;
+  }
+  
+  /* Estilos para las celdas de la tabla */
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  /* Estilos para las filas impares de la tabla */
+  tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+  
+  h4 {
+    text-align: center;
+  }
+
+  .btn-ventas {
+    text-align: center;
+  }
+
+  .ventas-mensuales {
+    margin-right: 5px;
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 80%;
+  }
+
+  .input-producto {
+    height: 20px;
+    border-radius: 15px;
+    border: 1px solid #afadad;
+    padding-left: 5px;
+    width: 35%;
+  }
+
+  .select-producto{
+    border-radius: 15px;
+    border: 1px solid #afadad;
+    padding-left: 5px;
+    width: 37%;
+  }
+
+  .btn-editar {
+    margin-right: 5px;
+    background-color: #4caf50;
+    color: #ffffff;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 80%;
+  }

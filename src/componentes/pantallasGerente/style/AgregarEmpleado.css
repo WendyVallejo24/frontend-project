@@ -1,0 +1,43 @@
+.datos {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 16px;
+    height: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+label {
+    margin-bottom: 8px;
+}
+
+.contenedor {
+    max-width: 300px;
+    margin: auto;
+    padding-left: 30px;
+    padding-right: 50px;
+    padding-bottom: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.confirmar {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 107%;
+    margin: auto;
+}
+
+.select-empleado {
+    border-radius: 10px;
+    border: 1px solid #afadad;
+    padding-left: 5px;
+    width: 107%;
+    margin: auto;
+    height: 30px;
+}

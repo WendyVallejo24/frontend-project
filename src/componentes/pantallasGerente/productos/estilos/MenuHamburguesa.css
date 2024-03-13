@@ -1,0 +1,80 @@
+.menu-btn {
+    cursor: pointer;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+  }
+  
+  .btn-line {
+    width: 25px;
+    height: 3px;
+    background: #333;
+    margin: 5px 0;
+    transition: 0.4s;
+  }
+  
+  #menuHam {
+    border: 1px solid;
+    color: #333;
+    border-radius: 10px;
+  }
+
+  .menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: translateX(-100%);
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    background-color: #33333310;
+  }
+  
+  .menu ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .menu li {
+    margin: auto;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .open {
+    transform: translateX(0);
+  }
+
+  .no-underline {
+    text-decoration: none;
+    color:#333;
+  }
+  
+  .informe {
+    color: #333;
+  }
+
+  .titulo {
+    color: #333;
+    font-weight: 700;
+  }
+
+  .opc {
+    color: #333;
+    padding-left: 20px;
+  }
+
+  .opciones {
+    text-align: initial;
+  }

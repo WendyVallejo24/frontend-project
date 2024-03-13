@@ -1,0 +1,72 @@
+/* Catalogo.css */
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    width: 100%;
+    text-align: center;
+}
+
+h2 {
+    color: #333;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ddd;
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+}
+
+thead {
+    background-color: #f2f2f2;
+}
+
+input, select {
+    display: block;
+    margin: 0 auto;
+    /* O simplemente no agregar display ya que el valor predeterminado es inline-block */
+    padding: 8px;
+    margin-bottom: 8px;
+    /* Agrega margen en la parte inferior para separar los elementos */
+}
+
+button {
+    margin: 0 auto;
+    display: block;
+    padding: 8px;
+    margin-bottom: 16px;
+    /* Ajusta según sea necesario */
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.producto-encontrado {
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    padding: 12px;
+    background-color: #fff;
+}
+
+/* Agregar estilos adicionales según sea necesario */

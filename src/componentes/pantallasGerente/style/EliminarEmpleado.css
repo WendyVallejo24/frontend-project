@@ -1,0 +1,24 @@
+.eliminar {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 107%;
+    margin: auto;
+}
+
+.buscador {
+    margin-right: 3px;
+    border-radius: 15px;
+    border: 1px solid #ccc;
+    padding-left: 5px;
+    width: 102%;
+    height: 20px;
+    margin-bottom: 10px;
+}
+
+h1 {
+    text-align: center;
+}

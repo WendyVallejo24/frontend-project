@@ -1,0 +1,51 @@
+.registro {
+    width: 60%;
+    padding-bottom:40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+}
+
+.botones {
+    text-align: center;
+}
+
+.btn-crud {
+    width: 39%;
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 6px;
+    font-size: 15px;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.btn-crud-1 {
+    width: 39%;
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 6px;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.registrosEmp {
+    width: 78.6%;
+    margin: auto;
+    align-items: center;
+}
+
+.registrosEmp2 {
+    width: 85%;
+    margin: auto;
+    align-items: center;
+}

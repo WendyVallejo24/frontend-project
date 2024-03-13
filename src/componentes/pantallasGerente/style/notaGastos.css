@@ -1,0 +1,98 @@
+.icono-mas {
+    font-size: 2rem;
+    margin-right: 1.5rem;
+    margin-top: 1.7rem;
+    cursor: pointer;
+    width: 3%;
+    text-align: center;
+}
+
+.registro {
+    width: 65%;
+    padding-bottom:40px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+}
+
+.title {
+    display: flex;
+    margin-left: 10px;
+    margin-right: 10px;
+    align-items: center;
+}
+
+.titulo {
+    text-align: center;
+    width: 90%;
+}
+
+p {
+    font-size: 17px;
+    text-align: center;
+}
+
+.cantidad-caja {
+    border-radius: 15px;
+    border: 1px solid #afadad;
+    padding: 4px;
+    padding-left: 6px;
+    font-size: 14px;
+    width: 21%;
+}
+
+.motivo {
+    border-radius: 5px;
+    border: 1px solid #afadad;
+    padding: 20px;
+    width: 45%;
+    padding-left: 6px;
+    text-align: center;
+    font-family: Arial;
+    font-size: 14.4px;
+}
+
+.info {
+    border-radius: 5px;
+    border: 1px solid #afadad;
+    padding: 20px;
+    width: 45%;
+    padding-left: 6px;
+    font-family: Arial;
+    text-align: center;
+    font-size: 14.4px;
+}
+
+.div-info {
+    text-align: center;
+}
+
+.div-motivo {
+    text-align: center;
+}
+
+.buttons {
+    text-align: center;
+}
+
+.cancelar {
+    background-color: #f44336;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 23%;
+    margin-right: 10px;
+}
+
+.guardar {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 23%;
+}

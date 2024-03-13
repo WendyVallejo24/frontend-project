@@ -1,0 +1,195 @@
+.scroll-panel {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.input {
+    text-align: center;
+}
+
+.producto {
+    height: 20px;
+    border-radius: 15px;
+    border: 1px solid #afadad;
+    padding-left: 5px;
+    width: 35%;
+}
+
+.cantidad {
+    margin-right: 10px;
+    height: 20px;
+    border-radius: 15px;
+    border: 1px solid #afadad;
+    padding-left: 5px;
+    width: 35%;
+    margin-bottom: 5px;
+}
+
+.precio {
+    height: 20px;
+    border-radius: 15px;
+    border: 1px solid #afadad;
+    padding-left: 5px;
+    width: 20%;
+}
+
+.total {
+    text-align: center;
+}
+
+.btns {
+    text-align: center;
+}
+
+.agregar {
+    background-color: #4caf50;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 15%;
+    margin-left: 5px;
+}
+
+.btn-finalizar {
+    margin-right: 30px;
+    background-color: #4caf50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 30%;
+}
+
+.btn-cancelar {
+    background-color: #f44336;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 30%;
+}
+
+.fecha {
+    width: 80%;
+    text-align: right;
+}
+
+.agregar-prod {
+    margin-left: 10px;
+    background-color: #4caf50;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 20%;
+    margin-bottom: 5px;
+    margin-top: 3px;
+}
+
+.btn-editar {
+    margin-right: 5px;
+    background-color: #4caf50;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: auto;
+}
+
+.clientes {
+    display: flex;
+    width: auto;
+    margin-bottom: 5px;
+    align-items: center;
+}
+
+.pedidos {
+    display: flex;
+    width: auto;
+    text-align: center;
+}
+
+.departamentos {
+    width: 50%;
+    text-align: right;
+}
+
+.select-departamento {
+    border-radius: 15px;
+    border: 1px solid #afadad;
+    height: 25px;
+    margin: auto;
+    width: auto;
+    margin-bottom: 5px;
+}
+
+.select-cliente {
+    border-radius: 15px;
+    border: 1px solid #afadad;
+    padding-left: 5px;
+    height: 25px;
+    margin: auto;
+    margin-right: 5px;
+    margin-left: 3px;
+}
+
+.mas {
+    font-size: 1.3rem;
+    cursor: pointer;
+    margin-left: 0;
+}
+
+.fecha-entrega {
+    height: 20px;
+    border-radius: 15px;
+    border: 1px solid #afadad;
+    padding-left: 5px;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.fecha-hora {
+    margin-bottom: 5px;
+    display: flex;
+    text-align: center;
+}
+
+.hora {
+    height: 20px;
+    border-radius: 15px;
+    border: 1px solid #afadad;
+    padding-left: 5px;
+    width: 30%;
+    margin-bottom: 5px;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fondo oscuro semitransparente */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Valor alto para estar por encima de otros elementos */
+}
+
+.modal-content {
+    background: #fff; /* Fondo blanco del contenido */
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 1001; /* Asegúrate de que esté por encima del fondo oscuro */
+}
+
+.select-hora {
+    margin-bottom: 10px;
+    margin-top: 0;
+}
