@@ -1,11 +1,9 @@
-// UnidadMedidaList.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MenuHamburguesa from '../../MenuHamburguesa';
 import '../style/catalogo.css';
 import '../style/salesReport.css';
 
-//const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
 const API_URL = 'http://localhost:8080'; 
 
 const UnidadMedidaList = () => {
@@ -26,7 +24,6 @@ const UnidadMedidaList = () => {
 
   const handleCrearUnidadMedida = async () => {
     try {
-
       if (nombreUnidadMedida.length < 1) {
         alert('El campo no debe estar vacío.');
         return;
@@ -55,7 +52,6 @@ const UnidadMedidaList = () => {
   };
 
   const handleEditarUnidadMedida = (idUnidadMed) => {
-    console.log('Editar unidad de medida con ID:', idUnidadMed);
     const unidadMedida = unidadesMedida.find((u) => u.idUnidadMedida === idUnidadMed);
     if (unidadMedida) {
       setUnidadMedidaSeleccionada(unidadMedida);
@@ -63,12 +59,10 @@ const UnidadMedidaList = () => {
       setModoEdicion(true);
     } else {
       console.error(`No se encontró la unidad de medida con ID: ${idUnidadMed}`);
-
     }
   };
 
   const handleActualizarUnidadMedida = async () => {
-    console.log('unidadMedidaSeleccionada:', unidadMedidaSeleccionada);
     try {
       if (nombreUnidadMedida.length < 1) {
         alert('El campo no debe estar vacío.');
@@ -78,7 +72,6 @@ const UnidadMedidaList = () => {
       const unidadMedidaActualizada = {
         nombre: nombreUnidadMedida.toLowerCase(),
       };
-      console.log(unidadMedidaActualizada);
 
       const response = await axios.put(
         `${API_URL}/api/unidadesMedida/${unidadMedidaSeleccionada.idUnidadMedida}`,
@@ -94,6 +87,17 @@ const UnidadMedidaList = () => {
     } catch (error) {
       console.error('Error al actualizar unidad de medida', error);
       alert('Error al actualizar unidad de medida.');
+    }
+  };
+
+  const handleEliminarUnidadMedida = async (idUnidadMed) => {
+    try {
+      await axios.delete(`${API_URL}/api/unidadesMedida/${idUnidadMed}`);
+      alert('Unidad de medida eliminada con éxito.');
+      fetchUnidadesMedida();
+    } catch (error) {
+      console.error('Error al eliminar unidad de medida', error);
+      alert('Error al eliminar unidad de medida.');
     }
   };
 
@@ -136,12 +140,12 @@ const UnidadMedidaList = () => {
           </thead>
           <tbody>
             {unidadesMedida.map((unidadMedida) => (
-              // console.log(unidadMedida),
               <tr key={unidadMedida.idUnidadMedida}>
                 <td>{unidadMedida.idUnidadMedida}</td>
                 <td>{unidadMedida.nombre}</td>
                 <td className='btn-ventas'>
                   <button className='btn-finalizar' onClick={() => handleEditarUnidadMedida(unidadMedida.idUnidadMedida)}>Editar</button>
+                  <button className='btn-finalizar' onClick={() => handleEliminarUnidadMedida(unidadMedida.idUnidadMedida)}>Eliminar</button>
                 </td>
               </tr>
             ))}
