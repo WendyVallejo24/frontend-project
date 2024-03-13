@@ -4,7 +4,6 @@ import LoginForm from './componentes/login';
 import RegistroEmp from './componentes/pantallasGerente/registroEmp';
 import AgregarEmpleado from './componentes/pantallasGerente/AgregarEmpleado';
 import EliminarEmpleado from './componentes/pantallasGerente/EliminarEmpleado';
-import Ventas from './componentes/Ventas'
 import Catalogo from './componentes/pantallasGerente/productos/catalogo';
 import CreateProduct from './componentes/pantallasGerente/productos/agregar';
 import UpdateProduct from './componentes/pantallasGerente/productos/modificar';
@@ -34,7 +33,6 @@ function App() {
         <Route path="/registroEmpleado" element={<RegistroEmp />} />
         <Route path="/agregarEmpleado" element={<AgregarEmpleado />} />
         <Route path="/eliminarEmpleado" element={<EliminarEmpleado />} />
-        <Route path="/ventas" element={<Ventas />} />
         <Route path="/catalogo" element={<Catalogo />} />
         <Route path="/agregarProducto" element={<CreateProduct />} />
         <Route path="/modificarProducto" element={<UpdateProduct />} />

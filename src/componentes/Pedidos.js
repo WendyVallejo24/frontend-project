@@ -9,6 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { v4 as uuidv4 } from 'uuid';
+import './Ventas.css';
 
 const id_empleado = localStorage.getItem('idEmpleado');
 const nombre = localStorage.getItem('nombreEmpleado');
