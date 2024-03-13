@@ -1,4 +1,3 @@
-// MarcaList.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MenuHamburguesa from '../../MenuHamburguesa';
@@ -6,7 +5,7 @@ import '../style/catalogo.css';
 import '../style/salesReport.css';
 
 //const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-const API_URL = 'http://localhost:8080'; 
+const API_URL = 'http://localhost:8080';
 
 const MarcaList = () => {
   const [marcas, setMarcas] = useState([]);
@@ -26,7 +25,6 @@ const MarcaList = () => {
 
   const handleCrearMarca = async () => {
     try {
-
       if (nombreMarca.length < 1) {
         alert('El campo no debe estar vacío.');
         return;
@@ -55,7 +53,6 @@ const MarcaList = () => {
   };
 
   const handleEditarMarca = (idMarca) => {
-    // console.log('Editar marca con ID:', idMarca);
     const marca = marcas.find((m) => m.idMarca === idMarca);
     if (marca) {
       setMarcaSeleccionada(marca);
@@ -68,7 +65,6 @@ const MarcaList = () => {
   };
 
   const handleActualizarMarca = async () => {
-    // console.log('marcaSeleccionada:', marcaSeleccionada);
     try {
       if (nombreMarca.length < 1) {
         alert('El campo no debe estar vacío.');
@@ -79,7 +75,7 @@ const MarcaList = () => {
         alert('Ya existe una marca con ese nombre.');
         return;
       }
-      
+
       const marcaActualizada = {
         nombre: nombreMarca.toLowerCase(),
       }
@@ -96,6 +92,17 @@ const MarcaList = () => {
     } catch (error) {
       console.error('Error al actualizar marca', error);
       alert('Error al actualizar marca.');
+    }
+  };
+
+  const handleEliminarMarca = async (idMarca) => {
+    try {
+      await axios.delete(`${API_URL}/api/marcas/${idMarca}`);
+      alert('Marca eliminada con éxito.');
+      fetchMarcas();
+    } catch (error) {
+      console.error('Error al eliminar marca', error);
+      alert('Error al eliminar marca.');
     }
   };
 
@@ -137,13 +144,13 @@ const MarcaList = () => {
           </thead>
           <tbody>
             {marcas.map((marca) => (
-              // console.log(marca),
               <tr key={marca.idMarca}>
                 <td>{marca.idMarca}</td>
                 <td>{marca.nombre}</td>
                 <td className='btn-ventas'>
                   <div className='botones'>
                     <button className='btn-finalizar' onClick={() => handleEditarMarca(marca.idMarca)}>Editar</button>
+                    <button className='btn-finalizar' onClick={() => handleEliminarMarca(marca.idMarca)}>Eliminar</button>
                   </div>
                 </td>
               </tr>

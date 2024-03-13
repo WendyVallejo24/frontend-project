@@ -1,12 +1,10 @@
-// CategoriaList.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import MenuHamburguesa from '../../MenuHamburguesa';
 import '../style/catalogo.css';
 import '../style/salesReport.css';
 
-//const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-const API_URL = 'http://localhost:8080'; 
+const API_URL = 'http://localhost:8080';
 
 const CategoriaList = () => {
     const [categorias, setCategorias] = useState([]);
@@ -68,7 +66,6 @@ const CategoriaList = () => {
     };
 
     const handleActualizarCategoria = async () => {
-        // console.log('categoriaSeleccionada:', categoriaSeleccionada);
         try {
             if (nombreCategoria.length < 1) {
                 alert('El campo no debe estar vacío.');
@@ -91,8 +88,17 @@ const CategoriaList = () => {
             setModoEdicion(false);
             fetchCategorias();
         } catch (error) {
-            // console.error('Error al actualizar categoría', error);
             alert('Error al actualizar categoría.');
+        }
+    };
+
+    const handleEliminarCategoria = async (idCategoria) => {
+        try {
+            await axios.delete(`${API_URL}/api/categorias/${idCategoria}`);
+            alert('Categoría eliminada con éxito.');
+            fetchCategorias();
+        } catch (error) {
+            alert('Error al eliminar categoría.');
         }
     };
 
@@ -140,6 +146,7 @@ const CategoriaList = () => {
                                 <td>{categoria.nombre}</td>
                                 <td className='btn-ventas'>
                                     <button className='btn-finalizar' onClick={() => handleEditarCategoria(categoria.idCategoria)}>Editar</button>
+                                    <button className='btn-finalizar' onClick={() => handleEliminarCategoria(categoria.idCategoria)}>Eliminar</button>
                                 </td>
                             </tr>
                         ))}
