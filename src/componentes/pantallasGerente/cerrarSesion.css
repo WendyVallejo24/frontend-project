@@ -1,5 +1,23 @@
-.btn-logout {
-    background-color: #f44336;
-    color: #fff;
-    width: 100%;
+.logout-container {
+    position: fixed;
+    bottom: 10px;
+    /* Ajusta la distancia desde la parte inferior según sea necesario */
+    left: 10px;
+    /* Ajusta la distancia desde el borde izquierdo según sea necesario */
 }
+
+.btn-logout {
+    background-color: #365970;
+    color: #ffffff;
+    border: none;
+    /* Elimina el borde del botón */
+    padding: 1px;
+    /* Ajusta el espacio interno del botón según sea necesario */
+    border-radius: 10%;
+    /* Hace que el botón tenga forma circular */
+}
+
+/*.btn-logout:hover {
+    background-color: #960a0a;
+    /* Cambia el color de fondo cuando se pasa el cursor sobre el botón
+} */

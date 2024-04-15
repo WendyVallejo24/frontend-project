@@ -15,8 +15,8 @@
 }
 
 .contenedor-pedidos-entregados {
-    width: 75%;
-    padding-bottom:40px;
+    width: 95%;
+    padding-bottom: 40px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -32,6 +32,10 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    border-radius: 25px;
+    /* Ajusta el valor según el grado de curvatura deseado */
+    overflow: hidden;
+    /* Para ocultar el contenido que exceda los bordes curvos */
 }
 
 .input-producto,
@@ -69,6 +73,8 @@
     padding: 12px;
     background-color: #fff;
     margin: 10px;
+    box-sizing: border-box;
+    /* Agregado para incluir el padding y el borde en el cálculo del tamaño */
     /* width: 200px; */
 }
 
@@ -83,27 +89,28 @@
     align-items: center;
 }
 
-.r-1 {
-    width: 100%;
+.r-1,
+.r-2 {
+    width: 80%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    /* Permite que los elementos se envuelvan en pantallas pequeñas */
+
 }
 
-.r-2 {
-    width: 100%;
-    display: flex;
-    align-items: center;
-}
 
 .btn {
-    background-color: #4caf50;
+    background-color: #344f6f;
     color: white;
-    padding: 2px;
+    padding: 5px;
+    /* Reducido el padding para que los botones sean más compactos */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 14%;
+    width: 32%;
+    /* Ajustado el ancho para que los botones se vean mejor en pantallas más pequeñas */
 }
 
 /* Estilo para el overlay que cubre la pantalla */
@@ -147,11 +154,11 @@
     height: 6%;
     display: flex;
     align-items: center;
-    padding: 0 0px; 
+    padding: 0 0px;
     /* background: none; */
     /* border: none; */
     cursor: pointer;
-  }
+}
 
 .rh {
     margin-left: auto;
@@ -191,7 +198,8 @@
 }
 
 .filter-container {
-    margin: 0; /* Ajusta el margen según sea necesario */
+    margin: 0px;
+    /* Ajusta el margen según sea necesario */
     align-items: center;
     box-sizing: border-box;
 }
@@ -214,17 +222,30 @@
 }
 
 .encabezado {
-    background-color: #3498db;
+    background-color: #344f6f;
     color: #ffffff;
 }
 
 .btn-detalles {
-    background-color: #4caf50;
+    background-color: #344f6f;
     color: white;
     padding: 5px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 98%;
+    width: 100%;
     margin: 5px;
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 1000px) {
+    .rectangulo {
+        width: 90%;
+        /* Reducir el ancho para pantallas pequeñas */
+    }
+
+    .btn {
+        width: 50%;
+        /* Reducir el ancho de los botones para pantallas pequeñas */
+    }
 }

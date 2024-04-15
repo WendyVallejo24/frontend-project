@@ -127,7 +127,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
   return (
     <div className='registro'>
       <MenuHamburguesa />
-      <h1 className='titulos'>Pedidos en Proceso</h1>
+      <h1 className='responsive-title'>Pedidos en Proceso</h1>
       <div className='btns'>
         <h4>Buscar nota:</h4>
         <input
@@ -148,7 +148,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
               <div className='r-1'>
                 <button className='btn-finalizar rh c' onClick={() => handleCancelarPedido(nota)}>Cancelar Pedido</button>
                 <button className='btn-finalizar rh e' onClick={() => handleEntregarPedido(nota)}>Entregar Pedido</button>
-                <button className='btn-finalizar rh' onClick={() => handlePagarYEntregarPedido(nota)}>Pagar y entregar</button>
+                <button className='btn-finalizar rh' style={{ margin: 'auto' }} onClick={() => handlePagarYEntregarPedido(nota)}>Pagar y entregar</button>
               </div>
             </div>
             <div className="rectangulo-header" style={{ backgroundColor: '#f6f6f6' }}>

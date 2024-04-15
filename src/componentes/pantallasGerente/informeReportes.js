@@ -3,12 +3,13 @@ import axios from 'axios';
 import MenuHamburguesa from '../MenuHamburguesa';
 import { Link } from 'react-router-dom';
 import './style/registroEmp.css';
+import '../pantallasGerente/style/salesReport.css';
 
 const InformeReportes = () => {
     const [reportes, setReportes] = useState([]);
     //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
 
-    const URL_API = 'http://localhost:8080/'; 
+    const URL_API = 'http://localhost:8080/';
 
     useEffect(() => {
         const fetchReportes = async () => {
@@ -40,35 +41,37 @@ const InformeReportes = () => {
     return (
         <div className="registro">
             <MenuHamburguesa />
-            <h1>Reportes</h1>
+            <h1 className='responsive-title'>Reportes</h1>
             <div style={{ textAlign: 'center' }}>
                 <label htmlFor="cveInput">Buscar por CVE: </label>
                 <input className='producto' type="text" id="cveInput" onChange={handleCveInputChange} />
             </div>
- 
+
             <br />
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>CVE</th>
-                        <th>Descripción</th>
-                        <th>Detalles</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {reportes.map((reporte) => (
-                        <tr key={reporte.idReporte}>
-                            <td>{reporte.idReporte}</td>
-                            <td>{reporte.cve}</td>
-                            <td>{reporte.descripcion}</td>
-                            <td>
-                                <Link to={`/detalleReporte/${reporte.idReporte}`}>Ver Detalles</Link>
-                            </td>
+            <div className="table-container">
+                <table>
+                    <thead className='encabezado'>
+                        <tr >
+                            <th>ID</th>
+                            <th>CVE</th>
+                            <th>Descripción</th>
+                            <th>Detalles</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {reportes.map((reporte) => (
+                            <tr key={reporte.idReporte}>
+                                <td>{reporte.idReporte}</td>
+                                <td>{reporte.cve}</td>
+                                <td>{reporte.descripcion}</td>
+                                <td>
+                                    <Link to={`/detalleReporte/${reporte.idReporte}`}>Ver Detalles</Link>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };

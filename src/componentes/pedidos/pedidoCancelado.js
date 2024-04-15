@@ -51,7 +51,7 @@ const PedidoCancelado = () => {
     return (
         <div className='registro'>
             <MenuHamburguesa />
-            <h1>Pedidos Cancelados</h1>
+            <h1 className='responsive-title'>Pedidos Cancelados</h1>
             <div className='filtro'>
                 <div className='filter-container'>
                     <label>Filtrar por Cliente:</label>
@@ -65,7 +65,8 @@ const PedidoCancelado = () => {
                     />
                 </div>
             </div>
-            <table>
+            <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
+            <table className="tabla">
                 <thead className='encabezado'>
                     <tr>
                         <th>Nota</th>
@@ -95,6 +96,7 @@ const PedidoCancelado = () => {
                     ))}
                 </tbody>
             </table>
+            </div>
         </div>
     );
 };

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './style/registroEmp.css';
+import '../pantallasGerente/style/salesReport.css';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import jsPDF from 'jspdf';
@@ -9,12 +10,12 @@ const DetalleReporte = () => {
   const { id } = useParams();
   const [reporte, setReporte] = useState(null);
   //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
-  const URL_API = 'http://localhost:8080/'; 
+  const URL_API = 'http://localhost:8080/';
 
   useEffect(() => {
     const fetchReporte = async () => {
       try {
-        const response = await axios.get(URL_API +  `api/reportes/${id}`);
+        const response = await axios.get(URL_API + `api/reportes/${id}`);
         setReporte(response.data);
       } catch (error) {
         console.error(`Error al obtener el detalle del reporte con ID ${id}:`, error);
@@ -72,7 +73,7 @@ const DetalleReporte = () => {
 
   return (
     <div className="registro">
-      <h1>Detalle del Reporte</h1>
+      <h1 className='responsive-title'>Detalle del Reporte</h1>
       <Link to="/informeReportes">Volver a la lista de reportes</Link>
 
       {reporte ? (
@@ -80,34 +81,36 @@ const DetalleReporte = () => {
           <p>CVE: {reporte.cve}</p>
           <p>Descripción: {reporte.descripcion}</p>
           <br />
-          {reporte.dtodetalleReporte && reporte.dtodetalleReporte.length > 0 ? (
-            <table>
-              <thead>
-                <tr>
-                  <th>Fecha</th>
-                  <th>Marca</th>
-                  <th>Nombre Producto</th>
-                  <th>Cantidad</th>
-                  <th>Precio Unitario</th>
-                  <th>Subtotal</th>
-                </tr>
-              </thead>
-              <tbody>
-                {reporte.dtodetalleReporte.map((detalle) => (
-                  <tr key={detalle.idDetalleVenta}>
-                    <td>{detalle.fecha}</td>
-                    <td>{detalle.marca}</td>
-                    <td>{detalle.nombreProducto}</td>
-                    <td>{detalle.cantidad}</td>
-                    <td>{detalle.precioUnitario}</td>
-                    <td>{detalle.subtotal}</td>
+          <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
+            {reporte.dtodetalleReporte && reporte.dtodetalleReporte.length > 0 ? (
+              <table>
+                <thead className='encabezado'>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Marca</th>
+                    <th>Nombre Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unitario</th>
+                    <th>Subtotal</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : (
-            <p>No hay detalles disponibles.</p>
-          )}
+                </thead>
+                <tbody>
+                  {reporte.dtodetalleReporte.map((detalle) => (
+                    <tr key={detalle.idDetalleVenta}>
+                      <td>{detalle.fecha}</td>
+                      <td>{detalle.marca}</td>
+                      <td>{detalle.nombreProducto}</td>
+                      <td>{detalle.cantidad}</td>
+                      <td>{detalle.precioUnitario}</td>
+                      <td>{detalle.subtotal}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p>No hay detalles disponibles.</p>
+            )}
+          </div>
 
           {/* Mostrar el total calculado */}
           <p>Total: {calcularTotal()}</p>
