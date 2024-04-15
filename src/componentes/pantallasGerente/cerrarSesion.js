@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import './cerrarSesion.css';
 
 const CerrarSesion = () => {
@@ -22,9 +24,10 @@ const CerrarSesion = () => {
   };
 
   return (
-    <div>
+    <div className="logout-container">
       <button className="btn-crud btn-logout" type="button" onClick={handleLogout}>
-        Cerrar Sesión
+        <FontAwesomeIcon icon={faSignOutAlt} size="2x" /> {/* Icono de logout */}
+        Logout
       </button>
     </div>
   );

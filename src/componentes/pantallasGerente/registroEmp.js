@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import './style/registroEmp.css';
+import '../pantallasGerente/style/salesReport.css';
 import MenuHamburguesa from '../MenuHamburguesa';
 
 //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/"
-const URL_API = 'http://localhost:8080/'; 
+const URL_API = 'http://localhost:8080/';
 
 const RegistroEmp = () => {
     const [empleados, setEmpleados] = useState([]);
@@ -48,38 +49,40 @@ const RegistroEmp = () => {
     return (
         <div className="registro">
             <MenuHamburguesa />
-            <h1>Registro de empleados</h1>
+            <h1 className='responsive-title'>Registro de empleados</h1>
 
             <div className="botones">
                 <Link to="/agregarEmpleado"><button className="btn-crud">Agregar Empleado</button></Link>
                 <Link to="/eliminarEmpleado"><button className="btn-crud-1">Eliminar Empleado</button></Link>
             </div>
-            {userRole && userRole.rol && userRole.rol.includes("Encargado_Departamento") ? (
-                <table className="registrosEmp">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Apellidos</th>
-                            <th>Correo Electrónico</th>
-                            <th>Roles</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {empleados.map(empleado => (
-                            <tr key={empleado.idEmpleado}>
-                                <td>{empleado.idEmpleado}</td>
-                                <td>{empleado.nombre}</td>
-                                <td>{empleado.apellidos}</td>
-                                <td>{empleado.correoElectronico}</td>
-                                <td>{empleado.roles}</td>
+            <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
+                {userRole && userRole.rol && userRole.rol.includes("Encargado_Departamento") ? (
+                    <table className="registrosEmp">
+                        <thead className='encabezado'>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Apellidos</th>
+                                <th>Correo Electrónico</th>
+                                <th>Roles</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <p>No cuentas con los permisos.</p>
-            )}
+                        </thead>
+                        <tbody>
+                            {empleados.map(empleado => (
+                                <tr key={empleado.idEmpleado}>
+                                    <td>{empleado.idEmpleado}</td>
+                                    <td>{empleado.nombre}</td>
+                                    <td>{empleado.apellidos}</td>
+                                    <td>{empleado.correoElectronico}</td>
+                                    <td>{empleado.roles}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <p>No cuentas con los permisos.</p>
+                )}
+            </div>
         </div>
     );
 };

@@ -1,43 +1,81 @@
 /* LoginForm.css */
 
-.form-container {
-    max-width: 300px;
-    margin: auto;
-    padding: 50px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .label {
-    margin-bottom: 8px;
-  }
-  
-  .user {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 16px;
-  }
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-  .password {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 16px;
-  }
-  
-  .button {
-    background-color: #4caf50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 107%;
-    margin: auto;
-  }
-  
-  .new-user {
-    text-align: center;
-    margin-top: 5px;
-    width: 107%;
-  }
+.form-container {
+  max-width: 300px;
+  margin: auto;
+  padding: 50px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-photo {
+  width: 100px;
+  /* Ajusta el tamaño de acuerdo a tus necesidades */
+  height: 100px;
+  /* Ajusta el tamaño de acuerdo a tus necesidades */
+ /*border-radius: 50%;*/
+  /* Hace que la imagen tenga forma circular */
+  margin: 0 auto 20px;
+  /*margin-bottom: 20px;*/
+  /* Espacio inferior para separarla del resto del formulario */
+  object-fit: cover;
+  /* Evita que la imagen se deforme */
+  display: block;
+}
+
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: -1; /* Asegura que la imagen esté detrás del contenido */
+}
+
+
+.label {
+  /*margin-bottom: 8px;*/
+  font-family: calibri;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.user,
+.password {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  border-radius: 7px; /* Añade bordes redondos */
+}
+
+.button {
+  background-color: #344f6f;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  width: 107%;
+  margin: auto;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.new-user {
+  text-align: center;
+  margin-top: 5px;
+  width: 107%;
+}
+
+.titulo {
+  font-family:Calibri;
+  font-size: 18px;
+}

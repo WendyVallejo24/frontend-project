@@ -7,7 +7,7 @@ import '../style/salesReport.css';
 import '../style/registroEmp.css';
 
 //const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-const API_URL = 'http://localhost:8080'; 
+const API_URL = 'http://localhost:8080';
 
 const CreateProduct = () => {
     const [productos, setProductos] = useState([]);
@@ -27,7 +27,7 @@ const CreateProduct = () => {
     // Verificar si localStorage tiene datos y asignar a userRole
     const storedUserRole = localStorage.getItem('userRole');
     console.log('Valor almacenado en localStorage:', storedUserRole);
-    const userRole = storedUserRole ? JSON.parse(storedUserRole) : null;    
+    const userRole = storedUserRole ? JSON.parse(storedUserRole) : null;
 
     const handleCreate = async () => {
         try {
@@ -222,7 +222,7 @@ const CreateProduct = () => {
     return (
         <div className='registro'>
             <MenuHamburguesa />
-            <h1>Crear Producto</h1>
+            <h1 className='responsive-title'>Crear Producto</h1>
             {userRole && userRole.rol && (userRole.rol === "Encargado_Departamento" || userRole.rol === "Gerente_Departamento") ? (
                 <div>
                     <h4>{modoEdicion ? 'Editar' : 'Agregar'} Producto</h4>
@@ -314,43 +314,45 @@ const CreateProduct = () => {
                 <p>No cuentas con los permisos.</p>
             )}
             <h4>Lista de Productos</h4>
-            {userRole && userRole.rol && (userRole.rol === "Encargado_Departamento" || userRole.rol === "Gerente_Departamento") ? (
-                <table className="registroEmp">
-                    <thead>
-                        <tr>
-                            <th>Código</th>
-                            <th>Nombre</th>
-                            <th>Existencia</th>
-                            <th>Precio</th>
-                            <th>Categoría</th>
-                            <th>Marca</th>
-                            <th>Unidad de Medida</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {productos.map((producto) => (
-                            // console.log(producto),
-                            <tr key={producto.codigo}>
-                                <td>{producto.codigo}</td>
-                                <td>{producto.nombre}</td>
-                                <td>{producto.existencia}</td>
-                                <td>{producto.precio}</td>
-                                <td>{producto.categoria}</td>
-                                <td>{producto.marca}</td>
-                                <td>{producto.unidadMedida}</td>
-                                <td className='btn-ventas'>
-                                    <div className='botones'>
-                                        <button className='btn-editar' onClick={() => handleEdit(producto.codigo)}>Editar</button>
-                                    </div>
-                                </td>
+            <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
+                {userRole && userRole.rol && (userRole.rol === "Encargado_Departamento" || userRole.rol === "Gerente_Departamento") ? (
+                    <table className="registroEmp">
+                        <thead className="encabezado">
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Existencia</th>
+                                <th>Precio</th>
+                                <th>Categoría</th>
+                                <th>Marca</th>
+                                <th>Unidad de Medida</th>
+                                <th>Acciones</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <p>No cuentas con los permisos.</p>
-            )}
+                        </thead>
+                        <tbody>
+                            {productos.map((producto) => (
+                                // console.log(producto),
+                                <tr key={producto.codigo}>
+                                    <td>{producto.codigo}</td>
+                                    <td>{producto.nombre}</td>
+                                    <td>{producto.existencia}</td>
+                                    <td>{producto.precio}</td>
+                                    <td>{producto.categoria}</td>
+                                    <td>{producto.marca}</td>
+                                    <td>{producto.unidadMedida}</td>
+                                    <td className='btn-ventas'>
+                                        <div className='botones'>
+                                            <button className='btn-editar' onClick={() => handleEdit(producto.codigo)}>Editar</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                ) : (
+                    <p>No cuentas con los permisos.</p>
+                )}
+            </div>
         </div>
     );
 };

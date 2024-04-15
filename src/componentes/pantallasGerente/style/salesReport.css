@@ -2,84 +2,160 @@
 
 /* Estilos para el contenedor principal del informe de ventas */
 div {
-    margin: auto;
-  }
-
-  .registro {
-    width: 70%;
-    padding-bottom:40px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin: auto;
+  margin: auto;
 }
-  
-  /* Estilos para el encabezado del informe de ventas */
-  h1 {
+
+.registro {
+  width: 90%;
+  /* Cambiado el ancho para que sea más adaptable */
+  padding-bottom: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: auto;
+}
+
+/* Estilos para el encabezado del informe de ventas */
+.responsive-title {
+  color: #333;
+  text-align: center;
+  font-family: Calibri;
+  font-size: 35px;
+  font-weight: bold;
+  /*Agregado*/
+}
+
+@media only screen and (max-width: 1000px) {
+
+  /* Estilos específicos para pantallas más pequeñas */
+  .responsive-title {
     color: #333;
-  }
-  
-  /* Estilos para la tabla de ventas */
-  table {
-    width: 80%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    margin: auto;
-  }
-  
-  /* Estilos para las celdas de la tabla */
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
     text-align: center;
+    font-family: Calibri;
+    font-size: 33px;
+    font-weight: bold;
+    /* Estilos adicionales para títulos responsivos en dispositivos móviles */
   }
-  
-  /* Estilos para las filas impares de la tabla */
-  tbody tr:nth-child(odd) {
-    background-color: #f2f2f2;
+}
+
+/* Estilos para la tabla de ventas */
+table {
+  width: 100%;
+  /* Cambiado el ancho para que sea adaptable */
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin: auto;
+  border-radius: 25px;
+  /* Ajusta el valor según el grado de curvatura deseado */
+  overflow: hidden;
+  /* Para ocultar el contenido que exceda los bordes curvos */
+}
+
+.table-container {
+  width: 90%;
+  /* Hacemos que el contenedor ocupe todo el ancho disponible */
+  overflow-x: auto;
+  /* Agregamos desplazamiento horizontal */
+  margin-bottom: 20px;
+  /* Añadimos un margen inferior para separar la tabla del resto del contenido */
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .contenedor-pedidos-entregados {
+    width: 95%;
+    /* Reducido aún más el ancho para pantallas pequeñas */
   }
-  
-  h4 {
-    text-align: center;
+}
+
+/* Estilos para las celdas de la tabla */
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+/* Estilos para las filas impares de la tabla */
+tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
+}
+
+h4 {
+  text-align: center;
+}
+
+.btn-ventas {
+  text-align: center;
+}
+
+.ventas-mensuales {
+  margin-right: 5px;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 80%;
+}
+
+.input-producto {
+  height: 20px;
+  border-radius: 15px;
+  border: 1px solid #afadad;
+  padding-left: 5px;
+  width: 90%;
+  /* Cambiado el ancho para que sea más adaptable */
+  max-width: 300px;
+  /* Agregado un ancho máximo para evitar que se extienda demasiado */
+  margin: 0 auto;
+  /* Centrado horizontalmente */
+}
+
+.select-producto {
+  border-radius: 15px;
+  border: 1px solid #afadad;
+  padding-left: 5px;
+  width: 90%;
+  /* Cambiado el ancho para que sea más adaptable */
+  max-width: 300px;
+  /* Agregado un ancho máximo para evitar que se extienda demasiado */
+  margin: 0 auto;
+  /* Centrado horizontalmente */
+}
+
+.btn-editar {
+  margin-right: 5px;
+  background-color: #4caf50;
+  color: #ffffff;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 90%;
+  /* Cambiado el ancho para que sea más adaptable */
+  max-width: 300px;
+  /* Agregado un ancho máximo para evitar que se extienda demasiado */
+  display: block;
+  /* Convertido en un bloque para ocupar todo el ancho disponible */
+  margin: 10px auto;
+  /* Centrado horizontalmente y agregado un margen superior e inferior */
+}
+
+/* Media query para pantallas más pequeñas */
+@media (max-width: 1000px) {
+  .registro {
+    width: 100%;
+    /* Reducido aún más el ancho para pantallas pequeñas */
   }
 
-  .btn-ventas {
-    text-align: center;
-  }
-
-  .ventas-mensuales {
-    margin-right: 5px;
-    background-color: #4caf50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 80%;
-  }
-
-  .input-producto {
-    height: 20px;
-    border-radius: 15px;
-    border: 1px solid #afadad;
-    padding-left: 5px;
-    width: 35%;
-  }
-
-  .select-producto{
-    border-radius: 15px;
-    border: 1px solid #afadad;
-    padding-left: 5px;
-    width: 37%;
-  }
-
+  .input-producto,
+  .select-producto,
   .btn-editar {
-    margin-right: 5px;
-    background-color: #4caf50;
-    color: #ffffff;
-    padding: 5px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 80%;
+    width: 100%;
+    /* Cambiado el ancho a 100% para ocupar todo el ancho disponible en pantallas pequeñas */
+    /*max-width: none;
+    /* Eliminado el ancho máximo para que los elementos puedan expandirse completamente */
   }
+}

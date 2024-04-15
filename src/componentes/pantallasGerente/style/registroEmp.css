@@ -1,19 +1,43 @@
 .registro {
     width: 60%;
-    padding-bottom:40px;
+    padding-bottom: 40px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin: auto;
 }
 
+.table-container {
+    width: 90%;
+    /* Hacemos que el contenedor ocupe todo el ancho disponible */
+    overflow-x: auto;
+    /* Agregamos desplazamiento horizontal */
+    margin-bottom: 20px;
+    /* Añadimos un margen inferior para separar la tabla del resto del contenido */
+}
+
+.encabezado {
+    background-color: #344f6f;
+    color: #ffffff;
+}
+
 .botones {
     text-align: center;
 }
 
+/* Estilos para hacer los botones responsivos */
+@media screen and (max-width: 1000px) {
+    .botones button {
+        width: 65%;
+        /* Ancho completo */
+        margin-bottom: 5px;
+        /* Espaciado entre botones */
+    }
+}
+
 .btn-crud {
-    width: 39%;
-    background-color: #4caf50;
+    width: 20%;
+    background-color: #344f6f;
     color: white;
     padding: 10px;
     border: none;
@@ -25,9 +49,16 @@
     margin-right: 5px;
 }
 
+@media (max-width: 1000px) {
+    .btn-crud {
+        width: 50%;
+        /* Reducir el ancho de los botones para pantallas pequeñas */
+    }
+}
+
 .btn-crud-1 {
-    width: 39%;
-    background-color: #4caf50;
+    width: 15%;
+    background-color: #344f6f;
     color: white;
     padding: 10px;
     border: none;
@@ -39,9 +70,15 @@
 }
 
 .registrosEmp {
-    width: 78.6%;
     margin: auto;
     align-items: center;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 25px;
+    /* Ajusta el valor según el grado de curvatura deseado */
+    overflow: hidden;
+    /* Para ocultar el contenido que exceda los bordes curvos */
 }
 
 .registrosEmp2 {

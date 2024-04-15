@@ -6,6 +6,7 @@ import { format } from 'date-fns';
 import { CgAdd } from "react-icons/cg";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import './pantallasGerente/style/salesReport.css';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { v4 as uuidv4 } from 'uuid';
@@ -247,7 +248,7 @@ const Pedidos = () => {
                 {userRole && userRole.rol && (userRole.rol === "Encargado_Departamento" || userRole.rol === "Gerente_Departamento" || userRole.rol === "Encargado_Caja") ? (
                     <div className="modal-content">
                         <MenuHamburguesa />
-                        <h2>Nuevo Cliente</h2>
+                        <h2 className='responsive-title'>Nuevo Cliente</h2>
 
                         <div className="input">
                             <input
@@ -489,7 +490,7 @@ const Pedidos = () => {
     return (
         <div className="registro">
             <MenuHamburguesa />
-            <h1>Nuevo pedido</h1>
+            <h1 className='responsive-title'>Nuevo pedido</h1>
             <div className="fecha">
                 <label className="fecha"><b>Fecha: </b>{hoy.toDateString()}</label> <br />
                 <label className="fecha"><b>Empleado: </b>{nombre}</label><br />

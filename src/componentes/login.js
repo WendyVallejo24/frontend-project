@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './login.css';
 import { useNavigate } from 'react-router-dom';
+import imgFerreteria from './img/usuarioFerret.jpg';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
@@ -9,7 +10,7 @@ const LoginForm = () => {
   const navigate = useNavigate();
   //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
 
-  const URL_API = 'http://localhost:8080/'; 
+  const URL_API = 'http://localhost:8080/';
 
   useEffect(() => {
     // Lógica de inicialización aquí
@@ -57,33 +58,36 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="form-container">
-      <h2>Iniciar Sesión</h2>
-      <form>
-        <label className="label">
-          Usuario:
-          <input
-            className="user"
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </label>
-        <br />
-        <label className="label">
-          Contraseña:
-          <input
-            className="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <br />
-        <button className="button" type="button" onClick={handleLogin}>
-          Iniciar Sesión
-        </button>
-      </form>
+    <div className="container">
+      <div className="form-container">
+        <img className="user-photo" src={imgFerreteria} alt="Foto de usuario" />
+        <p className='titulo'>Iniciar Sesión</p>
+        <form>
+          <label className="label">
+            Usuario:
+            <input
+              className="user"
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </label>
+          <br />
+          <label className="label">
+            Contraseña:
+            <input
+              className="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
+          <br />
+          <button className="button" type="button" onClick={handleLogin}>
+            Ingresar
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

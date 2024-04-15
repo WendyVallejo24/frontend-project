@@ -1,82 +1,176 @@
 .menu-btn {
-    cursor: pointer;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
-  }
-  
-  .btn-line {
-    width: 25px;
-    height: 3px;
-    background: #333;
-    margin: 5px 0;
-    transition: 0.4s;
-  }
-  
-  #menuHam {
-    border: 1px solid;
-    color: #333;
-    border-radius: 10px;
-  }
+  cursor: pointer;
+  padding: 1em;
+  /* Modificado */
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 1.5%;
+  /* Modificado */
+  left: .5%;
+  /* Modificado */
+  z-index: 1000;
+}
 
-  .menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 30%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transform: translateX(-100%);
-    color: white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.237);
-    border: 1px solid #ccc;
-    background-color: #d8ceceee;
-  }
-  
-  .menu ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .menu li {
-    margin: auto;
-    font-size: 20px;
-    cursor: pointer;
-    text-align: left;
-  }
-  
-  .open {
-    transform: translateX(0);
-  }
+.btn-line {
+  width: 1.5em;
+  /* Modificado */
+  height: 0.2em;
+  /* Modificado */
+  background: #000000;
+  margin: 0.2em 0;
+  /* Modificado */
+  transition: 0.4s;
+}
 
-  .no-underline {
-    text-decoration: none;
-    color:#333;
-  }
+#menuHam {
+  border: 1px solid;
+  color: #333;
+  border-radius: 1em;
+  /* Modificado */
+}
 
-  .no-underline1 {
-    text-decoration: none;
-    color:#ffffff;
-  }
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50%;
+  /*Modificado*/
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-100%);
+  color: white;
+  border-radius: 1em;
+  /* Modificado */
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0);
+  /* Modificado */
+  border: 1px solid #ccc;
+  background-color: #365970;
+  transition: transform 0.3s ease;
+  /* Agregado */
+  z-index: 2;
+  /* Asegurar que el menú esté por encima del calendario */
+}
 
+.menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+.menu li {
+  margin: auto;
+  font-size: 1.5em;
+  /* Modificado */
+  cursor: pointer;
+  text-align: left;
+}
+
+.submenu {
+  display: contents;
+  list-style: none;
+  padding-left: 1em;
+}
+
+.submenu li {
+  margin: auto;
+  font-size: 1em;
+  font-weight: normal;
+  /* Desactiva la negrita */
+}
+
+.titulo:hover .submenu {
+  display: block;
+}
+
+.open {
+  transform: translateX(0);
+}
+
+.no-underline {
+  text-decoration: none;
+  color: #ffffff;
+  text-align: center;
+  font-family: Calibri;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.no-underline:hover {
+  color: #333;
+  /* Cambia el color del texto cuando el cursor se acerca */
+}
+
+.no-underline1 {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #344d69;
+}
+
+.titulo {
+  color: #ffffff;
+  font-size: 15px;
+  margin-top: 1em;
+  /*font-weight: bold;*/
+  font-family: Gill Sans / Gill Sans MT, sans-serif;
+  transition: color 0.3s;
+  /* Animación de transición suave */
+}
+
+.titulo:hover {
+  color: #000000;
+  /* Cambia el color del texto cuando el cursor se acerca */
+}
+
+@media only screen and (max-width: 1000px) {
+
+  /* Estilos específicos para pantallas más pequeñas */
   .titulo {
-    color: #333;
-    font-weight: 700;
+    font-size: 20px;
+    /* Tamaño de fuente más pequeño para dispositivos móviles */
   }
+}
 
-  .opc {
-    color: #333;
-    padding-left: 20px;
-  }
+.opc {
+  color: #000000;
+  /*padding-left: 2em;
+  /* Modificado */
+  font-size: 1.3em;
+  /* Modificado */
+  margin-bottom: 0.5em;
+  /* Modificado */
+}
 
-  .opciones {
-    text-align: left;
+.opciones {
+  text-align: left;
+  margin-top: 1em;
+}
+
+@media (min-width: 1000px) {
+
+  /* Modificado */
+  .menu {
+    width: 15%;
+    /* Modificado */
   }
+}
+
+.logo {
+  width: 65px;
+  /* Ajusta el tamaño de acuerdo a tus necesidades */
+  height: 65px;
+  /* Ajusta el tamaño de acuerdo a tus necesidades */
+  /*border-radius: 50%;*/
+  /* Hace que la imagen tenga forma circular */
+  margin: 0 auto 20px;
+  /*margin-bottom: 20px;*/
+  /* Espacio inferior para separarla del resto del formulario */
+  object-fit: cover;
+  /* Evita que la imagen se deforme */
+  display: block;
+  position: absolute;
+  top: 90px;
+  left: 10px;
+}
