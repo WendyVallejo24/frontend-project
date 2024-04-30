@@ -53,14 +53,15 @@
 }
 
 .btn-finalizar {
-    margin-right: 30px;
+    margin-right: auto;
     background-color: #365970;
     color: white;
     padding: 10px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 15%;
+    width: auto;
+    margin-bottom: 5px;
 }
 
 .btn-cancelar {
@@ -70,7 +71,8 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    width: 15%;
+    width: auto;
+    margin-left: 10px;
 }
 
 .fecha {

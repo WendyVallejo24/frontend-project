@@ -7,7 +7,7 @@ import { IoMdArrowDropdownCircle } from "react-icons/io";
 import DetallesVentaModal from './DetallesVentaModal';
 
 //const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-const API_URL = 'http://localhost:8080'; 
+const API_URL = 'http://localhost:8080';
 
 const VistaNotaVentaPedidoEnProcesoComponent = () => {
   const [notasVentaEnProceso, setNotasVentaEnProceso] = useState([]);
@@ -15,22 +15,12 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
   const [notasFiltradas, setNotasFiltradas] = useState([]);
   const [showDetalles, setShowDetalles] = useState(false);
   const [selectedNota, setSelectedNota] = useState(null);
-  //const [departamentos, setDepartamentos] = useState([]);
-  //const [selectedDepartamento, setSelectedDepartamento] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [abonoAmount, setAbonoAmount] = useState(0);
 
   useEffect(() => {
     fetchNotasVentaEnProceso();
-    //fetchDepartamentos();
   }, []);
-
-  /*const fetchDepartamentos = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/api/departamento`);
-      setDepartamentos(response.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };*/
 
   const fetchNotasVentaEnProceso = async () => {
     try {
@@ -42,17 +32,17 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
     }
   };
 
-  const applyFilters = () => {
-    const notasFiltradas = notasVentaEnProceso.filter(
-      (nota) =>
-        nota.nombreCompletoCliente.toLowerCase().includes(filtroNombreCliente.toLowerCase())
-    );
-    setNotasFiltradas(notasFiltradas);
-  };
-
   useEffect(() => {
+    const applyFilters = () => {
+      const notasFiltradas = notasVentaEnProceso.filter(
+        (nota) =>
+          nota.nombreCompletoCliente.toLowerCase().includes(filtroNombreCliente.toLowerCase())
+      );
+      setNotasFiltradas(notasFiltradas);
+    };
+
     applyFilters();
-  }, [filtroNombreCliente]);
+  }, [filtroNombreCliente, notasVentaEnProceso]);
 
   const handleVerDetalles = (nota) => {
     setSelectedNota(nota);
@@ -84,7 +74,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
     try {
       const response = await axios.post(`${API_URL}/api/pedido/modificarpedido`, {
         nNota: nota.numeroNota,
-        idEstadoPedido: 2, // 2 representa el estado de pedido "Entregado"
+        idEstadoPedido: 1, // 1 representa el estado de pedido "Entregado"
       });
       await fetchNotasVentaEnProceso();
 
@@ -109,7 +99,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
 
       // Realizar la solicitud al servidor para pagar y entregar el pedido
       const response = await axios.post(`${API_URL}/api/pedido/pagarentregarpedido`, {
-        idPedido: 2,
+        idPedido: 1,
         nNota: nota.numeroNota,
         pago: restoAPagar,
         // Otros datos necesarios para la solicitud, si los hay
@@ -124,10 +114,53 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
     }
   };
 
+  const handleAbonar = (nota) => {
+    if (nota.resto <= 0) {
+      console.error('La nota ya se encuentra pagada.');
+      alert('La nota ya se encuentra pagada.');
+      return;
+    }
+    setSelectedNota(nota);
+    setShowModal(true);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+  };
+
+  const handleConfirmAbono = async () => {
+    try {
+      if (!selectedNota) {
+        alert('No se ha seleccionado una nota para abonar.');
+        return;
+      }
+
+      if (!abonoAmount || abonoAmount <= 0) {
+        alert('La cantidad de abono debe ser un número positivo.');
+        return;
+      }
+
+      const abonarNota = {
+        nNota: parseInt(selectedNota.numeroNota),
+        pago: parseFloat(abonoAmount),
+      };
+
+      const response = await axios.post(`${API_URL}/api/notasventas/pagarnota`, abonarNota);
+      console.log(response.data);
+      console.log(`Abono de: ${abonoAmount}`);
+      alert(`Abono de: ${abonoAmount}`);
+      setShowModal(false);
+      fetchNotasVentaEnProceso();
+
+    } catch (error) {
+      console.error('Error en la solicitud:', error);
+    }
+  };
+
   return (
     <div className='registro'>
       <MenuHamburguesa />
-      <h1 className='responsive-title'>Pedidos en Proceso</h1>
+      <h1 className='responsive-title'>Estado de pedido y de pago</h1>
       <div className='btns'>
         <h4>Buscar nota:</h4>
         <input
@@ -146,9 +179,17 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
             <div className="botones">
               <h4>Acciones del pedido:</h4>
               <div className='r-1'>
-                <button className='btn-finalizar rh c' onClick={() => handleCancelarPedido(nota)}>Cancelar Pedido</button>
-                <button className='btn-finalizar rh e' onClick={() => handleEntregarPedido(nota)}>Entregar Pedido</button>
-                <button className='btn-finalizar rh' style={{ margin: 'auto' }} onClick={() => handlePagarYEntregarPedido(nota)}>Pagar y entregar</button>
+                <button className='btn-finalizar rh' onClick={() => handleCancelarPedido(nota)}>Cancelar Pedido</button>
+                <button className='btn-finalizar rh' onClick={() => handleEntregarPedido(nota)}>Entregar Pedido</button>
+                <button className='btn-finalizar rh' onClick={() => handlePagarYEntregarPedido(nota)}>Pagar y entregar</button>
+                {nota.estadoPago === 'Pendiente' && (
+                  <button 
+                  className='btn-finalizar rh'
+                  onClick={() => handleAbonar(nota)}
+                  >
+                    Abonar
+                  </button>
+                )}
               </div>
             </div>
             <div className="rectangulo-header" style={{ backgroundColor: '#f6f6f6' }}>
@@ -156,6 +197,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
                 <p><b>Número de Nota: </b>{nota.numeroNota}</p>
                 <p><b>Fecha de Nota: </b>{nota.fechaNota}</p>
                 <p><b>Estado Pago: </b>{nota.estadoPago}</p>
+                <p><b>Último pago: </b>{nota.fechaAnticipo}</p>
               </div>
               <div className='r-1'>
                 <p><b>Empleado: </b>{nota.nombreCompletoEmpleado}</p>
@@ -203,6 +245,33 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
             numeroNota={selectedNota.numeroNota}
             onClose={() => setShowDetalles(false)}
           />
+        )}
+        {/* Ventana emergente para el abono */}
+        {showModal && (
+          <div className="Overlay">
+            <div className="Modal">
+              <span className="close" onClick={handleModalClose}>
+                &times;
+              </span>
+              <h2>Abonar</h2>
+              <p>Introduce la cantidad de dinero a abonar:</p>
+              <input
+                className='input-producto'
+                type="number"
+                value={abonoAmount}
+                onChange={(e) => {
+                  const inputValue = e.target.value;
+                  if (/^[0-9]*$/.test(inputValue)) {
+                    setAbonoAmount(inputValue);
+                  }
+                }}
+              />
+              <div className='botones'>
+                <button className='btn-finalizar' onClick={handleConfirmAbono}>Confirmar Abono</button>
+                <button className='btn-cancelar' onClick={handleModalClose}>Cancelar</button>
+              </div>
+            </div>
+          </div>
         )}
       </div>
     </div>
