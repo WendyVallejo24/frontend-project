@@ -10,6 +10,7 @@
   left: .5%;
   /* Modificado */
   z-index: 1000;
+  background-color: #365970;
 }
 
 .btn-line {
@@ -17,15 +18,13 @@
   /* Modificado */
   height: 0.2em;
   /* Modificado */
-  background: #000000;
+  background: #ffffff;
   margin: 0.2em 0;
   /* Modificado */
   transition: 0.4s;
 }
 
 #menuHam {
-  border: 1px solid;
-  color: #333;
   border-radius: 1em;
   /* Modificado */
 }
@@ -47,7 +46,6 @@
   /* Modificado */
   box-shadow: 0 0 1em rgba(0, 0, 0, 0);
   /* Modificado */
-  border: 1px solid #ccc;
   background-color: #365970;
   transition: transform 0.3s ease;
   /* Agregado */
@@ -107,6 +105,11 @@
   text-decoration: none;
   color: #ffffff;
   background-color: #344d69;
+}
+
+.no-underline2 {
+  text-decoration: none;
+  color: #344d69;
 }
 
 .titulo {

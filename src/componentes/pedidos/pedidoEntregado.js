@@ -80,16 +80,20 @@ const PedidoEntregado = () => {
                         placeholder='Nombre cliente'
                         value={filtroCliente}
                         onChange={handleFiltroClienteChange} />
-                    <label>Filtrar por Fecha Nota:</label>
+                </div>
+                <div className='filter-container'>
+                <label>Filtrar por Fecha Nota:</label>
                     <Calendar
                         selectedDate={filtroFecha}
                         handleDateChange={handleFiltroFechaChange}
                     />
+                </div>
+                <div className='filter-container'>
                     <label>Filtrar por Estado de Pago:</label>
                     <select
                         value={filtroEstadoPago}
                         onChange={handleFiltroEstadoPagoChange}
-                        style={{ width: '200px', textAlign: 'center', marginLeft: 'auto', marginRight: 'auto' }}>
+                        style={{ width: '200px', marginLeft: 'auto', marginRight: 'auto' }}>
                         {/* Establece un ancho fijo y centra el select */}
                         <option value="">Selecciona un estado de pago</option>
                         {estadosPago.map((estadoPago) => (
@@ -141,7 +145,7 @@ const PedidoEntregado = () => {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div >
     );
 };
 

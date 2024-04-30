@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import MenuHamburguesa from './MenuHamburguesa';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -9,7 +9,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './pantallasGerente/style/salesReport.css';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import { v4 as uuidv4 } from 'uuid';
 import './Ventas.css';
 
 const id_empleado = localStorage.getItem('idEmpleado');
@@ -56,7 +55,6 @@ const Pedidos = () => {
     const [cliente, setCliente] = useState([]);
     const [clienteSeleccionado, setClienteSeleccionado] = useState("");
     const [fechaEntrega, setFechaEntrega] = useState("");
-    const [isTimePickerOpen, setIsTimePickerOpen] = useState(false);
     const [cantidad, setCantidad] = useState("");
     const [producto, setProducto] = useState("");
     const [precioUnitario, setPrecioUnitario] = useState("");
@@ -334,14 +332,6 @@ const Pedidos = () => {
         setFechaEntrega(date ? format(date, 'yyyy-MM-dd') : ''); // Formatear la fecha y establecer en fechaEntrega
     };
 
-    const handleHoraEntrega = () => {
-        setIsTimePickerOpen(true);
-    };
-
-    const handleCloseTimePicker = () => {
-        setIsTimePickerOpen(false);
-    };
-
     const isNumber = (value) => /^[0-9]+(\.[0-9]{1,2})?$/.test(value);
 
     const handleCantidadChange = (e) => {
@@ -494,7 +484,7 @@ const Pedidos = () => {
             <div className="fecha">
                 <label className="fecha"><b>Fecha: </b>{hoy.toDateString()}</label> <br />
                 <label className="fecha"><b>Empleado: </b>{nombre}</label><br />
-                <label className="fehca"><b>No. de Nota: </b>{noteNumber}</label>
+                <label className="fecha"><b>No. de Nota: </b>{noteNumber}</label>
             </div>
             <br />
             <div className="pedidos">
@@ -512,7 +502,7 @@ const Pedidos = () => {
                         ))}
                     </select>
                     <div className="mas" onClick={openAddClientModal}>
-                        <Link className='no-underline'><CgAdd /></Link>
+                        <Link className='no-underline2'><CgAdd /></Link>
                     </div>
                     {isAddClientModalOpen && (
                         <AddClientModal onClose={closeAddClientModal} />

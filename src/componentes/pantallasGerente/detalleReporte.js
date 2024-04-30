@@ -116,7 +116,7 @@ const DetalleReporte = () => {
           <p>Total: {calcularTotal()}</p>
 
           {/* Agregar botón para descargar el PDF */}
-          <button style={{ fontSize: '1.2em' }} onClick={downloadPDF}>Descargar PDF</button>
+          <button className='btn-finalizar' style={{ fontSize: '1.2em' }} onClick={downloadPDF}>Descargar PDF</button>
         </div>
       ) : (
         <p>Cargando detalle del reporte...</p>
