@@ -150,7 +150,7 @@ const MarcaList = () => {
                 <td className='btn-ventas'>
                   <div className='botones'>
                     <button className='btn-finalizar' onClick={() => handleEditarMarca(marca.idMarca)}>Editar</button>
-                    <button className='btn-finalizar' onClick={() => handleEliminarMarca(marca.idMarca)}>Eliminar</button>
+                    <button className='btn-cancelar' onClick={() => handleEliminarMarca(marca.idMarca)}>Eliminar</button>
                   </div>
                 </td>
               </tr>

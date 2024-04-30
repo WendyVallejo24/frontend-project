@@ -145,7 +145,7 @@ const UnidadMedidaList = () => {
                 <td>{unidadMedida.nombre}</td>
                 <td className='btn-ventas'>
                   <button className='btn-finalizar' onClick={() => handleEditarUnidadMedida(unidadMedida.idUnidadMedida)}>Editar</button>
-                  <button className='btn-finalizar' onClick={() => handleEliminarUnidadMedida(unidadMedida.idUnidadMedida)}>Eliminar</button>
+                  <button className='btn-cancelar' onClick={() => handleEliminarUnidadMedida(unidadMedida.idUnidadMedida)}>Eliminar</button>
                 </td>
               </tr>
             ))}

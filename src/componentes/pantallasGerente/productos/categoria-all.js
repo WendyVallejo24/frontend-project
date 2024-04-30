@@ -146,7 +146,7 @@ const CategoriaList = () => {
                                 <td>{categoria.nombre}</td>
                                 <td className='btn-ventas'>
                                     <button className='btn-finalizar' onClick={() => handleEditarCategoria(categoria.idCategoria)}>Editar</button>
-                                    <button className='btn-finalizar' onClick={() => handleEliminarCategoria(categoria.idCategoria)}>Eliminar</button>
+                                    <button className='btn-cancelar' onClick={() => handleEliminarCategoria(categoria.idCategoria)}>Eliminar</button>
                                 </td>
                             </tr>
                         ))}
