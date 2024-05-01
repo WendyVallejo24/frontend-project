@@ -12,8 +12,9 @@ import 'jspdf-autotable';
 import { v4 as uuidv4 } from 'uuid';
 import './Ventas.css';
 
+
 const id_empleado = localStorage.getItem('idEmpleado');
-const nombre = localStorage.getItem('nombreEmpleado');
+/*const nombre = localStorage.getItem('nombreEmpleado');*/
 
 //const URL_API = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net/';
 const URL_API = 'http://localhost:8080/';
@@ -109,8 +110,16 @@ const Pedidos = () => {
             return montoRecibido;
         }
     }
+
     const handleCreatePedido = async () => {
+
         try {
+            const id_empleado = localStorage.getItem('idEmpleado');
+            if (!id_empleado) {
+                alert('El idEmpleado no está disponible.');
+                return;
+            }
+
             const nuevoPedido = {
                 fecha: fechaFormateada,
                 total: parseFloat(calcularTotal()),
@@ -473,7 +482,6 @@ const Pedidos = () => {
         pdf.save('Pedido_' + fechaFormateada + '.pdf');
     };
 
-
     const [userRole, setUserRole] = useState({});
 
     useEffect(() => {
@@ -485,6 +493,16 @@ const Pedidos = () => {
         console.log('Parsed Role:', parsedRole);
 
         setUserRole(parsedRole);
+    }, []);
+
+    const [nombre, setNombre] = useState('');
+
+    useEffect(() => {
+        const idEmpleado = localStorage.getItem('idEmpleado');
+        const nombreEmpleado = localStorage.getItem('nombreEmpleado');
+        setNombre(nombreEmpleado);
+
+        fetchLastNoteNumber();
     }, []);
 
     return (
