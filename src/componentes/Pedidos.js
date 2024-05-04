@@ -10,6 +10,7 @@ import './pantallasGerente/style/salesReport.css';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import './Ventas.css';
+import AddClientModal from './AddClientModal';
 
 const id_empleado = localStorage.getItem('idEmpleado');
 const nombre = localStorage.getItem('nombreEmpleado');
@@ -17,14 +18,11 @@ const nombre = localStorage.getItem('nombreEmpleado');
 //const URL_API = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net/';
 const URL_API = 'http://localhost:8080/';
 
-const Calendar = ({ onChange }) => {
-    const [selectedDate, setSelectedDate] = useState(null);
+const Calendar = ({ value, onChange }) => {
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
     const handleDateChange = date => {
-        setSelectedDate(date);
         onChange(date);
-        closeCalendar();
     };
 
     const toggleCalendar = () => {
@@ -41,17 +39,18 @@ const Calendar = ({ onChange }) => {
                 <DatePicker
                     className="fecha-entrega"
                     placeholderText="Fecha de entrega"
-                    selected={selectedDate}
+                    selected={value}
                     dateFormat="yyyy-MM-dd"
                     onChange={handleDateChange}
                     onClickOutside={closeCalendar}
+                    onClose={closeCalendar}
                 />
             </div>
         </div>
     );
 };
 
-const Pedidos = () => {
+const Pedidos = ( {handleCreateClient} ) => {
     const [cliente, setCliente] = useState([]);
     const [clienteSeleccionado, setClienteSeleccionado] = useState("");
     const [fechaEntrega, setFechaEntrega] = useState("");
@@ -68,15 +67,6 @@ const Pedidos = () => {
     const tiempoTranscurrido = Date.now();
     const hoy = new Date(tiempoTranscurrido);
     const fechaFormateada = format(hoy, 'yyyy-MM-dd');
-
-    const fetchClientes = async () => {
-        try {
-            const response = await axios.get(URL_API + 'api/clientes');
-            setCliente(response.data);
-        } catch (error) {
-            console.error('Error al obtener los clientes', error);
-        }
-    };
 
     const fetchLastNoteNumber = async () => {
         try {
@@ -151,13 +141,18 @@ const Pedidos = () => {
         const fetchCliente = async () => {
             try {
                 const response = await axios.get(URL_API + 'api/clientes');
-                setCliente(response.data);
+                if (response && response.data) {
+                    setCliente(response.data);
+                } else {
+                    console.error('La respuesta del servidor no contiene datos válidos:', response);
+                }
             } catch (error) {
                 console.error('Error al obtener los clientes', error);
             }
         };
         fetchCliente();
     }, []);
+
 
     useEffect(() => {
         const fetchClienteDetalle = async (idCliente) => {
@@ -196,100 +191,14 @@ const Pedidos = () => {
         }
     }, [producto]);
 
-    const AddClientModal = ({ onClose }) => {
-        const [nombre, setNombre] = useState("");
-        const [apellidos, setApellidos] = useState("");
-        const [telefono, setTelefono] = useState("");
-        const [direccion, setDireccion] = useState("");
-
-        const handleCreateClient = async () => {
-            try {
-                const nuevoCliente = {
-                    nombre: nombre,
-                    apellidos: apellidos,
-                    telefono: parseInt(telefono),
-                    direccion: direccion,
-                };
-
-                const response = await axios.post(URL_API + 'api/clientes', nuevoCliente);
-                await fetchClientes();
-                console.log('Cliente creado:', response.data);
-                setClienteSeleccionado(response.data.idCliente);
-                alert('Cliente creado con éxito');
-                setClienteCreado(true);
-                onClose();
-            } catch (error) {
-                console.error('Error al crear el cliente:', error);
-                alert('Error al crear el cliente');
-            }
-        }
-
-        const handleNombreChange = (e) => {
-            setNombre(e.target.value);
-        }
-
-        const handleApellidosChange = (e) => {
-            setApellidos(e.target.value);
-        }
-
-        const handleTelefonoChange = (e) => {
-            setTelefono(e.target.value);
-        }
-
-        const handleDireccionChange = (e) => {
-            setDireccion(e.target.value);
-        }
-
-        return (
-            // JSX de la pantalla flotante
-            <div className="modal-overlay">
-                {userRole && userRole.rol && (userRole.rol === "Encargado_Departamento" || userRole.rol === "Gerente_Departamento" || userRole.rol === "Encargado_Caja") ? (
-                    <div className="modal-content">
-                        <MenuHamburguesa />
-                        <h2 className='responsive-title'>Nuevo Cliente</h2>
-
-                        <div className="input">
-                            <input
-                                className="cantidad"
-                                placeholder="Nombre"
-                                value={nombre}
-                                onChange={handleNombreChange}
-                            />
-                            <input
-                                className="cantidad"
-                                placeholder="Apellidos"
-                                value={apellidos}
-                                onChange={handleApellidosChange}
-                            />
-                            <input
-                                className="cantidad"
-                                placeholder="Teléfono"
-                                value={telefono}
-                                onChange={handleTelefonoChange}
-                            />
-                            <input
-                                className="cantidad"
-                                placeholder="Dirección"
-                                value={direccion}
-                                onChange={handleDireccionChange}
-                            />
-                        </div>
-                        <div className="btns">
-                            <button className="btn-finalizar" onClick={handleCreateClient}>Guardar</button>
-                            <button className="btn-cancelar" onClick={onClose}>Cancelar</button>
-                        </div>
-                    </div>
-                ) : (
-                    <p>No cuentas con los permisos.</p>
-                )}
-            </div>
-        );
-    };
-
     const agregarProducto = async () => {
         if (cantidad && producto && precioUnitario) {
             try {
                 const response = await fetch(URL_API + `api/productos/${producto}`);
+                if (!response.ok) {
+                    throw new Error('Error al obtener la información del producto');
+                }
+
                 const data = await response.json();
                 const unidadDeMedida = data.unidadMedida;
 
@@ -318,6 +227,8 @@ const Pedidos = () => {
                 }
             } catch (error) {
                 console.error("Error al obtener la información del producto:", error);
+                // Manejar el error mostrando un mensaje al usuario
+                alert("Error al obtener la información del producto. Inténtelo de nuevo más tarde.");
             }
         }
     };
@@ -326,10 +237,6 @@ const Pedidos = () => {
         const nuevasVentas = [...ventas];
         nuevasVentas.splice(index, 1);
         setVentas(nuevasVentas);
-    };
-
-    const handleFechaEntregaChange = (date) => {
-        setFechaEntrega(date ? format(date, 'yyyy-MM-dd') : ''); // Formatear la fecha y establecer en fechaEntrega
     };
 
     const isNumber = (value) => /^[0-9]+(\.[0-9]{1,2})?$/.test(value);
@@ -362,6 +269,17 @@ const Pedidos = () => {
         setIsAddClientModalOpen(false);
     };
 
+    const cancelarPedido = async () => {
+        try {
+            console.log('Pedido cancelado');
+            window.alert('Pedido cancelado');
+            resetForm();
+        } catch (error) {
+            console.error('Error al cancelar el pedido:', error);
+            alert('Error al cancelar el pedido');
+        }
+    };
+
     const calcularSubtotal = (unidadDeMedida) => {
         console.log('unidad de medida: ', unidadDeMedida)
         if (unidadDeMedida === 'gramos') {
@@ -389,16 +307,9 @@ const Pedidos = () => {
         }
     };
 
-    const cancelarPedido = () => {
-        if (window.confirm("¿Estás seguro de cancelar el pedido?")) {
-            resetForm();
-            console.log("Pedido cancelado");
-        }
-    }
-
     const resetForm = () => {
         setClienteSeleccionado('');
-        setFechaEntrega('');
+        setFechaEntrega(null);
         setCantidad("");
         setProducto("");
         setPrecioUnitario("");
@@ -475,6 +386,7 @@ const Pedidos = () => {
         console.log('Parsed Role:', parsedRole);
 
         setUserRole(parsedRole);
+        console.log('User Role:', userRole);
     }, []);
 
     return (
@@ -505,7 +417,13 @@ const Pedidos = () => {
                         <Link className='no-underline2'><CgAdd /></Link>
                     </div>
                     {isAddClientModalOpen && (
-                        <AddClientModal onClose={closeAddClientModal} />
+                        <AddClientModal
+                            onClose={closeAddClientModal}
+                            setCliente={setCliente}
+                            setClienteSeleccionado={setClienteSeleccionado}
+                            setClienteCreado={setClienteCreado}
+                            handleCreateClient={handleCreateClient}
+                        />
                     )}
                 </div>
             </div>
@@ -539,7 +457,7 @@ const Pedidos = () => {
                 <div>
                     <Calendar
                         value={fechaEntrega}
-                        onChange={handleFechaEntregaChange}
+                        onChange={setFechaEntrega}
                     />
                 </div>
                 <div>
@@ -562,11 +480,8 @@ const Pedidos = () => {
                     value={precioUnitario}
                     onChange={handlePrecioUnitarioChange}
                 />
-                {userRole && userRole.rol && (userRole.rol === "Encargado_Departamento" || userRole.rol === "Gerente_Departamento" || userRole.rol === "Encargado_Caja") ? (
-                    <button className="agregar-prod" onClick={agregarProducto}>Agregar Producto</button>
-                ) : (
-                    <p>No cuentas con los permisos.</p>
-                )}
+                <button className="agregar-prod" type="button" onClick={agregarProducto} >Agregar</button>
+
                 <div className="scroll-panel">
                     <table>
                         <thead className="ventas">
@@ -603,16 +518,14 @@ const Pedidos = () => {
                     onChange={handleMontoRecibidoChange}
                 />
                 <h4 className="total">Cambio: ${cambio()}</h4>
-                {userRole && userRole.rol && (userRole.rol === "Encargado_Departamento" || userRole.rol === "Gerente_Departamento" || userRole.rol === "Encargado_Caja") ? (
-                    <div className="btns">
-                        <button className="btn-finalizar" onClick={() => { handleCreatePedido(); downloadPDF(); }}>
-                            Guardar Pedido
-                        </button>
-                        <button className="btn-cancelar" onClick={cancelarPedido}>Cancelar Pedido</button>
-                    </div>
-                ) : (
-                    <p>No cuentas con los permisos.</p>
-                )}
+
+                <div className="btns">
+                    <button className="btn-finalizar" onClick={() => { handleCreatePedido(); downloadPDF(); }}>
+                        Guardar Pedido
+                    </button>
+                    <button className="btn-cancelar" onClick={cancelarPedido}>Cancelar Pedido</button>
+                </div>
+
             </div>
         </div>
     );
