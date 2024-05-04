@@ -3,7 +3,6 @@ import { render, fireEvent, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom'; // Import MemoryRouter
 import axios from 'axios'; // Mockear axios
 import Pedidos from '../Pedidos';
-import AddClientModal from '../AddClientModal';
 import CerrarSesion from '../../componentes/pantallasGerente/cerrarSesion';
 
 
