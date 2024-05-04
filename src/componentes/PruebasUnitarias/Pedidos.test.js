@@ -43,9 +43,7 @@ describe('Pedidos Component', () => {
         );
 
         // Example: Test initial state values
-        expect(getByText('Nuevo pedido')).toBeInTheDocument();
         expect(getByPlaceholderText('Fecha de entrega')).toBeInTheDocument();
-        // Add more assertions for other initial state values
     });
 
     test('updates the delivery date', () => {

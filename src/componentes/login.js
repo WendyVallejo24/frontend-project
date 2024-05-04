@@ -19,9 +19,12 @@ const LoginForm = () => {
 
   const init = async () => {
     try {
-      // Lógica para inicializar con una solicitud GET
       const responseGet = await axios.get(URL_API + 'initEmpleados');
-      console.log('Respuesta de inicialización con GET', responseGet.data);
+      if (responseGet) {
+        console.log('Respuesta de inicialización con GET', responseGet.data);
+      } else {
+        console.error('Error en la inicialización: no se recibió respuesta');
+      }
     } catch (error) {
       console.error('Error en la inicialización', error.message);
     }
