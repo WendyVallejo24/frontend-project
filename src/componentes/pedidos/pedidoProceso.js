@@ -33,16 +33,19 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
   };
 
   useEffect(() => {
-    const applyFilters = () => {
-      const notasFiltradas = notasVentaEnProceso.filter(
-        (nota) =>
-          nota.nombreCompletoCliente.toLowerCase().includes(filtroNombreCliente.toLowerCase())
-      );
-      setNotasFiltradas(notasFiltradas);
-    };
-
     applyFilters();
   }, [filtroNombreCliente, notasVentaEnProceso]);
+
+  const applyFilters = () => {
+    const notasFiltradas = notasVentaEnProceso.filter(nota => {
+      // Verificar si la propiedad nombreCompletoCliente está definida en la nota
+      if (nota.nombreCompletoCliente) {
+        return nota.nombreCompletoCliente.toLowerCase().includes(filtroNombreCliente.toLowerCase());
+      }
+      return false; // O regresar false si la propiedad no está definida
+    });
+    setNotasFiltradas(notasFiltradas);
+  };
 
   const handleVerDetalles = (nota) => {
     setSelectedNota(nota);
@@ -107,10 +110,17 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
 
       // Después de la acción, actualizar los datos
       await fetchNotasVentaEnProceso();
-      alert('Pagado y entregado con éxito', response.data);
+
+      if (response.status === 201) {
+        console.log('Pedido pagado y entregado con éxito');
+        alert('Pagado y entregado con éxito');
+      } else {
+        console.error('Error al pagar y entregar el pedido:', response.data);
+        alert('Error al pagar y entregar el pedido');
+      }
     } catch (error) {
       console.error('Error en la solicitud', error);
-      // Manejar el error según tus necesidades
+      alert('Error en la solicitud');
     }
   };
 
@@ -179,13 +189,13 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
             <div className="botones">
               <h4>Acciones del pedido:</h4>
               <div className='r-1'>
-                <button className='btn-finalizar rh' onClick={() => handleCancelarPedido(nota)}>Cancelar Pedido</button>
+                <button className='btn-finalizar rh' onClick={() => handleCancelarPedido(nota)} data-testid="cancelar-button">Cancelar Pedido</button>
                 <button className='btn-finalizar rh' onClick={() => handleEntregarPedido(nota)}>Entregar Pedido</button>
-                <button className='btn-finalizar rh' onClick={() => handlePagarYEntregarPedido(nota)}>Pagar y entregar</button>
+                <button className='btn-finalizar rh' onClick={() => handlePagarYEntregarPedido(nota)} data-testid="pagar-entregar-button">Pagar y entregar</button>
                 {nota.estadoPago === 'Pendiente' && (
-                  <button 
-                  className='btn-finalizar rh'
-                  onClick={() => handleAbonar(nota)}
+                  <button
+                    className='btn-finalizar rh'
+                    onClick={() => handleAbonar(nota)}
                   >
                     Abonar
                   </button>

@@ -50,7 +50,7 @@ const Calendar = ({ value, onChange }) => {
     );
 };
 
-const Pedidos = ( {handleCreateClient} ) => {
+const Pedidos = ({ handleCreateClient }) => {
     const [cliente, setCliente] = useState([]);
     const [clienteSeleccionado, setClienteSeleccionado] = useState("");
     const [fechaEntrega, setFechaEntrega] = useState("");
@@ -91,10 +91,17 @@ const Pedidos = ( {handleCreateClient} ) => {
     };
 
     const monto = () => {
-        if (montoRecibido > calcularTotal()) {
-            return calcularTotal();
-        } else if (montoRecibido <= calcularTotal()) {
-            return montoRecibido;
+        const montoRecibidoFloat = parseFloat(montoRecibido);
+        const total = parseFloat(calcularTotal());
+
+        if (isNaN(montoRecibidoFloat) || isNaN(total)) {
+            return 0;
+        }
+
+        if (montoRecibidoFloat >= total) {
+            return total;
+        } else {
+            return montoRecibidoFloat;
         }
     }
     const handleCreatePedido = async () => {
@@ -122,12 +129,9 @@ const Pedidos = ( {handleCreateClient} ) => {
                     }
                 })),
             };
-            console.log('Nueva Pedido:', nuevoPedido);
+            console.log('Nuevo Pedido:', nuevoPedido);
             const response = await axios.post(URL_API + 'api/pedido', nuevoPedido);
             console.log('Pedido creado:', response.data);
-            const newNoteNumber = generateNoteNumber(parseInt(noteNumber));
-            setNoteNumber(newNoteNumber);
-            console.log('Nuevo número de nota:', newNoteNumber);
             alert('Pedido creado con éxito');
             resetForm();
         } catch (error) {
@@ -317,9 +321,9 @@ const Pedidos = ( {handleCreateClient} ) => {
         setMontoRecibido("");
     }
     const estadoPago = () => {
-        if (montoRecibido < calcularTotal()) {
+        if (parseFloat(montoRecibido) < parseFloat(calcularTotal())) {
             return "Pendiente";
-        } else if (montoRecibido >= calcularTotal) {
+        } else if (parseFloat(montoRecibido) >= parseFloat(calcularTotal())) {
             return "Pagado";
         }
     }

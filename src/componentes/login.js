@@ -50,7 +50,12 @@ const LoginForm = () => {
         const userRole = response.data; // Almacena todo el objeto de respuesta
         localStorage.setItem('userRole', JSON.stringify(userRole));
 
-        navigate('/pedidos', { state: { userRole } });
+        if (userRole.rol === 'Encargado_Departamento') {
+          navigate('/registroEmpleado', { state: { userRole } });
+        } else if(userRole.rol === 'Gerente') {
+          navigate('/pedidos', { state: { userRole } });
+        }
+        //navigate('/pedidos', { state: { userRole } });
       } else {
         console.error('La respuesta del servidor no contiene un rol válido.', response.data);
       }

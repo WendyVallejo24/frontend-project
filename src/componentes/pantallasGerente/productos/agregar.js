@@ -230,6 +230,8 @@ const CreateProduct = () => {
                         className='input-producto'
                         type="number"
                         placeholder="Código"
+                        name="codigo"
+                        data-testid="codigoInput"
                         value={codigo}
                         onChange={(e) => {
                             const inputCodigo = e.target.value.replace(/\D/g, '');
@@ -243,6 +245,8 @@ const CreateProduct = () => {
                         className='input-producto'
                         type="text"
                         placeholder="Nombre"
+                        name='nombre'
+                        data-testid="nombreInput"
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value.toLowerCase())}
                     />
@@ -250,6 +254,8 @@ const CreateProduct = () => {
                         className='input-producto'
                         type="number"
                         placeholder="Existencia"
+                        name='existencia'
+                        data-testid= "existenciaInput"
                         value={existencia}
                         onChange={(e) => {
                             const inputExistencia = e.target.value.replace(/\D/g, '');
@@ -260,6 +266,8 @@ const CreateProduct = () => {
                         className='input-producto'
                         type="number"
                         placeholder="Precio"
+                        name='precio'
+                        data-testid="precioInput"
                         value={precio}
                         onChange={(e) => {
                             const inputPrecio = e.target.value.replace(/[^\d.]/g, '');
@@ -269,6 +277,7 @@ const CreateProduct = () => {
                     <select
                         className='select-producto'
                         value={categoriaSeleccionada}
+                        data-testid="categoriaSelect"
                         onChange={(e) => setCategoriaSeleccionada(e.target.value)}
                     >
                         <option value="">Selecciona una categoría</option>
@@ -281,6 +290,7 @@ const CreateProduct = () => {
                     <select
                         className='select-producto'
                         value={marcaSeleccionada}
+                        data-testid="marcaSelect"
                         onChange={(e) => setMarcaSeleccionada(e.target.value)}
                     >
                         <option value="">Selecciona una marca</option>
@@ -293,6 +303,7 @@ const CreateProduct = () => {
                     <select
                         className='select-producto'
                         value={unidadMedidaSeleccionada}
+                        data-testid="unidadMedidaSelect"
                         onChange={(e) => setUnidadMedidaSeleccionada(e.target.value)}
                     >
                         <option value="">Selecciona una unidad de medida</option>
