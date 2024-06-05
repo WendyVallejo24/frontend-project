@@ -50,9 +50,9 @@ const LoginForm = () => {
         const userRole = response.data; // Almacena todo el objeto de respuesta
         localStorage.setItem('userRole', JSON.stringify(userRole));
 
-        if (userRole.rol === 'Encargado_Departamento') {
+        if (userRole.rol === 'Supervisor de Ventas') {
           navigate('/registroEmpleado', { state: { userRole } });
-        } else if(userRole.rol === 'Gerente') {
+        } else if(userRole.rol === 'Vendedor') {
           navigate('/pedidos', { state: { userRole } });
         }
         //navigate('/pedidos', { state: { userRole } });

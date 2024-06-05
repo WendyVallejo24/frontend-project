@@ -70,7 +70,7 @@ const CrearReporteMensual = () => {
             <label>Report ID: </label><input className="producto" type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
 
             <br /><br />
-            {userRole && userRole.rol && userRole.rol.includes("Encargado_Departamento") ? (
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
 
                 <button className="btn-crud" onClick={handleUpdateClick}>
                     Actualizar Reporte Mensual
@@ -78,7 +78,7 @@ const CrearReporteMensual = () => {
             ) : (
                 <p>No cuentas con los permisos.</p>
             )}
-            {userRole && userRole.rol && userRole.rol.includes("Encargado_Departamento") ? (
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
                 <button className="btn-crud" onClick={handleCreateClick}>
                     Crear Reporte Mensual
                 </button>

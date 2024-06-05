@@ -132,6 +132,9 @@ const Pedidos = ({ handleCreateClient }) => {
             console.log('Nuevo Pedido:', nuevoPedido);
             const response = await axios.post(URL_API + 'api/pedido', nuevoPedido);
             console.log('Pedido creado:', response.data);
+            const newNoteNumber = generateNoteNumber(parseInt(noteNumber));
+            setNoteNumber(newNoteNumber);
+            console.log('Nuevo número de nota:', newNoteNumber);
             alert('Pedido creado con éxito');
             resetForm();
         } catch (error) {
@@ -139,7 +142,7 @@ const Pedidos = ({ handleCreateClient }) => {
             alert('Error al crear el pedido');
         }
 
-    }
+    };
 
     useEffect(() => {
         const fetchCliente = async () => {

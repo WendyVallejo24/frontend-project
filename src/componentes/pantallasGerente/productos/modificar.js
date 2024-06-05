@@ -39,7 +39,7 @@ const UpdateProduct = ({ productId }) => {
         value={nuevoNombre}
         onChange={(e) => setNuevoNombre(e.target.value)}
       />
-      {userRole && userRole.rol && (userRole.rol === "Encargado_Departamento" || userRole.rol === "Gerente_Departamento") ? (
+      {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
         <button onClick={handleUpdate}>Actualizar</button>
       ) : (
         <p>No cuentas con los permisos.</p>
