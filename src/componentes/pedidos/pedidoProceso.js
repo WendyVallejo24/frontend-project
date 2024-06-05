@@ -170,7 +170,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
   return (
     <div className='registro'>
       <MenuHamburguesa />
-      <h1 className='responsive-title'>Estado de pedido y de pago</h1>
+      <h1 className='responsive-title'>Estado del pedido</h1>
       <div className='btns'>
         <h4>Buscar nota:</h4>
         <input

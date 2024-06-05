@@ -18,8 +18,10 @@ const CrearReporteMensual = () => {
             if (response.status === 200) {
                 const data = response.data;
                 console.log('Reporte actualizado:', data);
+                alert("Reporte actualizado correctamente")
             } else {
                 console.error('Error al actualizar el reporte:', response.statusText);
+                alert("Error al actualizar el reporte")
             }
         } catch (error) {
             console.error('Error de red:', error.message);
@@ -45,8 +47,10 @@ const CrearReporteMensual = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Reporte creado:', data);
+                alert('Reporte creado correctamente');
             } else {
                 console.error('Error al crear el reporte');
+                alert('Error al crear el reporte');
             }
         } catch (error) {
             console.error('Error de red:', error);
@@ -70,7 +74,7 @@ const CrearReporteMensual = () => {
             <label>Report ID: </label><input className="producto" type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
 
             <br /><br />
-            {userRole && userRole.rol && userRole.rol.includes("Encargado_Departamento") ? (
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
 
                 <button className="btn-crud" onClick={handleUpdateClick}>
                     Actualizar Reporte Mensual
@@ -78,7 +82,7 @@ const CrearReporteMensual = () => {
             ) : (
                 <p>No cuentas con los permisos.</p>
             )}
-            {userRole && userRole.rol && userRole.rol.includes("Encargado_Departamento") ? (
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
                 <button className="btn-crud" onClick={handleCreateClick}>
                     Crear Reporte Mensual
                 </button>

@@ -339,12 +339,14 @@ const Pedidos = ({ handleCreateClient }) => {
         const clienteSeleccionadoData = cliente.find(cli => cli.idCliente === parseInt(clienteSeleccionado));
         const nombreClienteSeleccionado = clienteSeleccionadoData ? `${clienteSeleccionadoData.nombre} ${clienteSeleccionadoData.apellidos}` : '';
 
+        const fechaEntregaFormateada = fechaEntrega ? format(new Date(fechaEntrega), 'yyyy-MM-dd') : '';
+
         const pdf = new jsPDF();
         pdf.text('Pedido', 20, 20);
-        pdf.text('Fecha: ' + hoy.toDateString(), 20, 30);
+        pdf.text('Fecha: ' + fechaFormateada, 20, 30);
         pdf.text('Empleado: ' + nombre, 20, 40);
         pdf.text('Cliente: ' + nombreClienteSeleccionado, 20, 60);
-        pdf.text('Fecha de entrega: ' + fechaEntrega, 20, 70);
+        pdf.text('Fecha de entrega: ' + fechaEntregaFormateada, 20, 70);
         pdf.text('Estado de Pago: ' + estadoPago(), 20, 90);
         pdf.text('Estado del Pedido: ' + estadoPedido(), 20, 100);
 
@@ -462,6 +464,7 @@ const Pedidos = ({ handleCreateClient }) => {
                     <Calendar
                         value={fechaEntrega}
                         onChange={setFechaEntrega}
+                        format="yyyy-MM-dd"
                     />
                 </div>
                 <div>

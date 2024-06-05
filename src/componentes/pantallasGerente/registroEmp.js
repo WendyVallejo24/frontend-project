@@ -44,7 +44,6 @@ const RegistroEmp = () => {
 
     console.log('userRole en RegistroEmp:', userRole);
     console.log('userRole.rol en RegistroEmp:', userRole && userRole.rol);
-    console.log('¿Es Jefe?', userRole && userRole.rol && userRole.rol.includes("Jefe"));
 
     return (
         <div className="registro">
@@ -56,7 +55,7 @@ const RegistroEmp = () => {
                 <Link to="/eliminarEmpleado"><button className="btn-crud-1">Eliminar Empleado</button></Link>
             </div>
             <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
-                {userRole && userRole.rol && userRole.rol.includes("Encargado_Departamento") ? (
+                {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
                     <table className="registrosEmp">
                         <thead className='encabezado'>
                             <tr>

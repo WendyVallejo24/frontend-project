@@ -67,7 +67,7 @@ const AgregarEmpleado = () => {
             <MenuHamburguesa />
             <h1>Agregar Empleado</h1>
             <Link to="/registroEmpleado">Volver al Registro de Empleados</Link><br /><br />
-            {userRole && userRole.rol && userRole.rol.includes("Encargado_Departamento") ? (
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
                 <form onSubmit={handleSubmit}>
                     <label>
                         Nombre:
@@ -131,9 +131,8 @@ const AgregarEmpleado = () => {
                             onChange={handleInputChange}
                         >
                             <option value="">Selecciona un rol</option>
-                            <option value="1">Encargado Caja</option>
-                            <option value="2">Gerente Departamento</option>
-                            <option value="3">Encargado Departamento</option>
+                            <option value="5">Supervisor de Ventas</option>
+                            <option value="4">Vendedor</option>
                         </select>
                     </label>
                     <br />

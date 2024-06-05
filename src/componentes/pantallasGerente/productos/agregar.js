@@ -223,7 +223,7 @@ const CreateProduct = () => {
         <div className='registro'>
             <MenuHamburguesa />
             <h1 className='responsive-title'>Crear Producto</h1>
-            {userRole && userRole.rol && (userRole.rol === "Encargado_Departamento" || userRole.rol === "Gerente_Departamento") ? (
+            {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
                 <div>
                     <h4>{modoEdicion ? 'Editar' : 'Agregar'} Producto</h4>
                     <input
@@ -326,7 +326,7 @@ const CreateProduct = () => {
             )}
             <h4>Lista de Productos</h4>
             <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
-                {userRole && userRole.rol && (userRole.rol === "Encargado_Departamento" || userRole.rol === "Gerente_Departamento") ? (
+                {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
                     <table className="registroEmp">
                         <thead className="encabezado">
                             <tr>

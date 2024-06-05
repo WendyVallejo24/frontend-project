@@ -41,6 +41,7 @@ const EliminarEmpleado = () => {
         console.log('Empleado eliminado con éxito');
         // Actualizar la lista de resultados después de la eliminación
         setResultados([]);
+        alert("Empleado eliminado con éxito");
       } else {
         // Manejar errores
         console.error('Error al eliminar el empleado');
@@ -66,7 +67,7 @@ const EliminarEmpleado = () => {
       <h1>Eliminar Empleado</h1>
       <Link to="/registroEmpleado">Volver al Registro de Empleados</Link><br /><br />
       
-      {userRole && userRole.rol && userRole.rol === "Encargado_Departamento" ? (
+      {userRole && userRole.rol && userRole.rol === "Supervisor de Ventas" ? (
         <form>
           <div>
             <label>Nombre:</label>
