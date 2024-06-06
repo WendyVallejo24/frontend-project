@@ -14,11 +14,40 @@
     border-radius: 15px;
     border: 1px solid #ccc;
     padding-left: 5px;
-    width: 102%;
+    width: 40%;
     height: 20px;
     margin-bottom: 10px;
 }
 
+
+
 h1 {
     text-align: center;
+}
+
+
+.registro {
+    width: 60%;
+    padding-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+}
+
+.input {
+    width: 40%;
+    text-align: center;
+}
+
+.tablaResultado {
+    margin: auto;
+    align-items: center;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 25px;
+    /* Ajusta el valor según el grado de curvatura deseado */
+    overflow: hidden;
+    /* Para ocultar el contenido que exceda los bordes curvos */
 }

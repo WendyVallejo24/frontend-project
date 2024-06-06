@@ -44,6 +44,7 @@ const RegistroEmp = () => {
 
     console.log('userRole en RegistroEmp:', userRole);
     console.log('userRole.rol en RegistroEmp:', userRole && userRole.rol);
+    console.log('¿Supervisor de Ventas?', userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas"));
 
     return (
         <div className="registro">
@@ -63,7 +64,7 @@ const RegistroEmp = () => {
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
                                 <th>Correo Electrónico</th>
-                                <th>Roles</th>
+                                <th>Rol</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -73,7 +74,7 @@ const RegistroEmp = () => {
                                     <td>{empleado.nombre}</td>
                                     <td>{empleado.apellidos}</td>
                                     <td>{empleado.correoElectronico}</td>
-                                    <td>{empleado.roles}</td>
+                                    <td>{empleado.rol}</td>
                                 </tr>
                             ))}
                         </tbody>
