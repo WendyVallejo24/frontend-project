@@ -30,6 +30,7 @@ const RegistroEmp = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setEmpleados(data);
+                    console.log("Empleados: ", data);
                 } else {
                     console.error('Error en la solicitud:', response.statusText);
                     navigate('/ventas');
@@ -74,7 +75,7 @@ const RegistroEmp = () => {
                                     <td>{empleado.nombre}</td>
                                     <td>{empleado.apellidos}</td>
                                     <td>{empleado.correoElectronico}</td>
-                                    <td>{empleado.rol}</td>
+                                    <td>{empleado.roles}</td>
                                 </tr>
                             ))}
                         </tbody>
