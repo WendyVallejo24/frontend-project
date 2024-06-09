@@ -30,13 +30,15 @@ const AddClientModal = ({ onClose, setCliente, setClienteSeleccionado, setClient
 
             const response = await axios.post(URL_API + 'api/clientes', nuevoCliente);
             await fetchClientes();
-            console.log('Cliente creado:', response.data);
+            //console.log('Cliente creado:', response.data);
             setClienteSeleccionado(response.data.idCliente);
             window.alert('Cliente creado con éxito');
+            //handleAlert('Cliente creado con éxito'); // Llama a la función de alerta pasada como prop
             setClienteCreado(true);
             onClose();
         } catch (error) {
             console.error('Error al crear el cliente:', error);
+            //handleAlert('Error al crear el cliente'); // Llama a la función de alerta pasada como prop
             window.alert('Error al crear el cliente');
         }
     }

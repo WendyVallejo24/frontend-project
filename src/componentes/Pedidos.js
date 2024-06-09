@@ -1,3 +1,4 @@
+import { act } from '@testing-library/react';
 import React, { useState, useEffect } from "react";
 import MenuHamburguesa from './MenuHamburguesa';
 import { Link } from 'react-router-dom';
@@ -12,11 +13,12 @@ import 'jspdf-autotable';
 import './Ventas.css';
 import AddClientModal from './AddClientModal';
 
-const id_empleado = localStorage.getItem('idEmpleado');
-const nombre = localStorage.getItem('nombreEmpleado');
+
+//const id_empleado = localStorage.getItem('idEmpleado');
+//const nombre = localStorage.getItem('nombreEmpleado');
 
 //const URL_API = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net/';
-const URL_API = 'http://localhost:8080/';
+//const URL_API = 'http://localhost:8080/';
 
 const Calendar = ({ value, onChange }) => {
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -50,7 +52,7 @@ const Calendar = ({ value, onChange }) => {
     );
 };
 
-const Pedidos = ( {handleCreateClient} ) => {
+const Pedidos = ({ handleCreateClient }) => {
     const [cliente, setCliente] = useState([]);
     const [clienteSeleccionado, setClienteSeleccionado] = useState("");
     const [fechaEntrega, setFechaEntrega] = useState("");
@@ -64,6 +66,12 @@ const Pedidos = ( {handleCreateClient} ) => {
     const [clienteCreado, setClienteCreado] = useState(false);
     const [noteNumber, setNoteNumber] = useState('');
 
+    const id_empleado = localStorage.getItem('idEmpleado');
+    const nombre = localStorage.getItem('nombreEmpleado');
+
+    //const URL_API = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net/';
+    const URL_API = 'http://localhost:8080/';
+
     const tiempoTranscurrido = Date.now();
     const hoy = new Date(tiempoTranscurrido);
     const fechaFormateada = format(hoy, 'yyyy-MM-dd');
@@ -72,7 +80,10 @@ const Pedidos = ( {handleCreateClient} ) => {
         try {
             const response = await axios.get(URL_API + 'api/notasventas/lastNoteNumber');
             const lastNoteNumberFromAPI = response.data + 1; // Suponiendo que la respuesta es el número de nota más reciente
-            setNoteNumber(lastNoteNumberFromAPI);
+            act(() => { // Envuelve la actualización de estado en act(...)
+                setNoteNumber(lastNoteNumberFromAPI);
+            });
+            //setNoteNumber(lastNoteNumberFromAPI);
         } catch (error) {
             console.error('Error al obtener el último número de nota:', error);
         }
@@ -142,7 +153,10 @@ const Pedidos = ( {handleCreateClient} ) => {
             try {
                 const response = await axios.get(URL_API + 'api/clientes');
                 if (response && response.data) {
-                    setCliente(response.data);
+                    act(() => { // Envuelve la actualización de estado en act(...)
+                        setCliente(response.data);
+                    });
+                    //setCliente(response.data);
                 } else {
                     console.error('La respuesta del servidor no contiene datos válidos:', response);
                 }
@@ -178,12 +192,25 @@ const Pedidos = ( {handleCreateClient} ) => {
         const obtenerPrecioUnitario = async (codigo) => {
             try {
                 const response = await fetch(URL_API + `api/productos/${codigo}`);
+
+                if (!response.ok) {
+                    throw new Error('Error al obtener el precio unitario: La solicitud no pudo ser completada.');
+                }
+
                 const data = await response.json();
                 console.log(data);
                 setPrecioUnitario(data.precio); // Asume que la API devuelve un objeto con la propiedad 'precio'
             } catch (error) {
                 console.error("Error al obtener el precio unitario:", error);
             }
+            //try {
+            //    const response = await fetch(URL_API + `api/productos/${codigo}`);
+            //  const data = await response.json();
+            //    console.log(data);
+            //   setPrecioUnitario(data.precio); // Asume que la API devuelve un objeto con la propiedad 'precio'
+            // } catch (error) {
+            //     console.error("Error al obtener el precio unitario:", error);
+            // }
         };
 
         if (producto) {
@@ -195,8 +222,15 @@ const Pedidos = ( {handleCreateClient} ) => {
         if (cantidad && producto && precioUnitario) {
             try {
                 const response = await fetch(URL_API + `api/productos/${producto}`);
+                // if (!response.ok) {
+                // throw new Error('Error al obtener la información del producto');
+                //}
+                if (!response) {
+                    throw new Error('Error al obtener la información del producto: La respuesta de la solicitud es indefinida.');
+                }
+
                 if (!response.ok) {
-                    throw new Error('Error al obtener la información del producto');
+                    throw new Error('Error al obtener la información del producto: La solicitud no fue exitosa.');
                 }
 
                 const data = await response.json();
@@ -405,6 +439,9 @@ const Pedidos = ( {handleCreateClient} ) => {
                         className="select-cliente"
                         value={clienteSeleccionado}
                         onChange={(e) => setClienteSeleccionado(e.target.value)}
+                    //Modificaciìn para pruebas integradas
+                    //data-testid="select-cliente" // Agrega el atributo data-testid aquí
+
                     >
                         <option value="">Selecciona un cliente</option>
                         {cliente.map((cliente) => (
