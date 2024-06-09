@@ -16,13 +16,13 @@ const AgregarEmpleado = () => {
 
     const [userRole, setUserRole] = useState({});
     //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
-    const URL_API = 'http://localhost:8080/api/empleados/crearConDTO'; 
+    const URL_API = 'http://localhost:8080/api/empleados/crearConDTO';
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setEmpleado({ ...empleado, [name]: value });
     };
-    
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -65,7 +65,11 @@ const AgregarEmpleado = () => {
     return (
         <div className="contenedor">
             <MenuHamburguesa />
-            <h1>Agregar Empleado</h1>
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+                <h1>Agregar Empleado</h1>
+            ) : (
+                <p></p>
+            )}
             <Link to="/registroEmpleado">Volver al Registro de Empleados</Link><br /><br />
             {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
                 <form onSubmit={handleSubmit}>
@@ -131,8 +135,8 @@ const AgregarEmpleado = () => {
                             onChange={handleInputChange}
                         >
                             <option value="">Selecciona un rol</option>
-                            <option value="3">Supervisor de Ventas</option>
-                            <option value="2">Vendedor</option>
+                            <option value="2">Supervisor de Ventas</option>
+                            <option value="3">Vendedor</option>
                         </select>
                     </label>
                     <br />

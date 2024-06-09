@@ -399,7 +399,11 @@ const Pedidos = ({ handleCreateClient }) => {
     return (
         <div className="registro">
             <MenuHamburguesa />
-            <h1 className='responsive-title'>Nuevo pedido</h1>
+            {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                <h1 className='responsive-title'>Nuevo pedido</h1>
+            ) : (
+                <p></p>
+            )}
             <div className="fecha">
                 <label className="fecha"><b>Fecha: </b>{hoy.toDateString()}</label> <br />
                 <label className="fecha"><b>Empleado: </b>{nombre}</label><br />
@@ -408,20 +412,28 @@ const Pedidos = ({ handleCreateClient }) => {
             <br />
             <div className="pedidos">
                 <div className="clientes">
-                    <select
-                        className="select-cliente"
-                        value={clienteSeleccionado}
-                        onChange={(e) => setClienteSeleccionado(e.target.value)}
-                    >
-                        <option value="">Selecciona un cliente</option>
-                        {cliente.map((cliente) => (
-                            <option key={cliente.idCliente} value={cliente.idCliente}>
-                                {cliente.nombre + ' ' + cliente.apellidos}
-                            </option>
-                        ))}
-                    </select>
+                    {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                        <select
+                            className="select-cliente"
+                            value={clienteSeleccionado}
+                            onChange={(e) => setClienteSeleccionado(e.target.value)}
+                        >
+                            <option value="">Selecciona un cliente</option>
+                            {cliente.map((cliente) => (
+                                <option key={cliente.idCliente} value={cliente.idCliente}>
+                                    {cliente.nombre + ' ' + cliente.apellidos}
+                                </option>
+                            ))}
+                        </select>
+                    ) : (
+                        <p>No cuentas con los permisos.</p>
+                    )}
                     <div className="mas" onClick={openAddClientModal}>
-                        <Link className='no-underline2'><CgAdd /></Link>
+                        {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                            <Link className='no-underline2'><CgAdd /></Link>
+                        ) : (
+                            <p></p>
+                        )}
                     </div>
                     {isAddClientModalOpen && (
                         <AddClientModal
@@ -462,79 +474,127 @@ const Pedidos = ({ handleCreateClient }) => {
             )}
             <div className="input">
                 <div>
-                    <Calendar
-                        value={fechaEntrega}
-                        onChange={setFechaEntrega}
-                    />
+                    {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                        <Calendar
+                            value={fechaEntrega}
+                            onChange={setFechaEntrega}
+                        />
+                    ) : (
+                        <p></p>
+                    )}
                 </div>
                 <div>
-                    <input
-                        className="cantidad"
-                        placeholder="Cantidad"
-                        value={cantidad}
-                        onChange={handleCantidadChange}
-                    />
-                    <input
-                        className="producto"
-                        placeholder="Producto"
-                        value={producto}
-                        onChange={handleProductoChange}
-                    />
+                    {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                        <input
+                            className="cantidad"
+                            placeholder="Cantidad"
+                            value={cantidad}
+                            onChange={handleCantidadChange}
+
+                        />
+                    ) : (
+                        <p></p>
+                    )}
+                    {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                        <input
+                            className="producto"
+                            placeholder="Producto"
+                            value={producto}
+                            onChange={handleProductoChange}
+                        />
+                    ) : (
+                        <p></p>
+                    )}
                 </div>
-                <input
-                    className="precio"
-                    placeholder="Precio Unitario"
-                    value={precioUnitario}
-                    onChange={handlePrecioUnitarioChange}
-                />
-                <button className="agregar-prod" type="button" onClick={agregarProducto} >Agregar</button>
+                {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                    <input
+                        className="precio"
+                        placeholder="Precio Unitario"
+                        value={precioUnitario}
+                        onChange={handlePrecioUnitarioChange}
+                    />
+                ) : (
+                    <p></p>
+                )}
+                {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                    <button className="agregar-prod" type="button" onClick={agregarProducto} >Agregar</button>
+                ) : (
+                    <p></p>
+                )}
+
 
                 <div className="scroll-panel">
-                    <table>
-                        <thead className="ventas">
-                            <tr className="ventas">
-                                <th className="ventas">Cantidad</th>
-                                <th className="ventas">Código Producto</th>
-                                <th className="ventas">Producto</th>
-                                <th className="ventas">Precio Unitario</th>
-                                <th className="ventas">Subtotal</th>
-                                <th className="ventas">Quitar</th>
-                            </tr>
-                        </thead>
-                        <tbody className="ventas">
-                            {ventas.map((producto, index) => (
-                                <tr key={index} className="ventas">
-                                    <td className="ventas">{producto.cantidad}</td>
-                                    <td className="ventas">{producto.producto}</td>
-                                    <td className="ventas">{producto.nombre}</td>
-                                    <td className="ventas">${producto.precioUnitario}</td>
-                                    <td className="ventas">${parseFloat(producto.subtotal)}</td>
-                                    <td className="ventas">
-                                        <button className="btn-editar" onClick={() => quitarProducto(index)}>Quitar</button>
-                                    </td>
+                    {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                        <table>
+                            <thead className="ventas">
+                                <tr className="ventas">
+                                    <th className="ventas">Cantidad</th>
+                                    <th className="ventas">Código Producto</th>
+                                    <th className="ventas">Producto</th>
+                                    <th className="ventas">Precio Unitario</th>
+                                    <th className="ventas">Subtotal</th>
+                                    <th className="ventas">Quitar</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="ventas">
+                                {ventas.map((producto, index) => (
+                                    <tr key={index} className="ventas">
+                                        <td className="ventas">{producto.cantidad}</td>
+                                        <td className="ventas">{producto.producto}</td>
+                                        <td className="ventas">{producto.nombre}</td>
+                                        <td className="ventas">${producto.precioUnitario}</td>
+                                        <td className="ventas">${parseFloat(producto.subtotal)}</td>
+                                        <td className="ventas">
+                                            <button className="btn-editar" onClick={() => quitarProducto(index)}>Quitar</button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    ) : (
+                        <p></p>
+                    )}
                 </div>
-                <h3 className="total">Total: ${calcularTotal()}</h3>
-                <input
-                    className="producto"
-                    placeholder="Monto Recibido"
-                    value={montoRecibido}
-                    onChange={handleMontoRecibidoChange}
-                />
-                <h4 className="total">Cambio: ${cambio()}</h4>
+                {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                    <h3 className="total">Total: ${calcularTotal()}</h3>
+                ) : (
+                    <p></p>
+                )}
+                {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                    <input
+                        className="producto"
+                        placeholder="Monto Recibido"
+                        value={montoRecibido}
+                        onChange={handleMontoRecibidoChange}
+                    />
+                ) : (
+                    <p></p>
+                )}
+                {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                    <h4 className="total">Cambio: ${cambio()}</h4>
+                ) : (
+                    <p></p>
+                )}
 
                 <div className="btns">
-                    <button className="btn-finalizar" onClick={() => { handleCreatePedido(); downloadPDF(); }}>
-                        Guardar Pedido
-                    </button>
-                    <button className="btn-cancelar" onClick={cancelarPedido}>Cancelar Pedido</button>
+                    {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                        <button className="btn-finalizar" onClick={() => { handleCreatePedido(); downloadPDF(); }}>
+                            Guardar Pedido
+                        </button>
+                    ) : (
+                        <p></p>
+                    )}
+                    {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                        <button className="btn-cancelar" onClick={cancelarPedido}>Cancelar Pedido</button>
+                    ) : (
+                        <p></p>
+                    )}
                 </div>
 
             </div>
+
         </div>
+
     );
 }
 

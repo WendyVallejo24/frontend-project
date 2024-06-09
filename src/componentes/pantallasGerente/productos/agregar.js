@@ -222,7 +222,11 @@ const CreateProduct = () => {
     return (
         <div className='registro'>
             <MenuHamburguesa />
-            <h1 className='responsive-title'>Crear Producto</h1>
+            {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
+                <h1 className='responsive-title'>Crear Producto</h1>
+            ) : (
+                <p> </p>
+            )}
             {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
                 <div>
                     <h4>{modoEdicion ? 'Editar' : 'Agregar'} Producto</h4>
@@ -255,7 +259,7 @@ const CreateProduct = () => {
                         type="number"
                         placeholder="Existencia"
                         name='existencia'
-                        data-testid= "existenciaInput"
+                        data-testid="existenciaInput"
                         value={existencia}
                         onChange={(e) => {
                             const inputExistencia = e.target.value.replace(/\D/g, '');
@@ -324,7 +328,11 @@ const CreateProduct = () => {
             ) : (
                 <p>No cuentas con los permisos.</p>
             )}
-            <h4>Lista de Productos</h4>
+            {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
+                <h4>Lista de Productos</h4>
+            ) : (
+                <p> </p>
+            )}
             <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
                 {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
                     <table className="registroEmp">
@@ -361,7 +369,7 @@ const CreateProduct = () => {
                         </tbody>
                     </table>
                 ) : (
-                    <p>No cuentas con los permisos.</p>
+                    <p> </p>
                 )}
             </div>
         </div>

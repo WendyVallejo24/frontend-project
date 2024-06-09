@@ -81,7 +81,7 @@ const CrearReporteSemanal = () => {
           Crear Reporte Semanal
         </button>
       ) : (
-        <p>No cuentas con los permisos.</p>
+        <p> </p>
       )}
     </div>
   );

@@ -49,12 +49,21 @@ const RegistroEmp = () => {
     return (
         <div className="registro">
             <MenuHamburguesa />
-            <h1 className='responsive-title'>Registro de empleados</h1>
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+                <h1 className='responsive-title'>Registro de empleados</h1>
+            ) : (
+                <p></p>
+            )}
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+                <div className="botones">
 
-            <div className="botones">
-                <Link to="/agregarEmpleado"><button className="btn-crud">Agregar Empleado</button></Link>
-                <Link to="/eliminarEmpleado"><button className="btn-crud-1">Eliminar Empleado</button></Link>
-            </div>
+                    <Link to="/agregarEmpleado"><button className="btn-crud">Agregar Empleado</button></Link>
+                    <Link to="/eliminarEmpleado"><button className="btn-crud-1">Eliminar Empleado</button></Link>
+
+                </div>
+            ) : (
+                <p></p>
+            )}
             <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
                 {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
                     <table className="registrosEmp">
@@ -74,7 +83,7 @@ const RegistroEmp = () => {
                                     <td>{empleado.nombre}</td>
                                     <td>{empleado.apellidos}</td>
                                     <td>{empleado.correoElectronico}</td>
-                                    <td>{empleado.rol}</td>
+                                    <td>{empleado.roles}</td>
                                 </tr>
                             ))}
                         </tbody>

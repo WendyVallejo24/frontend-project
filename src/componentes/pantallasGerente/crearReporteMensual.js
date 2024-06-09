@@ -8,7 +8,7 @@ const CrearReporteMensual = () => {
     const [userRole, setUserRole] = useState({});
     //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
 
-    const URL_API = 'http://localhost:8080/'; 
+    const URL_API = 'http://localhost:8080/';
 
     // Method to update the report
     const handleUpdateClick = async () => {
@@ -83,7 +83,7 @@ const CrearReporteMensual = () => {
                     Crear Reporte Mensual
                 </button>
             ) : (
-                <p>No cuentas con los permisos.</p>
+                <p> </p>
             )}
         </div>
     );
