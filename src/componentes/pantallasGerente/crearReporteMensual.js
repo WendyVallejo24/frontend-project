@@ -65,9 +65,26 @@ const CrearReporteMensual = () => {
 
     return (
         <div style={{ textAlign: 'center' }} className="registro">
-            <h1>Crear y Actualizar Reportes Mensuales</h1>
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+                <h1>Crear y Actualizar Reportes Mensuales</h1>
+            ) : (
+                <p> </p>
+            )}
+
             <MenuHamburguesa />
-            <label>Report ID: </label><input className="producto" type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+                <label>Report ID: </label>
+            ) : (
+                <p> </p>
+            )}
+
+
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+                <input className="producto" type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
+            ) : (
+                <p> </p>
+            )}
+
 
             <br /><br />
             {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (

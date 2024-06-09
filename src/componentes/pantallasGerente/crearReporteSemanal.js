@@ -7,7 +7,7 @@ const CrearReporteSemanal = () => {
   const [reportId, setReportId] = useState('');  // State to hold the report ID
   const [userRole, setUserRole] = useState({});
   //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
-  const URL_API = 'http://localhost:8080/'; 
+  const URL_API = 'http://localhost:8080/';
 
   // Method to update the report
   const handleUpdateClick = async () => {
@@ -64,9 +64,25 @@ const CrearReporteSemanal = () => {
 
   return (
     <div style={{ textAlign: 'center' }} className="registro">
-      <h1>Crear y Actualizar Reportes Semanales</h1>
+      {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+        <h1>Crear y Actualizar Reportes Semanales</h1>
+      ) : (
+        <p> </p>
+      )}
       <MenuHamburguesa />
-      <label>Report ID: </label><input className="producto" type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
+
+      {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+
+        <label>Report ID: </label>
+      ) : (
+        <p> </p>
+      )}
+
+      {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+        <input className="producto" type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
+      ) : (
+        <p> </p>
+      )}
 
       <br /><br />
       {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (

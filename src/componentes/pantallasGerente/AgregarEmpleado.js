@@ -136,7 +136,7 @@ const AgregarEmpleado = () => {
                         >
                             <option value="">Selecciona un rol</option>
                             <option value="2">Supervisor de Ventas</option>
-                            <option value="3">Vendedor</option>
+                            <option value="1">Vendedor</option>
                         </select>
                     </label>
                     <br />
