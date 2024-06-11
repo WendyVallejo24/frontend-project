@@ -62,7 +62,7 @@ describe('AgregarEmpleado Component', () => {
     test('submits form data correctly', async () => {
         // Simulamos el almacenamiento local del rol del usuario
         const userRole = {
-            rol: ['Encargado_Departamento']
+            rol: ['Supervisor de Ventas']
         };
         localStorage.setItem('userRole', JSON.stringify(userRole));
     
@@ -93,7 +93,7 @@ describe('AgregarEmpleado Component', () => {
                     apellidos: 'Lopez',
                     contrasenia: 'ana123',
                     correoElectronico: 'ana@example.com',
-                    idRol: '1'
+                    idRol: 4
                 }
             );
         });

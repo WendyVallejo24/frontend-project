@@ -84,25 +84,33 @@ const MarcaList = () => {
         marcaActualizada
       );
       console.log('Marca actualizada:', response.data);
-      alert('Marca actualizada con éxito.');
+      const successMessage = document.createElement('div');
+      successMessage.textContent = 'Marca actualizada con éxito.';
+      document.body.appendChild(successMessage);
       setNombreMarca('');
       setMarcaSeleccionada('');
       setModoEdicion(false);
       fetchMarcas();
     } catch (error) {
       console.error('Error al actualizar marca', error);
-      alert('Error al actualizar marca.');
+      const errorMessage = document.createElement('div');
+      errorMessage.textContent = 'Error al actualizar marca';
+      document.body.appendChild(errorMessage);
     }
   };
 
   const handleEliminarMarca = async (idMarca) => {
     try {
       await axios.delete(`${API_URL}/api/marcas/${idMarca}`);
-      alert('Marca eliminada con éxito.');
+      const successMessage = document.createElement('div');
+      successMessage.textContent = 'Marca eliminada con éxito.';
+      document.body.appendChild(successMessage);
       fetchMarcas();
     } catch (error) {
       console.error('Error al eliminar marca', error);
-      alert('Error al eliminar marca.');
+      const errorMessage = document.createElement('div');
+      errorMessage.textContent = 'Error al eliminar la marca';
+      document.body.appendChild(errorMessage);
     }
   };
 
@@ -149,8 +157,8 @@ const MarcaList = () => {
                 <td>{marca.nombre}</td>
                 <td className='btn-ventas'>
                   <div className='botones'>
-                    <button className='btn-finalizar' onClick={() => handleEditarMarca(marca.idMarca)}>Editar</button>
-                    <button className='btn-cancelar' onClick={() => handleEliminarMarca(marca.idMarca)}>Eliminar</button>
+                    <button className='btn-finalizar' data-testid={`editar-${marca.idMarca}`} onClick={() => handleEditarMarca(marca.idMarca)}>Editar</button>
+                    <button className='btn-cancelar' data-testid={`eliminar-${marca.idMarca}`} onClick={() => handleEliminarMarca(marca.idMarca)}>Eliminar</button>
                   </div>
                 </td>
               </tr>

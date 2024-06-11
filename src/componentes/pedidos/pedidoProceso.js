@@ -17,6 +17,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
   const [selectedNota, setSelectedNota] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [abonoAmount, setAbonoAmount] = useState(0);
+  const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
     fetchNotasVentaEnProceso();
@@ -118,8 +119,8 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
 
   const handleAbonar = (nota) => {
     if (nota.resto <= 0) {
-      console.error('La nota ya se encuentra pagada.');
-      alert('La nota ya se encuentra pagada.');
+      //console.error('La nota ya se encuentra pagada.');
+      setErrorMessage('La nota ya se encuentra pagada.');
       return;
     }
     setSelectedNota(nota);
@@ -128,17 +129,18 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
 
   const handleModalClose = () => {
     setShowModal(false);
+    setErrorMessage('');
   };
 
   const handleConfirmAbono = async () => {
     try {
       if (!selectedNota) {
-        alert('No se ha seleccionado una nota para abonar.');
+        setErrorMessage('No se ha seleccionado nota para abonar.');
         return;
       }
 
       if (!abonoAmount || abonoAmount <= 0) {
-        alert('La cantidad de abono debe ser un número positivo.');
+        setErrorMessage('La cantidad de abono debe ser un número positivo.');
         return;
       }
 
@@ -150,7 +152,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
       const response = await axios.post(`${API_URL}/api/notasventas/pagarnota`, abonarNota);
       console.log(response.data);
       console.log(`Abono de: ${abonoAmount}`);
-      alert(`Abono de: ${abonoAmount}`);
+      setErrorMessage(`Abono de: ${abonoAmount}`);
       setShowModal(false);
       fetchNotasVentaEnProceso();
 
@@ -186,6 +188,8 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
                 <button className='btn-finalizar rh' onClick={() => handlePagarYEntregarPedido(nota)}>Pagar y entregar</button>
                 {nota.estadoPago === 'Pendiente' && (
                   <button 
+                  type='button'
+                  data-testid={`abonar-${nota.idAnticipo}}`}
                   className='btn-finalizar rh'
                   onClick={() => handleAbonar(nota)}
                   >
@@ -256,8 +260,9 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
                 &times;
               </span>
               <h2>Abonar</h2>
-              <p>Introduce la cantidad de dinero a abonar:</p>
+              <label htmlFor="abonoInput">Introduce la cantidad de dinero a abonar:</label>
               <input
+                id="abonoInput"
                 className='input-producto'
                 type="number"
                 value={abonoAmount}
@@ -268,6 +273,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
                   }
                 }}
               />
+              {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
               <div className='botones'>
                 <button className='btn-finalizar' onClick={handleConfirmAbono}>Confirmar Abono</button>
                 <button className='btn-cancelar' onClick={handleModalClose}>Cancelar</button>

@@ -10,7 +10,7 @@ describe('LoginForm', () => {
     test('debería realizar el login correctamente', async () => {
         const mockData = {
             success: true,
-            rol: 'admin',
+            rol: 'Vendedor',
             nombre: 'Usuario de Prueba',
             id_empleado: '123',
         };

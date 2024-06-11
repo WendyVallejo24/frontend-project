@@ -30,6 +30,7 @@ const CreateProduct = () => {
     const userRole = storedUserRole ? JSON.parse(storedUserRole) : null;
 
     const handleCreate = async () => {
+        console.log('handleCreate called');
         try {
             if (!codigo || !nombre || !existencia || !precio || !categoriaSeleccionada || !marcaSeleccionada || !unidadMedidaSeleccionada) {
                 alert('Todos los campos son obligatorios.');
@@ -317,7 +318,7 @@ const CreateProduct = () => {
                         {modoEdicion ? (
                             <button className='btn-finalizar' onClick={handleUpdate}>Actualizar</button>
                         ) : (
-                            <button className='btn-finalizar' onClick={handleCreate}>Crear</button>
+                            <button data-testid="createButton" className='btn-finalizar' onClick={handleCreate}>Crear</button>
                         )}
                     </div>
                 </div>

@@ -6,6 +6,8 @@ import MenuHamburguesa from '../MenuHamburguesa';
 const CrearReporteSemanal = () => {
   const [reportId, setReportId] = useState('');  // State to hold the report ID
   const [userRole, setUserRole] = useState({});
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
   const URL_API = 'http://localhost:8080/'; 
 
@@ -17,11 +19,14 @@ const CrearReporteSemanal = () => {
       if (response.status === 200) {
         const data = response.data;
         console.log('Reporte actualizado:', data);
+        setSuccessMessage('Reporte actualizado con éxito');
       } else {
         console.error('Error al actualizar el reporte:', response.statusText);
+        setErrorMessage('Error al actualizar el reporte');
       }
     } catch (error) {
       console.error('Error de red:', error.message);
+      setErrorMessage(`Error de red: ${error.message}`);
     }
   };
 
@@ -44,13 +49,17 @@ const CrearReporteSemanal = () => {
       if (response.ok) {
         const data = await response.json();
         console.log('Reporte creado:', data);
+        setSuccessMessage('Reporte creado con éxito');
       } else {
         console.error('Error al crear el reporte');
+        setErrorMessage('Error al crear el reporte');
       }
     } catch (error) {
       console.error('Error de red:', error);
+      setErrorMessage(`Error de red: ${error.message}`);
     }
   };
+
   useEffect(() => {
     // Modificación 2: Parsear el rol al cargar el componente
     const storedRole = localStorage.getItem('userRole');
@@ -66,23 +75,25 @@ const CrearReporteSemanal = () => {
     <div style={{ textAlign: 'center' }} className="registro">
       <h1>Crear y Actualizar Reportes Semanales</h1>
       <MenuHamburguesa />
-      <label>Report ID: </label><input className="producto" type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
+      <label htmlFor="report-id">Report ID: </label><input id="report-id" className="producto" type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
 
       <br /><br />
       {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
-        <button className="btn-crud" onClick={handleUpdateClick}>
-          Actualizar Reporte Semanal
-        </button>
+        <button type="button" className="btn-crud" onClick={handleUpdateClick} data-testid="actualizar-reporte-semanal-button">
+        Actualizar Reporte Semanal
+      </button>
       ) : (
         <p>No cuentas con los permisos.</p>
       )}
       {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
-        <button className="btn-crud" onClick={handleCreateClick}>
+        <button type="button" className="btn-crud" onClick={handleCreateClick}>
           Crear Reporte Semanal
         </button>
       ) : (
         <p>No cuentas con los permisos.</p>
       )}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
+      {successMessage && <p className="success-message">{successMessage}</p>}
     </div>
   );
 };

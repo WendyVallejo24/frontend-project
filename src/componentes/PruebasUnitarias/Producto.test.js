@@ -11,6 +11,10 @@ describe('CreateProduct Component', () => {
         localStorage.clear(); // Limpiar localStorage después de cada prueba
     });
 
+    beforeEach(() => {
+        jest.clearAllMocks();
+    });
+
     test('renders without crashing', () => {
         render(
             <MemoryRouter>
@@ -22,14 +26,19 @@ describe('CreateProduct Component', () => {
 
     test('Create producto', async () => {
 
-        const userRole = {
-            rol: 'Encargado_Departamento'
-        };
-        localStorage.setItem('userRole', JSON.stringify(userRole));
+        // Simulamos un usuario con el rol de Supervisor de Ventas
+        const userRole = { rol: 'Supervisor de Ventas' };
+        // Mock de localStorage para devolver el rol de usuario
+        jest.spyOn(window.localStorage, 'getItem').mockReturnValue(JSON.stringify(userRole));
 
-        const axiosMock = jest.spyOn(axios, 'post');
-        axiosMock.mockResolvedValueOnce({ data: { message: 'Producto creado con éxito.' } });
-
+        // Configuración del mock de axios
+        axios.post.mockResolvedValueOnce({
+            data: {
+              message: 'Producto creado con éxito.',
+            },
+        });
+        //axios.post.mockResolvedValueOnce({ data: { message: 'Producto creado con éxito.' } });
+                
         const { getByTestId, getByRole } = render(
             <MemoryRouter>
                 <CreateProduct />
@@ -38,31 +47,34 @@ describe('CreateProduct Component', () => {
 
         fireEvent.change(getByTestId('codigoInput'), { target: { value: '1' } });
         fireEvent.change(getByTestId('nombreInput'), { target: { value: 'coca-cola original 600ml' } });
-        fireEvent.change(getByTestId('existenciaInput'), { target: { value: '100' } });
-        fireEvent.change(getByTestId('precioInput'), { target: { value: '30' } });
+        fireEvent.change(getByTestId('existenciaInput'), { target: { value: '911' } });
+        fireEvent.change(getByTestId('precioInput'), { target: { value: '20.00' } });
 
         fireEvent.change(getByTestId('categoriaSelect'), { target: { value: '1' } });
         fireEvent.change(getByTestId('marcaSelect'), { target: { value: '2' } });
         fireEvent.change(getByTestId('unidadMedidaSelect'), { target: { value: '3' } });
 
-        fireEvent.click(getByRole('button', { name: 'Crear' }))
+        fireEvent.click(getByTestId('createButton'));
 
         // Espera a que se llame a axios.post
         await waitFor(() => {
-            expect(axiosMock).toHaveBeenCalledTimes(1);
-            expect(axiosMock).toHaveBeenCalledWith(
-                expect.stringContaining('http://localhost:8080/api/productos'),
-                {
-                    codigo: 1,
-                    nombre: 'coca-cola original 600ml',
-                    existencia: 100,
-                    precio: 30,
-                    categoria: { idCategoria: 1 },
-                    marca: { idMarca: 2 },
-                    unidadMedida: { idUnidadMed: 3 },
-                }
-            );
+            expect(axios.post).toHaveBeenCalledWith('http://localhost:8080/api/productos',{
+                codigo: 1,
+                nombre: 'coca-cola original 600ml',
+                existencia: 911,
+                precio: 20.00,
+                categoria: {
+                    idCategoria: 1 
+                },
+                marca: { 
+                    idMarca: 2 
+                },
+                unidadMedida: { 
+                    idUnidadMed: 3 
+                },
+            });
         });
+        expect(axios.post).toHaveBeenCalledTimes(1);
 
         await waitFor(() => {
             expect(window.alert).toHaveBeenCalledWith('Producto creado con éxito.');
