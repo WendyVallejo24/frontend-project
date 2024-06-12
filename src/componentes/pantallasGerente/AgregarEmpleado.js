@@ -65,86 +65,78 @@ const AgregarEmpleado = () => {
     return (
         <div className="contenedor">
             <MenuHamburguesa />
-            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
-                <h1>Agregar Empleado</h1>
-            ) : (
-                <p></p>
-            )}
+            <h1>Agregar Empleado</h1>
             <Link to="/registroEmpleado">Volver al Registro de Empleados</Link><br /><br />
-            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
-                <form onSubmit={handleSubmit}>
-                    <label>
-                        Nombre:
-                        <input
-                            type="text"
-                            className="datos"
-                            name="nombre"
-                            placeholder='Nombre'
-                            data-testid="nombre-input"
-                            value={empleado.nombre}
-                            onChange={handleInputChange}
-                        />
-                    </label>
-                    <br />
-                    <label>
-                        Apellidos:
-                        <input
-                            type="text"
-                            className="datos"
-                            name="apellidos"
-                            placeholder='Apellidos'
-                            data-testid="apellidos-input"
-                            value={empleado.apellidos}
-                            onChange={handleInputChange}
-                        />
-                    </label>
-                    <br />
-                    <label>
-                        Correo Electrónico:
-                        <input
-                            type="email"
-                            className="datos"
-                            name="correoElectronico"
-                            placeholder='Correo Electrónico'
-                            data-testid="correo-input"
-                            value={empleado.correoElectronico}
-                            onChange={handleInputChange}
-                        />
-                    </label>
-                    <br />
-                    <label>
-                        Contraseña:
-                        <input
-                            type="password"
-                            className="datos"
-                            name="contrasenia"
-                            placeholder='Contraseña'
-                            data-testid="contrasenia-input"
-                            value={empleado.contrasenia}
-                            onChange={handleInputChange}
-                        />
-                    </label>
-                    <br />
-                    <label>
-                        Rol:
-                        <select className='select-empleado'
-                            //className="datos"
-                            name="idRol"
-                            data-testid="idRol-input"
-                            value={empleado.idRol}
-                            onChange={handleInputChange}
-                        >
-                            <option value="">Selecciona un rol</option>
-                            <option value="2">Supervisor de Ventas</option>
-                            <option value="1">Vendedor</option>
-                        </select>
-                    </label>
-                    <br />
-                    <button type='submit' className='confirmar'>Confirmar</button>
-                </form>
-            ) : (
-                <p>No cuentas con los permisos.</p>
-            )}
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Nombre:
+                    <input
+                        type="text"
+                        className="datos"
+                        name="nombre"
+                        placeholder='Nombre'
+                        data-testid="nombre-input"
+                        value={empleado.nombre}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <br />
+                <label>
+                    Apellidos:
+                    <input
+                        type="text"
+                        className="datos"
+                        name="apellidos"
+                        placeholder='Apellidos'
+                        data-testid="apellidos-input"
+                        value={empleado.apellidos}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <br />
+                <label>
+                    Correo Electrónico:
+                    <input
+                        type="email"
+                        className="datos"
+                        name="correoElectronico"
+                        placeholder='Correo Electrónico'
+                        data-testid="correo-input"
+                        value={empleado.correoElectronico}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <br />
+                <label>
+                    Contraseña:
+                    <input
+                        type="password"
+                        className="datos"
+                        name="contrasenia"
+                        placeholder='Contraseña'
+                        data-testid="contrasenia-input"
+                        value={empleado.contrasenia}
+                        onChange={handleInputChange}
+                    />
+                </label>
+                <br />
+                <label>
+                    Rol:
+                    <select className='select-empleado'
+                        //className="datos"
+                        name="idRol"
+                        data-testid="idRol-input"
+                        value={empleado.idRol}
+                        onChange={handleInputChange}
+                    >
+                        <option value="">Selecciona un rol</option>
+                        <option value="2">Supervisor de Ventas</option>
+                        <option value="1">Vendedor</option>
+                    </select>
+                </label>
+                <br />
+                <button type='submit' className='confirmar'>Confirmar</button>
+            </form>
         </div>
     );
 };

@@ -91,7 +91,7 @@ const MarcaList = () => {
       fetchMarcas();
     } catch (error) {
       console.error('Error al actualizar marca', error);
-      alert('Error al actualizar marca.');
+      alert('Error al actualizar marca');
     }
   };
 
@@ -127,62 +127,51 @@ const MarcaList = () => {
   return (
     <div className='registro'>
       <MenuHamburguesa />
-      {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
-        <h1>Administrar Marcas</h1>
-      ) : (
-        <p> </p>
-      )}
-      {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
-        <div>
-          <h4>{modoEdicion ? 'Editar' : 'Agregar'} Marca</h4>
-          <input
-            className='input-producto'
-            type="text"
-            placeholder="Nombre de la Marca"
-            value={nombreMarca}
-            onChange={(e) => setNombreMarca(e.target.value.toLowerCase())}
-          />
-          <div className='botones'>
-            {modoEdicion ? (
-              <button className='btn-finalizar' onClick={handleActualizarMarca}>Actualizar</button>
-            ) : (
-              <button className='btn-finalizar' onClick={handleCrearMarca}>Agregar</button>
-            )}
-          </div>
+      <h1>Administrar Marcas</h1>
+
+      <div>
+        <h4>{modoEdicion ? 'Editar' : 'Agregar'} Marca</h4>
+        <input
+          className='input-producto'
+          type="text"
+          placeholder="Nombre de la Marca"
+          value={nombreMarca}
+          onChange={(e) => setNombreMarca(e.target.value.toLowerCase())}
+        />
+        <div className='botones'>
+          {modoEdicion ? (
+            <button className='btn-finalizar' onClick={handleActualizarMarca}>Actualizar</button>
+          ) : (
+            <button className='btn-finalizar' onClick={handleCrearMarca}>Agregar</button>
+          )}
         </div>
-      ) : (
-        <p>No cuentas con los permisos.</p>
-      )}
-      {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
-        <div>
-          <h4>Listado de Marcas</h4>
-          <table className='registroEmp'>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Acciones</th>
+      </div>
+      <div>
+        <h4>Listado de Marcas</h4>
+        <table className='registroEmp'>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nombre</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {marcas.map((marca) => (
+              <tr key={marca.idMarca}>
+                <td>{marca.idMarca}</td>
+                <td>{marca.nombre}</td>
+                <td className='btn-ventas'>
+                  <div className='botones'>
+                    <button className='btn-finalizar' onClick={() => handleEditarMarca(marca.idMarca)}>Editar</button>
+                    <button className='btn-cancelar' onClick={() => handleEliminarMarca(marca.idMarca)}>Eliminar</button>
+                  </div>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {marcas.map((marca) => (
-                <tr key={marca.idMarca}>
-                  <td>{marca.idMarca}</td>
-                  <td>{marca.nombre}</td>
-                  <td className='btn-ventas'>
-                    <div className='botones'>
-                      <button className='btn-finalizar' onClick={() => handleEditarMarca(marca.idMarca)}>Editar</button>
-                      <button className='btn-cancelar' onClick={() => handleEliminarMarca(marca.idMarca)}>Eliminar</button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        <p> </p>
-      )}
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

@@ -7,15 +7,14 @@ import imgFerreteria from './img/usuarioFerret.jpg';
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
 
   const URL_API = 'http://localhost:8080/';
 
   useEffect(() => {
-    // Lógica de inicialización aquí
     init();
-  }, []); // El segundo parámetro es un arreglo de dependencias, en este caso, vacío para que se ejecute solo una vez al montar el componente
+  }, []);
 
   const init = async () => {
     try {
@@ -40,29 +39,25 @@ const LoginForm = () => {
       console.log('Respuesta del backend', response.data);
 
       if (response.data.success && response.data.rol) {
-        // Extraer nombre y id_empleado de la respuesta
         const { nombre, id_empleado } = response.data;
-
-        // Almacenar el nombre y el id_empleado en localStorage
         localStorage.setItem('nombreEmpleado', nombre);
         localStorage.setItem('idEmpleado', id_empleado);
 
-        const userRole = response.data; // Almacena todo el objeto de respuesta
+        const userRole = response.data;
         localStorage.setItem('userRole', JSON.stringify(userRole));
 
         if (userRole.rol === 'Supervisor de Ventas') {
           navigate('/registroEmpleado', { state: { userRole } });
-        } else if(userRole.rol === 'Vendedor') {
+        } else if (userRole.rol === 'Vendedor') {
           navigate('/pedidos', { state: { userRole } });
         }
-        //navigate('/pedidos', { state: { userRole } });
       } else {
-        console.error('La respuesta del servidor no contiene un rol válido.', response.data);
+        setError('La respuesta del servidor no contiene un rol válido.');
       }
     } catch (error) {
+      setError('Error de autenticación');
       console.error('Error al iniciar sesión', error.message);
     }
-
   };
 
   return (
@@ -70,6 +65,7 @@ const LoginForm = () => {
       <div className="form-container">
         <img className="user-photo" src={imgFerreteria} alt="Foto de usuario" />
         <p className='titulo'>Iniciar Sesión</p>
+        {error && <div className="error-message">{error}</div>}
         <form>
           <label className="label">
             Usuario:

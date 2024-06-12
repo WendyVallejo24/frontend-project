@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';  // Import axios library
+import axios from 'axios';
 import './style/registroEmp.css';
 import MenuHamburguesa from '../MenuHamburguesa';
 
 const CrearReporteMensual = () => {
-    const [reportId, setReportId] = useState('');  // State to hold the report ID
+    const [reportId, setReportId] = useState('');
     const [userRole, setUserRole] = useState({});
-    //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
-
     const URL_API = 'http://localhost:8080/';
 
-    // Method to update the report
     const handleUpdateClick = async () => {
         try {
             const response = await axios.put(URL_API + `api/detallesventas/actualizarReporteMensual/${reportId}`);
@@ -26,7 +23,6 @@ const CrearReporteMensual = () => {
         }
     };
 
-    // Method to create a new report
     const handleCreateClick = async () => {
         try {
             const response = await fetch(URL_API + 'api/detallesventas/crearReporteMensual', {
@@ -52,56 +48,32 @@ const CrearReporteMensual = () => {
             console.error('Error de red:', error);
         }
     };
+
     useEffect(() => {
-        // Modificación 2: Parsear el rol al cargar el componente
         const storedRole = localStorage.getItem('userRole');
-        console.log('Stored Role:', storedRole);
-
         const parsedRole = storedRole ? JSON.parse(storedRole) : null;
-        console.log('Parsed Role:', parsedRole);
-
         setUserRole(parsedRole);
     }, []);
 
     return (
         <div style={{ textAlign: 'center' }} className="registro">
-            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
-                <h1>Crear y Actualizar Reportes Mensuales</h1>
-            ) : (
-                <p> </p>
-            )}
-
+            <h1>Crear y Actualizar Reportes Mensuales</h1>
             <MenuHamburguesa />
-            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
-                <label>Report ID: </label>
-            ) : (
-                <p> </p>
-            )}
-
-
-            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
-                <input className="producto" type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
-            ) : (
-                <p> </p>
-            )}
-
-
+            <label htmlFor="reportId">Report ID: </label>
+            <input
+                id="reportId"
+                className="producto"
+                type="text"
+                value={reportId}
+                onChange={(e) => setReportId(e.target.value)}
+            />
             <br /><br />
-            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
-
-                <button className="btn-crud" onClick={handleUpdateClick}>
-                    Actualizar Reporte Mensual
-                </button>
-            ) : (
-                <p>No cuentas con los permisos.</p>
-            )}
-            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
-                <button className="btn-crud" onClick={handleCreateClick}>
-                    Crear Reporte Mensual
-                </button>
-            ) : (
-                <p> </p>
-            )}
+            <button className="btn-crud" onClick={handleUpdateClick}>
+                Actualizar Reporte Mensual
+            </button>
+            <button className="btn-crud" onClick={handleCreateClick}>
+                Crear Reporte Mensual
+            </button>
         </div>
     );
 };

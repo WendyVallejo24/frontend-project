@@ -28,29 +28,24 @@ const CrearReporteSemanal = () => {
   // Method to create a new report
   const handleCreateClick = async () => {
     try {
-      const response = await fetch(URL_API + 'api/detallesventas/crearReporteSemanal', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          cve: 'string',
-          descripcion: 'string',
-          fechaInicio: '2024-01-02',
-          fechaFin: '2024-01-02',
-        }),
+      const response = await axios.post(URL_API + 'api/detallesventas/crearReporteSemanal', {
+        cve: 'string',
+        descripcion: 'string',
+        fechaInicio: '2024-01-02',
+        fechaFin: '2024-01-02',
       });
 
-      if (response.ok) {
-        const data = await response.json();
+      if (response.status === 200) {
+        const data = response.data;
         console.log('Reporte creado:', data);
       } else {
         console.error('Error al crear el reporte');
       }
     } catch (error) {
-      console.error('Error de red:', error);
+      console.error('Error de red:', error.message);
     }
   };
+
   useEffect(() => {
     // Modificación 2: Parsear el rol al cargar el componente
     const storedRole = localStorage.getItem('userRole');
@@ -64,41 +59,28 @@ const CrearReporteSemanal = () => {
 
   return (
     <div style={{ textAlign: 'center' }} className="registro">
-      {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
-        <h1>Crear y Actualizar Reportes Semanales</h1>
-      ) : (
-        <p> </p>
-      )}
+      <h1>Crear y Actualizar Reportes Semanales</h1>
+
       <MenuHamburguesa />
 
-      {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
-
-        <label>Report ID: </label>
-      ) : (
-        <p> </p>
-      )}
-
-      {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
-        <input className="producto" type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
-      ) : (
-        <p> </p>
-      )}
+      <label>Report ID: </label>
+      <input
+        className="producto"
+        type="text"
+        value={reportId}
+        onChange={(e) => setReportId(e.target.value)}
+        data-testid="report-id-input" // Agrega data-testid aquí
+        placeholder="Report ID"
+      />
 
       <br /><br />
-      {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
-        <button className="btn-crud" onClick={handleUpdateClick}>
-          Actualizar Reporte Semanal
-        </button>
-      ) : (
-        <p>No cuentas con los permisos.</p>
-      )}
-      {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
-        <button className="btn-crud" onClick={handleCreateClick}>
-          Crear Reporte Semanal
-        </button>
-      ) : (
-        <p> </p>
-      )}
+      <button className="btn-crud" onClick={handleUpdateClick}>
+        Actualizar Reporte Semanal
+      </button>
+
+      <button className="btn-crud" onClick={handleCreateClick}>
+        Crear Reporte Semanal
+      </button>
     </div>
   );
 };
