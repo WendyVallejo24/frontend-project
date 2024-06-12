@@ -16,7 +16,8 @@ const id_empleado = localStorage.getItem('idEmpleado');
 const nombre = localStorage.getItem('nombreEmpleado');
 
 //const URL_API = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net/';
-const URL_API = 'http://localhost:8080/';
+//const URL_API = 'http://ordermanager.com/';
+const URL_API = "http://localhost:8080/";
 
 const Calendar = ({ value, onChange }) => {
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -104,6 +105,7 @@ const Pedidos = ({ handleCreateClient }) => {
             return montoRecibidoFloat;
         }
     }
+    const fechaEntregaFormateada = fechaEntrega ? format(new Date(fechaEntrega), 'yyyy-MM-dd') : '';
     const handleCreatePedido = async () => {
         try {
             const nuevoPedido = {
@@ -119,7 +121,7 @@ const Pedidos = ({ handleCreateClient }) => {
                     idEmpleado: parseInt(id_empleado)
                 },
                 detallePedido: {
-                    fechaEntrega: fechaEntrega
+                    fechaEntrega: fechaEntregaFormateada
                 },
                 detalleVenta: ventas.map((producto) => ({
                     cantidad: parseFloat(producto.cantidad),
@@ -341,8 +343,6 @@ const Pedidos = ({ handleCreateClient }) => {
         // Obtener el nombre y apellidos del cliente seleccionado
         const clienteSeleccionadoData = cliente.find(cli => cli.idCliente === parseInt(clienteSeleccionado));
         const nombreClienteSeleccionado = clienteSeleccionadoData ? `${clienteSeleccionadoData.nombre} ${clienteSeleccionadoData.apellidos}` : '';
-
-        const fechaEntregaFormateada = fechaEntrega ? format(new Date(fechaEntrega), 'yyyy-MM-dd') : '';
 
         const pdf = new jsPDF();
         pdf.text('Pedido', 20, 20);
