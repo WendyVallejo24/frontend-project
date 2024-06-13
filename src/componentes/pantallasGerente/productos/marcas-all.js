@@ -84,33 +84,25 @@ const MarcaList = () => {
         marcaActualizada
       );
       console.log('Marca actualizada:', response.data);
-      const successMessage = document.createElement('div');
-      successMessage.textContent = 'Marca actualizada con éxito.';
-      document.body.appendChild(successMessage);
+      alert("Marca actualiza con éxito")
       setNombreMarca('');
       setMarcaSeleccionada('');
       setModoEdicion(false);
       fetchMarcas();
     } catch (error) {
       console.error('Error al actualizar marca', error);
-      const errorMessage = document.createElement('div');
-      errorMessage.textContent = 'Error al actualizar marca';
-      document.body.appendChild(errorMessage);
+      alert("Error al actualizar marca")
     }
   };
 
   const handleEliminarMarca = async (idMarca) => {
     try {
       await axios.delete(`${API_URL}/api/marcas/${idMarca}`);
-      const successMessage = document.createElement('div');
-      successMessage.textContent = 'Marca eliminada con éxito.';
-      document.body.appendChild(successMessage);
+      alert("Marca eliminda con éxito")
       fetchMarcas();
     } catch (error) {
       console.error('Error al eliminar marca', error);
-      const errorMessage = document.createElement('div');
-      errorMessage.textContent = 'Error al eliminar la marca';
-      document.body.appendChild(errorMessage);
+      alert("Error al eliminar marca")
     }
   };
 

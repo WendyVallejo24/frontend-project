@@ -6,8 +6,7 @@ import MenuHamburguesa from '../MenuHamburguesa';
 const CrearReporteMensual = () => {
     const [reportId, setReportId] = useState('');  // State to hold the report ID
     const [userRole, setUserRole] = useState({});
-    const [errorMessage, setErrorMessage] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
+    
     //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
 
     const URL_API = 'http://localhost:8080/';
@@ -20,14 +19,14 @@ const CrearReporteMensual = () => {
             if (response.status === 200) {
                 const data = response.data;
                 console.log('Reporte actualizado:', data);
-                setSuccessMessage('Reporte actualizado con éxito');
+                alert('Reporte actualizado con éxito');
             } else {
                 console.error('Error al actualizar el reporte:', response.statusText);
-                setErrorMessage('Error al actualizar el reporte');
+                alert("Error al actualizar el reporte");
             }
         } catch (error) {
             console.error('Error de red:', error.message);
-            setErrorMessage(`Error de red: ${error.message}`);
+            alert(`Error de red: ${error.message}`);
         }
     };
 
@@ -50,14 +49,14 @@ const CrearReporteMensual = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Reporte creado:', data);
-                setSuccessMessage('Reporte creado con éxito');
+                alert('Reporte creado con éxito');
             } else {
                 console.error('Error al crear el reporte');
-                setErrorMessage('Error al crear el reporte');
+                alert('Error al crear el reporte');
             }
         } catch (error) {
             console.error('Error de red:', error);
-            setErrorMessage(`Error de red: ${error.message}`);
+            alert(`Error de red: ${error.message}`);
         }
     };
     useEffect(() => {
@@ -93,8 +92,6 @@ const CrearReporteMensual = () => {
             ) : (
                 <p>No cuentas con los permisos.</p>
             )}
-            {errorMessage && <p className="error-message">{errorMessage}</p>}
-            {successMessage && <p className="success-message">{successMessage}</p>}
         </div>
     );
 };

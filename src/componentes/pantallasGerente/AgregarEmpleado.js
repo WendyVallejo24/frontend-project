@@ -131,8 +131,8 @@ const AgregarEmpleado = () => {
                             onChange={handleInputChange}
                         >
                             <option value="">Selecciona un rol</option>
-                            <option value="5">Supervisor de Ventas</option>
-                            <option value="4">Vendedor</option>
+                            <option value="2">Supervisor de Ventas</option>
+                            <option value="1">Vendedor</option>
                         </select>
                     </label>
                     <br />
