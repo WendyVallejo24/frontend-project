@@ -18,11 +18,14 @@ const nombre = localStorage.getItem('nombreEmpleado');
 //const URL_API = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net/';
 const URL_API = 'http://localhost:8080/';
 
-const Calendar = ({ value, onChange }) => {
+const Calendar = ({ onChange }) => {
+    const [selectedDate, setSelectedDate] = useState(null);
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
     const handleDateChange = date => {
+        setSelectedDate(date);
         onChange(date);
+        closeCalendar();
     };
 
     const toggleCalendar = () => {
@@ -39,7 +42,7 @@ const Calendar = ({ value, onChange }) => {
                 <DatePicker
                     className="fecha-entrega"
                     placeholderText="Fecha de entrega"
-                    selected={value}
+                    selected={selectedDate}
                     dateFormat="yyyy-MM-dd"
                     onChange={handleDateChange}
                     onClickOutside={closeCalendar}
@@ -53,7 +56,7 @@ const Calendar = ({ value, onChange }) => {
 const Pedidos = ({ handleCreateClient }) => {
     const [cliente, setCliente] = useState([]);
     const [clienteSeleccionado, setClienteSeleccionado] = useState("");
-    const [fechaEntrega, setFechaEntrega] = useState("");
+    const [fechaEntrega, setFechaEntrega] = useState(null);
     const [cantidad, setCantidad] = useState("");
     const [producto, setProducto] = useState("");
     const [precioUnitario, setPrecioUnitario] = useState("");
@@ -105,6 +108,7 @@ const Pedidos = ({ handleCreateClient }) => {
         }
     }
     const handleCreatePedido = async () => {
+
         try {
             const nuevoPedido = {
                 fecha: fechaFormateada,
@@ -246,6 +250,10 @@ const Pedidos = ({ handleCreateClient }) => {
         setVentas(nuevasVentas);
     };
 
+    const handleFechaEntregaChange = (date) => {
+        setFechaEntrega(date ? format(date, 'yyyy-MM-dd') : ''); // Formatear la fecha y establecer en fechaEntrega
+    };
+
     const isNumber = (value) => /^[0-9]+(\.[0-9]{1,2})?$/.test(value);
 
     const handleCantidadChange = (e) => {
@@ -316,7 +324,7 @@ const Pedidos = ({ handleCreateClient }) => {
 
     const resetForm = () => {
         setClienteSeleccionado('');
-        setFechaEntrega(null);
+        setFechaEntrega('');
         setCantidad("");
         setProducto("");
         setPrecioUnitario("");
@@ -393,7 +401,6 @@ const Pedidos = ({ handleCreateClient }) => {
         console.log('Parsed Role:', parsedRole);
 
         setUserRole(parsedRole);
-        console.log('User Role:', userRole);
     }, []);
 
     return (
@@ -473,16 +480,18 @@ const Pedidos = ({ handleCreateClient }) => {
                 </div>
             )}
             <div className="input">
-                <div>
-                    {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+
+                    <div>
                         <Calendar
                             value={fechaEntrega}
-                            onChange={setFechaEntrega}
+                            onChange={handleFechaEntregaChange}
                         />
-                    ) : (
-                        <p></p>
-                    )}
-                </div>
+
+                    </div>
+                ) : (
+                    <p></p>
+                )}
                 <div>
                     {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
                         <input
@@ -575,21 +584,18 @@ const Pedidos = ({ handleCreateClient }) => {
                 ) : (
                     <p></p>
                 )}
-
-                <div className="btns">
-                    {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                    <div className="btns">
                         <button className="btn-finalizar" onClick={() => { handleCreatePedido(); downloadPDF(); }}>
                             Guardar Pedido
                         </button>
-                    ) : (
-                        <p></p>
-                    )}
-                    {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+
                         <button className="btn-cancelar" onClick={cancelarPedido}>Cancelar Pedido</button>
-                    ) : (
-                        <p></p>
-                    )}
-                </div>
+
+                    </div>
+                ) : (
+                    <p></p>
+                )}
 
             </div>
 
