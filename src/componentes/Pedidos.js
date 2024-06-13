@@ -352,7 +352,7 @@ const Pedidos = ({ handleCreateClient }) => {
 
         const pdf = new jsPDF();
         pdf.text('Pedido', 20, 20);
-        pdf.text('Fecha: ' + hoy.toDateString(), 20, 30);
+        pdf.text('Fecha: ' + fechaFormateada, 20, 30);
         pdf.text('Empleado: ' + nombre, 20, 40);
         pdf.text('Cliente: ' + nombreClienteSeleccionado, 20, 60);
         pdf.text('Fecha de entrega: ' + fechaEntrega, 20, 70);
