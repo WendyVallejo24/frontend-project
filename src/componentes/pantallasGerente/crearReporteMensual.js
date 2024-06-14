@@ -6,7 +6,7 @@ import MenuHamburguesa from '../MenuHamburguesa';
 const CrearReporteMensual = () => {
     const [reportId, setReportId] = useState('');  // State to hold the report ID
     const [userRole, setUserRole] = useState({});
-    
+
     //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
 
     const URL_API = 'http://localhost:8080/';
@@ -72,8 +72,13 @@ const CrearReporteMensual = () => {
 
     return (
         <div style={{ textAlign: 'center' }} className="registro">
-            <h1>Crear y Actualizar Reportes Mensuales</h1>
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+                <h1>Crear y Actualizar Reportes Mensuales</h1>
+            ) : (
+                <p> </p>
+            )}
             <MenuHamburguesa />
+
             <label htmlFor="report-id">Report ID: </label><input id="report-id" className="producto" type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
 
             <br /><br />
@@ -90,7 +95,7 @@ const CrearReporteMensual = () => {
                     Crear Reporte Mensual
                 </button>
             ) : (
-                <p>No cuentas con los permisos.</p>
+                <p></p>
             )}
         </div>
     );

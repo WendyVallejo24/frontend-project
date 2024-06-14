@@ -70,81 +70,95 @@ const PedidoEntregado = () => {
     return (
         <div className='contenedor-pedidos-entregados'>
             <MenuHamburguesa />
-            <h1 className='responsive-title'>Pedidos Entregados</h1>
-            <div className='filtro' style={{ textAlign: 'center' }}>
-                <div className='filter-container'>
-                    <label>Filtrar por Cliente:</label>
-                    <input
-                        className='fecha-entrega'
-                        type="text"
-                        placeholder='Nombre cliente'
-                        value={filtroCliente}
-                        onChange={handleFiltroClienteChange} />
-                </div>
-                <div className='filter-container'>
-                <label>Filtrar por Fecha Nota:</label>
-                    <Calendar
-                        selectedDate={filtroFecha}
-                        handleDateChange={handleFiltroFechaChange}
-                    />
-                </div>
-                <div className='filter-container'>
-                    <label>Filtrar por Estado de Pago:</label>
-                    <select
-                        value={filtroEstadoPago}
-                        onChange={handleFiltroEstadoPagoChange}
-                        style={{ width: '200px', marginLeft: 'auto', marginRight: 'auto' }}>
-                        {/* Establece un ancho fijo y centra el select */}
-                        <option value="">Selecciona un estado de pago</option>
-                        {estadosPago.map((estadoPago) => (
-                            <option key={estadoPago.idEstadoPago} value={estadoPago.nombre}>
-                                {estadoPago.nombre}
-                            </option>
-                        ))}
-                    </select>
-                    {/* <input className='fecha-entrega' type="text" value={filtroEstadoPago} onChange={handleFiltroEstadoPagoChange} /> */}
-                </div>
+            {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                <h1 className='responsive-title'>Pedidos Entregados</h1>
+            ) : (
+                <p> </p>
+            )}
+            {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                <div className='filtro' style={{ textAlign: 'center' }}>
+                    <div className='filter-container'>
+                        <label>Filtrar por Cliente:</label>
+                        <input
+                            className='fecha-entrega'
+                            type="text"
+                            placeholder='Nombre cliente'
+                            value={filtroCliente}
+                            onChange={handleFiltroClienteChange} />
+                    </div>
+                    <div className='filter-container'>
+                        <label>Filtrar por Fecha Nota:</label>
+                        <Calendar
+                            selectedDate={filtroFecha}
+                            handleDateChange={handleFiltroFechaChange}
+                        />
+                    </div>
+                    <div className='filter-container'>
+                        <label>Filtrar por Estado de Pago:</label>
+                        <select
+                            value={filtroEstadoPago}
+                            onChange={handleFiltroEstadoPagoChange}
+                            style={{ width: '200px', marginLeft: 'auto', marginRight: 'auto' }}>
+                            {/* Establece un ancho fijo y centra el select */}
+                            <option value="">Selecciona un estado de pago</option>
+                            {estadosPago.map((estadoPago) => (
+                                <option key={estadoPago.idEstadoPago} value={estadoPago.nombre}>
+                                    {estadoPago.nombre}
+                                </option>
+                            ))}
+                        </select>
+                        {/* <input className='fecha-entrega' type="text" value={filtroEstadoPago} onChange={handleFiltroEstadoPagoChange} /> */}
+                    </div>
 
 
-            </div>
-            <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
-                <table className="tabla">
-                    <thead className='encabezado'>
-                        <tr>
-                            <th>Nota</th>
-                            <th>Fecha Anticipo</th>
-                            <th>Monto</th>
-                            <th>Resto</th>
-                            <th>Cliente</th>
-                            <th>Telefono</th>
-                            <th>Dirección</th>
-                            <th>Empleado</th>
-                            <th>Fecha Nota</th>
-                            <th>Estado de Pago</th>
-                            <th>Estado Pedido</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filtrarDatos().map((nota) => (
-                            <tr key={nota.numeroNota}>
-                                <td>{nota.numeroNota}</td>
-                                <td>{nota.fechaAnticipo}</td>
-                                <td>{nota.monto}</td>
-                                <td>{nota.resto}</td>
-                                <td>{nota.nombreCompletoCliente}</td>
-                                <td>{nota.telefono}</td>
-                                <td>{nota.direccion}</td>
-                                <td>{nota.nombreCompletoEmpleado}</td>
-                                <td>{nota.fechaNota}</td>
-                                <td>{nota.estadoPago}</td>
-                                <td>{nota.estado}</td>
-                                <td>{nota.total}</td>
+                </div>
+            ) : (
+                <p>No cuentas con los permisos.</p>
+            )}
+
+            {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+
+                <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
+                    <table className="tabla">
+                        <thead className='encabezado'>
+                            <tr>
+                                <th>Nota</th>
+                                <th>Fecha Anticipo</th>
+                                <th>Monto</th>
+                                <th>Resto</th>
+                                <th>Cliente</th>
+                                <th>Telefono</th>
+                                <th>Dirección</th>
+                                <th>Empleado</th>
+                                <th>Fecha Nota</th>
+                                <th>Estado de Pago</th>
+                                <th>Estado Pedido</th>
+                                <th>Total</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            {filtrarDatos().map((nota) => (
+                                <tr key={nota.numeroNota}>
+                                    <td>{nota.numeroNota}</td>
+                                    <td>{nota.fechaAnticipo}</td>
+                                    <td>{nota.monto}</td>
+                                    <td>{nota.resto}</td>
+                                    <td>{nota.nombreCompletoCliente}</td>
+                                    <td>{nota.telefono}</td>
+                                    <td>{nota.direccion}</td>
+                                    <td>{nota.nombreCompletoEmpleado}</td>
+                                    <td>{nota.fechaNota}</td>
+                                    <td>{nota.estadoPago}</td>
+                                    <td>{nota.estado}</td>
+                                    <td>{nota.total}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            ) : (
+                <p> </p>
+            )}
         </div >
     );
 };

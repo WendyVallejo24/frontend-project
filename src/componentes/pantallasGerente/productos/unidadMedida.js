@@ -4,7 +4,7 @@ import MenuHamburguesa from '../../MenuHamburguesa';
 import '../style/catalogo.css';
 import '../style/salesReport.css';
 
-const API_URL = 'http://localhost:8080'; 
+const API_URL = 'http://localhost:8080';
 
 const UnidadMedidaList = () => {
   const [unidadesMedida, setUnidadesMedida] = useState([]);
@@ -68,7 +68,7 @@ const UnidadMedidaList = () => {
         alert('El campo no debe estar vacío.');
         return;
       }
-      
+
       const unidadMedidaActualizada = {
         nombre: nombreUnidadMedida.toLowerCase(),
       };
@@ -108,50 +108,63 @@ const UnidadMedidaList = () => {
   return (
     <div className='registro'>
       <MenuHamburguesa />
-      <h1>Administrar Unidades de Medida</h1>
-      <div>
-        <h4>{modoEdicion ? 'Editar' : 'Crear'} Unidad de Medida</h4>
-        <input
-          className='input-producto'
-          type="text"
-          placeholder="Nombre de la Unidad de Medida"
-          value={nombreUnidadMedida}
-          onChange={(e) => setNombreUnidadMedida(e.target.value.toLowerCase())}
-        />
-        <div className='botones'>
-          {modoEdicion ? (
-            <button className='btn-finalizar' onClick={handleActualizarUnidadMedida}>Actualizar</button>
-          ) : (
-            <button className='btn-finalizar' onClick={handleCrearUnidadMedida}>Crear</button>
-          )}
+      {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
+        <h1>Administrar Unidades de Medida</h1>
+      ) : (
+        <p> </p>
+      )}
+      {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
+        <div>
+          <h4>{modoEdicion ? 'Editar' : 'Crear'} Unidad de Medida</h4>
+          <input
+            className='input-producto'
+            type="text"
+            placeholder="Nombre de la Unidad de Medida"
+            value={nombreUnidadMedida}
+            onChange={(e) => setNombreUnidadMedida(e.target.value.toLowerCase())}
+          />
+          <div className='botones'>
+            {modoEdicion ? (
+              <button className='btn-finalizar' onClick={handleActualizarUnidadMedida}>Actualizar</button>
+            ) : (
+              <button className='btn-finalizar' onClick={handleCrearUnidadMedida}>Crear</button>
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <p>No cuentas con los permisos.</p>
+      )}
 
       {/* Listado de Unidades de Medida */}
-      <div>
-        <h4>Listado de Unidades de Medida</h4>
-        <table className='registroEmp'>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {unidadesMedida.map((unidadMedida) => (
-              <tr key={unidadMedida.idUnidadMedida}>
-                <td>{unidadMedida.idUnidadMedida}</td>
-                <td>{unidadMedida.nombre}</td>
-                <td className='btn-ventas'>
-                  <button className='btn-finalizar' onClick={() => handleEditarUnidadMedida(unidadMedida.idUnidadMedida)}>Editar</button>
-                  <button className='btn-cancelar' onClick={() => handleEliminarUnidadMedida(unidadMedida.idUnidadMedida)}>Eliminar</button>
-                </td>
+      {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
+
+        <div>
+          <h4>Listado de Unidades de Medida</h4>
+          <table className='registroEmp'>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {unidadesMedida.map((unidadMedida) => (
+                <tr key={unidadMedida.idUnidadMedida}>
+                  <td>{unidadMedida.idUnidadMedida}</td>
+                  <td>{unidadMedida.nombre}</td>
+                  <td className='btn-ventas'>
+                    <button className='btn-finalizar' onClick={() => handleEditarUnidadMedida(unidadMedida.idUnidadMedida)}>Editar</button>
+                    <button className='btn-cancelar' onClick={() => handleEliminarUnidadMedida(unidadMedida.idUnidadMedida)}>Eliminar</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p></p>
+      )}
     </div>
   );
 };

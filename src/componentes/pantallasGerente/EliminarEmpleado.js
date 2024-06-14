@@ -64,7 +64,12 @@ const EliminarEmpleado = () => {
   return (
     <div className='registro'>
       <MenuHamburguesa />
-      <h1>Eliminar Empleado</h1>
+      {userRole && userRole.rol && userRole.rol === "Supervisor de Ventas" ? (
+
+        <h1>Eliminar Empleado</h1>
+      ) : (
+        <p></p>
+      )}
       <Link to="/registroEmpleado">Volver al Registro de Empleados</Link><br /><br />
 
       {userRole && userRole.rol && userRole.rol === "Supervisor de Ventas" ? (

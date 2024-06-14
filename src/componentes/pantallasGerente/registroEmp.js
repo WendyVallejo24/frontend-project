@@ -50,14 +50,26 @@ const RegistroEmp = () => {
     return (
         <div className="registro">
             <MenuHamburguesa />
-            <h1 className='responsive-title'>Registro de empleados</h1>
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+                <h1 className='responsive-title'>Registro de empleados</h1>
+            ) : (
+                <p></p>
+            )}
 
-            <div className="botones">
-                <Link to="/agregarEmpleado"><button className="btn-crud">Agregar Empleado</button></Link>
-                <Link to="/eliminarEmpleado"><button className="btn-crud-1">Eliminar Empleado</button></Link>
-            </div>
-            <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
-                {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+
+
+                <div className="botones">
+                    <Link to="/agregarEmpleado"><button className="btn-crud">Agregar Empleado</button></Link>
+                    <Link to="/eliminarEmpleado"><button className="btn-crud-1">Eliminar Empleado</button></Link>
+                </div>
+            ) : (
+                <p></p>
+            )}
+
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+
+                <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
                     <table className="registrosEmp">
                         <thead className='encabezado'>
                             <tr>
@@ -80,10 +92,10 @@ const RegistroEmp = () => {
                             ))}
                         </tbody>
                     </table>
-                ) : (
-                    <p>No cuentas con los permisos.</p>
-                )}
-            </div>
+                </div>
+            ) : (
+                <p>No cuentas con los permisos.</p>
+            )}
         </div>
     );
 };

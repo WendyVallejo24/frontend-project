@@ -6,9 +6,9 @@ import MenuHamburguesa from '../MenuHamburguesa';
 const CrearReporteSemanal = () => {
   const [reportId, setReportId] = useState('');  // State to hold the report ID
   const [userRole, setUserRole] = useState({});
-  
+
   //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
-  const URL_API = 'http://localhost:8080/'; 
+  const URL_API = 'http://localhost:8080/';
 
   // Method to update the report
   const handleUpdateClick = async () => {
@@ -72,15 +72,19 @@ const CrearReporteSemanal = () => {
 
   return (
     <div style={{ textAlign: 'center' }} className="registro">
-      <h1>Crear y Actualizar Reportes Semanales</h1>
+      {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+        <h1>Crear y Actualizar Reportes Semanales</h1>
+      ) : (
+        <p></p>
+      )}
       <MenuHamburguesa />
       <label htmlFor="report-id">Report ID: </label><input id="report-id" className="producto" type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
 
       <br /><br />
       {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
         <button type="button" className="btn-crud" onClick={handleUpdateClick} data-testid="actualizar-reporte-semanal-button">
-        Actualizar Reporte Semanal
-      </button>
+          Actualizar Reporte Semanal
+        </button>
       ) : (
         <p>No cuentas con los permisos.</p>
       )}
@@ -89,7 +93,7 @@ const CrearReporteSemanal = () => {
           Crear Reporte Semanal
         </button>
       ) : (
-        <p>No cuentas con los permisos.</p>
+        <p></p>
       )}
     </div>
   );

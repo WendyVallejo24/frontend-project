@@ -109,50 +109,62 @@ const CategoriaList = () => {
     return (
         <div className='registro'>
             <MenuHamburguesa />
-            <h1>Administrar Categorías</h1>
-            <div>
-                <h4>{modoEdicion ? 'Editar' : 'Crear'} Categoría</h4>
-                <input
-                    className='input-producto'
-                    type="text"
-                    placeholder="Nombre de la Categoría"
-                    value={nombreCategoria}
-                    onChange={(e) => setNombreCategoria(e.target.value.toLowerCase())}
-                />
-                <div className='botones'>
-                    {modoEdicion ? (
-                        <button className='btn-finalizar' onClick={handleActualizarCategoria}>Actualizar</button>
-                    ) : (
-                        <button className='btn-finalizar' onClick={handleCrearCategoria}>Crear</button>
-                    )}
+            {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
+                <h1>Administrar Categorías</h1>
+            ) : (
+                <p> </p>
+            )}
+            {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
+                <div>
+                    <h4>{modoEdicion ? 'Editar' : 'Crear'} Categoría</h4>
+                    <input
+                        className='input-producto'
+                        type="text"
+                        placeholder="Nombre de la Categoría"
+                        value={nombreCategoria}
+                        onChange={(e) => setNombreCategoria(e.target.value.toLowerCase())}
+                    />
+                    <div className='botones'>
+                        {modoEdicion ? (
+                            <button className='btn-finalizar' onClick={handleActualizarCategoria}>Actualizar</button>
+                        ) : (
+                            <button className='btn-finalizar' onClick={handleCrearCategoria}>Crear</button>
+                        )}
+                    </div>
                 </div>
-            </div>
+            ) : (
+                <p>No cuentas con los permisos.</p>
+            )}
 
             {/* Listado de Categorías */}
-            <div>
-                <h4>Listado de Categorías</h4>
-                <table className='registroEmp'>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {categorias.map((categoria) => (
-                            <tr key={categoria.idCategoria}>
-                                <td>{categoria.idCategoria}</td>
-                                <td>{categoria.nombre}</td>
-                                <td className='btn-ventas'>
-                                    <button className='btn-finalizar' onClick={() => handleEditarCategoria(categoria.idCategoria)}>Editar</button>
-                                    <button className='btn-cancelar' onClick={() => handleEliminarCategoria(categoria.idCategoria)}>Eliminar</button>
-                                </td>
+            {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
+                <div>
+                    <h4>Listado de Categorías</h4>
+                    <table className='registroEmp'>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Acciones</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            {categorias.map((categoria) => (
+                                <tr key={categoria.idCategoria}>
+                                    <td>{categoria.idCategoria}</td>
+                                    <td>{categoria.nombre}</td>
+                                    <td className='btn-ventas'>
+                                        <button className='btn-finalizar' onClick={() => handleEditarCategoria(categoria.idCategoria)}>Editar</button>
+                                        <button className='btn-cancelar' onClick={() => handleEliminarCategoria(categoria.idCategoria)}>Eliminar</button>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            ) : (
+                <p> </p>
+            )}
         </div>
     );
 };
