@@ -19,6 +19,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
   const [selectedNota, setSelectedNota] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [abonoAmount, setAbonoAmount] = useState(0);
+  const [userRole, setUserRole] = useState({});
 
   useEffect(() => {
     fetchNotasVentaEnProceso();

@@ -16,6 +16,8 @@ const PedidoCancelado = () => {
     const [filtroCliente, setFiltroCliente] = useState('');
     const [filtroFecha, setFiltroFecha] = useState('');
 
+    const [userRole, setUserRole] = useState({});
+    
     useEffect(() => {
         const fetchNotasVentaCanceladas = async () => {
             try {

@@ -15,6 +15,7 @@ const MarcaList = () => {
   const [idMarca, setIdMarca] = useState('');
   const [marcaSeleccionada, setMarcaSeleccionada] = useState(null);
   const [modoEdicion, setModoEdicion] = useState(false);
+  const [userRole, setUserRole] = useState({});
 
   const fetchMarcas = async () => {
     try {

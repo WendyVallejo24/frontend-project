@@ -14,6 +14,7 @@ const UnidadMedidaList = () => {
   const [idUnidadMedida, setIdUnidadMedida] = useState('');
   const [unidadMedidaSeleccionada, setUnidadMedidaSeleccionada] = useState('');
   const [modoEdicion, setModoEdicion] = useState(false);
+  const [userRole, setUserRole] = useState({});
 
   const fetchUnidadesMedida = async () => {
     try {

@@ -108,6 +108,8 @@ const CategoriaList = () => {
         fetchCategorias();
     }, []);
 
+    const [userRole, setUserRole] = useState({});
+
     return (
         <div className='registro'>
             <MenuHamburguesa />

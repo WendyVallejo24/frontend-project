@@ -17,6 +17,7 @@ const PedidoEntregado = () => {
     const [filtroFecha, setFiltroFecha] = useState('');
     const [filtroEstadoPago, setFiltroEstadoPago] = useState('');
     const [estadosPago, setEstadosPago] = useState([]);
+    const [userRole, setUserRole] = useState({});
 
     useEffect(() => {
         const fetchNotasVentaPedidoEntregado = async () => {
