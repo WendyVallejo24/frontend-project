@@ -16,7 +16,9 @@ const AgregarEmpleado = () => {
 
     const [userRole, setUserRole] = useState({});
     //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
-    const URL_API = 'http://localhost:8080/api/empleados/crearConDTO';
+    //const URL_API = 'http://localhost:8080/api/empleados/crearConDTO';
+    const URL_API = 'http://ordermanager.com/api/empleados/crearConDTO';
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;

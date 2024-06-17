@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import MenuHamburguesa from './MenuHamburguesa';
 import axios from 'axios';
 
-const URL_API = 'http://localhost:8080/';
+//const URL_API = 'http://localhost:8080/';
+const URL_API = 'http://ordermanager.com/';
+
 
 const AddClientModal = ({ onClose, setCliente, setClienteSeleccionado, setClienteCreado }) => {
     const [nombre, setNombre] = useState("");

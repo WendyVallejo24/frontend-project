@@ -8,7 +8,9 @@ const CrearReporteSemanal = () => {
   const [userRole, setUserRole] = useState({});
 
   //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
-  const URL_API = 'http://localhost:8080/';
+  //const URL_API = 'http://localhost:8080/';
+  const URL_API = 'http://ordermanager.com/';
+
 
   // Method to update the report
   const handleUpdateClick = async () => {

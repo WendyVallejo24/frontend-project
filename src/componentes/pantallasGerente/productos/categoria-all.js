@@ -4,7 +4,9 @@ import MenuHamburguesa from '../../MenuHamburguesa';
 import '../style/catalogo.css';
 import '../style/salesReport.css';
 
-const API_URL = 'http://localhost:8080';
+//const API_URL = 'http://localhost:8080';
+const API_URL = 'http://ordermanager.com/';
+
 
 const CategoriaList = () => {
     const [categorias, setCategorias] = useState([]);

@@ -10,7 +10,9 @@ const LoginForm = () => {
   const navigate = useNavigate();
   //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
 
-  const URL_API = 'http://localhost:8080/';
+  //const URL_API = 'http://localhost:8080/';
+  const URL_API = 'http://ordermanager.com/';
+
 
   useEffect(() => {
     // Lógica de inicialización aquí
@@ -52,7 +54,7 @@ const LoginForm = () => {
 
         if (userRole.rol === 'Supervisor de Ventas') {
           navigate('/registroEmpleado', { state: { userRole } });
-        } else if(userRole.rol === 'Vendedor') {
+        } else if (userRole.rol === 'Vendedor') {
           navigate('/pedidos', { state: { userRole } });
         }
         //navigate('/pedidos', { state: { userRole } });

@@ -10,7 +10,9 @@ const DetalleReporte = () => {
   const { id } = useParams();
   const [reporte, setReporte] = useState(null);
   //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
-  const URL_API = 'http://localhost:8080/';
+  //const URL_API = 'http://localhost:8080/';
+  const URL_API = 'http://ordermanager.com/';
+
 
   useEffect(() => {
     const fetchReporte = async () => {

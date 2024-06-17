@@ -7,7 +7,9 @@ import Calendar from '../Calendar.js';
 import axios from 'axios';
 
 //const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-const API_URL = 'http://localhost:8080';
+//const API_URL = 'http://localhost:8080';
+const API_URL = 'http://ordermanager.com/';
+
 
 const PedidoCancelado = () => {
     const [notasVentaCanceladas, setNotasVentaCanceladas] = useState([]);

@@ -7,7 +7,9 @@ import '../style/salesReport.css';
 import '../style/registroEmp.css';
 
 //const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-const API_URL = 'http://localhost:8080';
+//const API_URL = 'http://localhost:8080';
+const API_URL = 'http://ordermanager.com/';
+
 
 const CreateProduct = () => {
     const [productos, setProductos] = useState([]);
