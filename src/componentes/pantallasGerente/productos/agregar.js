@@ -7,7 +7,9 @@ import '../style/salesReport.css';
 import '../style/registroEmp.css';
 
 //const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-const API_URL = 'http://localhost:8080';
+//const API_URL = 'http://localhost:8080';
+const API_URL = 'http://ordermanager.com/';
+
 
 const CreateProduct = () => {
     const [productos, setProductos] = useState([]);
@@ -30,6 +32,7 @@ const CreateProduct = () => {
     const userRole = storedUserRole ? JSON.parse(storedUserRole) : null;
 
     const handleCreate = async () => {
+        console.log('handleCreate called');
         try {
             if (!codigo || !nombre || !existencia || !precio || !categoriaSeleccionada || !marcaSeleccionada || !unidadMedidaSeleccionada) {
                 alert('Todos los campos son obligatorios.');
@@ -222,14 +225,21 @@ const CreateProduct = () => {
     return (
         <div className='registro'>
             <MenuHamburguesa />
-            <h1 className='responsive-title'>Crear Producto</h1>
-            {userRole && userRole.rol && (userRole.rol === "Encargado_Departamento" || userRole.rol === "Gerente_Departamento") ? (
+            {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
+
+                <h1 className='responsive-title'>Crear Producto</h1>
+            ) : (
+                <p> </p>
+            )}
+            {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
                 <div>
                     <h4>{modoEdicion ? 'Editar' : 'Agregar'} Producto</h4>
                     <input
                         className='input-producto'
                         type="number"
                         placeholder="Código"
+                        name="codigo"
+                        data-testid="codigoInput"
                         value={codigo}
                         onChange={(e) => {
                             const inputCodigo = e.target.value.replace(/\D/g, '');
@@ -243,6 +253,8 @@ const CreateProduct = () => {
                         className='input-producto'
                         type="text"
                         placeholder="Nombre"
+                        name='nombre'
+                        data-testid="nombreInput"
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value.toLowerCase())}
                     />
@@ -250,6 +262,8 @@ const CreateProduct = () => {
                         className='input-producto'
                         type="number"
                         placeholder="Existencia"
+                        name='existencia'
+                        data-testid="existenciaInput"
                         value={existencia}
                         onChange={(e) => {
                             const inputExistencia = e.target.value.replace(/\D/g, '');
@@ -260,6 +274,8 @@ const CreateProduct = () => {
                         className='input-producto'
                         type="number"
                         placeholder="Precio"
+                        name='precio'
+                        data-testid="precioInput"
                         value={precio}
                         onChange={(e) => {
                             const inputPrecio = e.target.value.replace(/[^\d.]/g, '');
@@ -269,6 +285,7 @@ const CreateProduct = () => {
                     <select
                         className='select-producto'
                         value={categoriaSeleccionada}
+                        data-testid="categoriaSelect"
                         onChange={(e) => setCategoriaSeleccionada(e.target.value)}
                     >
                         <option value="">Selecciona una categoría</option>
@@ -281,6 +298,7 @@ const CreateProduct = () => {
                     <select
                         className='select-producto'
                         value={marcaSeleccionada}
+                        data-testid="marcaSelect"
                         onChange={(e) => setMarcaSeleccionada(e.target.value)}
                     >
                         <option value="">Selecciona una marca</option>
@@ -293,6 +311,7 @@ const CreateProduct = () => {
                     <select
                         className='select-producto'
                         value={unidadMedidaSeleccionada}
+                        data-testid="unidadMedidaSelect"
                         onChange={(e) => setUnidadMedidaSeleccionada(e.target.value)}
                     >
                         <option value="">Selecciona una unidad de medida</option>
@@ -306,16 +325,20 @@ const CreateProduct = () => {
                         {modoEdicion ? (
                             <button className='btn-finalizar' onClick={handleUpdate}>Actualizar</button>
                         ) : (
-                            <button className='btn-finalizar' onClick={handleCreate}>Crear</button>
+                            <button data-testid="createButton" className='btn-finalizar' onClick={handleCreate}>Crear</button>
                         )}
                     </div>
                 </div>
             ) : (
                 <p>No cuentas con los permisos.</p>
             )}
-            <h4>Lista de Productos</h4>
-            <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
-                {userRole && userRole.rol && (userRole.rol === "Encargado_Departamento" || userRole.rol === "Gerente_Departamento") ? (
+            {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
+                <h4>Lista de Productos</h4>
+            ) : (
+                <p></p>
+            )}
+            {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
+                <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
                     <table className="registroEmp">
                         <thead className="encabezado">
                             <tr>
@@ -349,10 +372,10 @@ const CreateProduct = () => {
                             ))}
                         </tbody>
                     </table>
-                ) : (
-                    <p>No cuentas con los permisos.</p>
-                )}
-            </div>
+                </div>
+            ) : (
+                <p></p>
+            )}
         </div>
     );
 };

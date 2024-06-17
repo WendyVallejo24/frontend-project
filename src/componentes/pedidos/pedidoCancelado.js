@@ -7,7 +7,9 @@ import Calendar from '../Calendar.js';
 import axios from 'axios';
 
 //const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-const API_URL = 'http://localhost:8080'; 
+//const API_URL = 'http://localhost:8080';
+const API_URL = 'http://ordermanager.com/';
+
 
 const PedidoCancelado = () => {
     const [notasVentaCanceladas, setNotasVentaCanceladas] = useState([]);
@@ -51,52 +53,67 @@ const PedidoCancelado = () => {
     return (
         <div className='registro'>
             <MenuHamburguesa />
-            <h1 className='responsive-title'>Pedidos Cancelados</h1>
-            <div className='filtro'>
-                <div className='filter-container'>
-                    <label>Filtrar por Cliente:</label>
-                    <input className='fecha-entrega' type="text" placeholder="Nombre cliente" value={filtroCliente} onChange={handleFiltroClienteChange} />
+            {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                <h1 className='responsive-title'>Pedidos Cancelados</h1>
+            ) : (
+                <p> </p>
+            )}
+
+            {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+                <div className='filtro'>
+                    <div className='filter-container'>
+                        <label>Filtrar por Cliente:</label>
+                        <input className='fecha-entrega' type="text" placeholder="Nombre cliente" value={filtroCliente} onChange={handleFiltroClienteChange} />
+                    </div>
+                    <div className='filter-container'>
+                        <label>Filtrar por Fecha Nota:</label>
+                        <Calendar
+                            selectedDate={filtroFecha}
+                            handleDateChange={handleFiltroFechaChange}
+                        />
+                    </div>
                 </div>
-                <div className='filter-container'>
-                    <label>Filtrar por Fecha Nota:</label>
-                    <Calendar
-                        selectedDate={filtroFecha}
-                        handleDateChange={handleFiltroFechaChange}
-                    />
+            ) : (
+                <p> </p>
+            )}
+
+            {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+
+                <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
+                    <table className="tabla">
+                        <thead className='encabezado'>
+                            <tr>
+                                <th>Nota</th>
+                                <th>Fecha Anticipo</th>
+                                <th>Cliente</th>
+                                <th>Teléfono</th>
+                                <th>Dirección</th>
+                                <th>Empleado</th>
+                                <th>Fecha de Nota</th>
+                                <th>Estado Pedido</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filtrarDatos().map((nota) => (
+                                <tr key={nota.numeroNota}>
+                                    <td>{nota.numeroNota}</td>
+                                    <td>{nota.fechaAnticipo}</td>
+                                    <td>{nota.nombreCompletoCliente}</td>
+                                    <td>{nota.telefono}</td>
+                                    <td>{nota.direccion}</td>
+                                    <td>{nota.nombreCompletoEmpleado}</td>
+                                    <td>{nota.fechaNota}</td>
+                                    <td>{nota.estado}</td>
+                                    <td>{nota.total}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-            <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
-            <table className="tabla">
-                <thead className='encabezado'>
-                    <tr>
-                        <th>Nota</th>
-                        <th>Fecha Anticipo</th>
-                        <th>Cliente</th>
-                        <th>Teléfono</th>
-                        <th>Dirección</th>
-                        <th>Empleado</th>
-                        <th>Fecha de Nota</th>
-                        <th>Estado Pedido</th>
-                        <th>Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filtrarDatos().map((nota) => (
-                        <tr key={nota.numeroNota}>
-                            <td>{nota.numeroNota}</td>
-                            <td>{nota.fechaAnticipo}</td>
-                            <td>{nota.nombreCompletoCliente}</td>
-                            <td>{nota.telefono}</td>
-                            <td>{nota.direccion}</td>
-                            <td>{nota.nombreCompletoEmpleado}</td>
-                            <td>{nota.fechaNota}</td>
-                            <td>{nota.estado}</td>
-                            <td>{nota.total}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            </div>
+            ) : (
+                <p> </p>
+            )}
         </div>
     );
 };

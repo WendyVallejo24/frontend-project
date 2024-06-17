@@ -2,6 +2,7 @@ import './style/AgregarEmpleado.css';
 import MenuHamburguesa from '../MenuHamburguesa';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const AgregarEmpleado = () => {
 
@@ -15,7 +16,9 @@ const AgregarEmpleado = () => {
 
     const [userRole, setUserRole] = useState({});
     //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
-    const URL_API = 'http://localhost:8080/'; 
+    //const URL_API = 'http://localhost:8080/api/empleados/crearConDTO';
+    const URL_API = 'http://ordermanager.com/api/empleados/crearConDTO';
+
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -27,18 +30,20 @@ const AgregarEmpleado = () => {
 
         try {
             console.log('Antes de la llamada a fetch:', empleado);
-            const response = await fetch(URL_API + 'api/empleados/crearConDTO', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(empleado)
-            });
+            const response = await axios.post(URL_API, empleado);
             console.log('Después de la llamada a fetch:', response);
 
-            if (response.ok) {
+            if (response.status === 201) { // Verifica si la respuesta tiene un estado 200
                 console.log('Empleado agregado correctamente');
-                // Puedes redirigir o hacer otras acciones después de agregar el empleado
+                window.alert('Empleado registrado correctamente');
+                // limpiar los input
+                setEmpleado({
+                    nombre: '',
+                    apellidos: '',
+                    contrasenia: '',
+                    correoElectronico: '',
+                    idRol: ''
+                });
             } else {
                 console.error('Error al agregar el empleado:', response.status, response.statusText);
             }
@@ -62,9 +67,13 @@ const AgregarEmpleado = () => {
     return (
         <div className="contenedor">
             <MenuHamburguesa />
-            <h1>Agregar Empleado</h1>
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+                <h1>Agregar Empleado</h1>
+            ) : (
+                <p></p>
+            )}
             <Link to="/registroEmpleado">Volver al Registro de Empleados</Link><br /><br />
-            {userRole && userRole.rol && userRole.rol.includes("Encargado_Departamento") ? (
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
                 <form onSubmit={handleSubmit}>
                     <label>
                         Nombre:
@@ -72,6 +81,8 @@ const AgregarEmpleado = () => {
                             type="text"
                             className="datos"
                             name="nombre"
+                            placeholder='Nombre'
+                            data-testid="nombre-input"
                             value={empleado.nombre}
                             onChange={handleInputChange}
                         />
@@ -83,6 +94,8 @@ const AgregarEmpleado = () => {
                             type="text"
                             className="datos"
                             name="apellidos"
+                            placeholder='Apellidos'
+                            data-testid="apellidos-input"
                             value={empleado.apellidos}
                             onChange={handleInputChange}
                         />
@@ -94,6 +107,8 @@ const AgregarEmpleado = () => {
                             type="email"
                             className="datos"
                             name="correoElectronico"
+                            placeholder='Correo Electrónico'
+                            data-testid="correo-input"
                             value={empleado.correoElectronico}
                             onChange={handleInputChange}
                         />
@@ -105,6 +120,8 @@ const AgregarEmpleado = () => {
                             type="password"
                             className="datos"
                             name="contrasenia"
+                            placeholder='Contraseña'
+                            data-testid="contrasenia-input"
                             value={empleado.contrasenia}
                             onChange={handleInputChange}
                         />
@@ -115,13 +132,13 @@ const AgregarEmpleado = () => {
                         <select className='select-empleado'
                             //className="datos"
                             name="idRol"
+                            data-testid="idRol-input"
                             value={empleado.idRol}
                             onChange={handleInputChange}
                         >
                             <option value="">Selecciona un rol</option>
-                            <option value="1">Encargado Caja</option>
-                            <option value="2">Gerente Departamento</option>
-                            <option value="3">Encargado Departamento</option>
+                            <option value="2">Supervisor de Ventas</option>
+                            <option value="1">Vendedor</option>
                         </select>
                     </label>
                     <br />

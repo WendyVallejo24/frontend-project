@@ -5,7 +5,9 @@ import '../pantallasGerente/style/salesReport.css';
 import MenuHamburguesa from '../MenuHamburguesa';
 
 //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/"
-const URL_API = 'http://localhost:8080/';
+//const URL_API = 'http://localhost:8080/';
+const URL_API = 'http://ordermanager.com/';
+
 
 const RegistroEmp = () => {
     const [empleados, setEmpleados] = useState([]);
@@ -30,6 +32,7 @@ const RegistroEmp = () => {
                 if (response.ok) {
                     const data = await response.json();
                     setEmpleados(data);
+                    console.log("Empleados: ", data);
                 } else {
                     console.error('Error en la solicitud:', response.statusText);
                     navigate('/ventas');
@@ -44,19 +47,31 @@ const RegistroEmp = () => {
 
     console.log('userRole en RegistroEmp:', userRole);
     console.log('userRole.rol en RegistroEmp:', userRole && userRole.rol);
-    console.log('¿Es Jefe?', userRole && userRole.rol && userRole.rol.includes("Jefe"));
+    console.log('¿Supervisor de Ventas?', userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas"));
 
     return (
         <div className="registro">
             <MenuHamburguesa />
-            <h1 className='responsive-title'>Registro de empleados</h1>
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+                <h1 className='responsive-title'>Registro de empleados</h1>
+            ) : (
+                <p></p>
+            )}
 
-            <div className="botones">
-                <Link to="/agregarEmpleado"><button className="btn-crud">Agregar Empleado</button></Link>
-                <Link to="/eliminarEmpleado"><button className="btn-crud-1">Eliminar Empleado</button></Link>
-            </div>
-            <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
-                {userRole && userRole.rol && userRole.rol.includes("Encargado_Departamento") ? (
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+
+
+                <div className="botones">
+                    <Link to="/agregarEmpleado"><button className="btn-crud">Agregar Empleado</button></Link>
+                    <Link to="/eliminarEmpleado"><button className="btn-crud-1">Eliminar Empleado</button></Link>
+                </div>
+            ) : (
+                <p></p>
+            )}
+
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+
+                <div className="table-container"> {/* Nuevo div que envuelve la tabla */}
                     <table className="registrosEmp">
                         <thead className='encabezado'>
                             <tr>
@@ -64,7 +79,7 @@ const RegistroEmp = () => {
                                 <th>Nombre</th>
                                 <th>Apellidos</th>
                                 <th>Correo Electrónico</th>
-                                <th>Roles</th>
+                                <th>Rol</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -79,10 +94,10 @@ const RegistroEmp = () => {
                             ))}
                         </tbody>
                     </table>
-                ) : (
-                    <p>No cuentas con los permisos.</p>
-                )}
-            </div>
+                </div>
+            ) : (
+                <p>No cuentas con los permisos.</p>
+            )}
         </div>
     );
 };

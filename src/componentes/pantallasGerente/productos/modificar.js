@@ -4,7 +4,9 @@ import axios from 'axios';
 import MenuHamburguesa from '../../MenuHamburguesa';
 
 //const API_URL = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net"
-const API_URL = 'http://localhost:8080'; 
+//const API_URL = 'http://localhost:8080';
+const API_URL = 'http://ordermanager.com/';
+
 
 const UpdateProduct = ({ productId }) => {
   const [nuevoNombre, setNuevoNombre] = useState('');
@@ -32,14 +34,22 @@ const UpdateProduct = ({ productId }) => {
   return (
     <div>
       <MenuHamburguesa />
-      <h2>Actualizar Producto</h2>
-      <input
-        type="text"
-        placeholder="Nuevo Nombre del Producto"
-        value={nuevoNombre}
-        onChange={(e) => setNuevoNombre(e.target.value)}
-      />
-      {userRole && userRole.rol && (userRole.rol === "Encargado_Departamento" || userRole.rol === "Gerente_Departamento") ? (
+      {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
+        <h2>Actualizar Producto</h2>
+      ) : (
+        <p></p>
+      )}
+      {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
+        <input
+          type="text"
+          placeholder="Nuevo Nombre del Producto"
+          value={nuevoNombre}
+          onChange={(e) => setNuevoNombre(e.target.value)}
+        />
+      ) : (
+        <p></p>
+      )}
+      {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
         <button onClick={handleUpdate}>Actualizar</button>
       ) : (
         <p>No cuentas con los permisos.</p>

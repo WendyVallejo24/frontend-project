@@ -6,9 +6,12 @@ import MenuHamburguesa from '../MenuHamburguesa';
 const CrearReporteMensual = () => {
     const [reportId, setReportId] = useState('');  // State to hold the report ID
     const [userRole, setUserRole] = useState({});
+
     //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
 
-    const URL_API = 'http://localhost:8080/'; 
+    //const URL_API = 'http://localhost:8080/';
+    const URL_API = 'http://ordermanager.com/';
+
 
     // Method to update the report
     const handleUpdateClick = async () => {
@@ -18,11 +21,14 @@ const CrearReporteMensual = () => {
             if (response.status === 200) {
                 const data = response.data;
                 console.log('Reporte actualizado:', data);
+                alert('Reporte actualizado con éxito');
             } else {
                 console.error('Error al actualizar el reporte:', response.statusText);
+                alert("Error al actualizar el reporte");
             }
         } catch (error) {
             console.error('Error de red:', error.message);
+            alert(`Error de red: ${error.message}`);
         }
     };
 
@@ -45,11 +51,14 @@ const CrearReporteMensual = () => {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Reporte creado:', data);
+                alert('Reporte creado con éxito');
             } else {
                 console.error('Error al crear el reporte');
+                alert('Error al crear el reporte');
             }
         } catch (error) {
             console.error('Error de red:', error);
+            alert(`Error de red: ${error.message}`);
         }
     };
     useEffect(() => {
@@ -65,25 +74,30 @@ const CrearReporteMensual = () => {
 
     return (
         <div style={{ textAlign: 'center' }} className="registro">
-            <h1>Crear y Actualizar Reportes Mensuales</h1>
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+                <h1>Crear y Actualizar Reportes Mensuales</h1>
+            ) : (
+                <p> </p>
+            )}
             <MenuHamburguesa />
-            <label>Report ID: </label><input className="producto" type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
+
+            <label htmlFor="report-id">Report ID: </label><input id="report-id" className="producto" type="text" value={reportId} onChange={(e) => setReportId(e.target.value)} />
 
             <br /><br />
-            {userRole && userRole.rol && userRole.rol.includes("Encargado_Departamento") ? (
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
 
-                <button className="btn-crud" onClick={handleUpdateClick}>
+                <button type="button" className="btn-crud" onClick={handleUpdateClick} data-testid="actualizar-reporte-semanal-button">
                     Actualizar Reporte Mensual
                 </button>
             ) : (
                 <p>No cuentas con los permisos.</p>
             )}
-            {userRole && userRole.rol && userRole.rol.includes("Encargado_Departamento") ? (
-                <button className="btn-crud" onClick={handleCreateClick}>
+            {userRole && userRole.rol && userRole.rol.includes("Supervisor de Ventas") ? (
+                <button type="button" className="btn-crud" onClick={handleCreateClick}>
                     Crear Reporte Mensual
                 </button>
             ) : (
-                <p>No cuentas con los permisos.</p>
+                <p></p>
             )}
         </div>
     );

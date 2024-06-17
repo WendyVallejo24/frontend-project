@@ -5,7 +5,9 @@ import '../style/catalogo.css';
 import '../style/salesReport.css';
 
 //const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-const API_URL = 'http://localhost:8080';
+//const API_URL = 'http://localhost:8080';
+const API_URL = 'http://ordermanager.com/';
+
 
 const MarcaList = () => {
   const [marcas, setMarcas] = useState([]);
@@ -84,25 +86,25 @@ const MarcaList = () => {
         marcaActualizada
       );
       console.log('Marca actualizada:', response.data);
-      alert('Marca actualizada con éxito.');
+      alert("Marca actualiza con éxito")
       setNombreMarca('');
       setMarcaSeleccionada('');
       setModoEdicion(false);
       fetchMarcas();
     } catch (error) {
       console.error('Error al actualizar marca', error);
-      alert('Error al actualizar marca.');
+      alert("Error al actualizar marca")
     }
   };
 
   const handleEliminarMarca = async (idMarca) => {
     try {
       await axios.delete(`${API_URL}/api/marcas/${idMarca}`);
-      alert('Marca eliminada con éxito.');
+      alert("Marca eliminda con éxito")
       fetchMarcas();
     } catch (error) {
       console.error('Error al eliminar marca', error);
-      alert('Error al eliminar marca.');
+      alert("Error al eliminar marca")
     }
   };
 
@@ -113,51 +115,63 @@ const MarcaList = () => {
   return (
     <div className='registro'>
       <MenuHamburguesa />
-      <h1>Administrar Marcas</h1>
-      <div>
-        <h4>{modoEdicion ? 'Editar' : 'Agregar'} Marca</h4>
-        <input
-          className='input-producto'
-          type="text"
-          placeholder="Nombre de la Marca"
-          value={nombreMarca}
-          onChange={(e) => setNombreMarca(e.target.value.toLowerCase())}
-        />
-        <div className='botones'>
-          {modoEdicion ? (
-            <button className='btn-finalizar' onClick={handleActualizarMarca}>Actualizar</button>
-          ) : (
-            <button className='btn-finalizar' onClick={handleCrearMarca}>Agregar</button>
-          )}
+      {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
+        <h1>Administrar Marcas</h1>
+      ) : (
+        <p> </p>
+      )}
+      {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
+        <div>
+          <h4>{modoEdicion ? 'Editar' : 'Agregar'} Marca</h4>
+          <input
+            className='input-producto'
+            type="text"
+            placeholder="Nombre de la Marca"
+            value={nombreMarca}
+            onChange={(e) => setNombreMarca(e.target.value.toLowerCase())}
+          />
+          <div className='botones'>
+            {modoEdicion ? (
+              <button className='btn-finalizar' onClick={handleActualizarMarca}>Actualizar</button>
+            ) : (
+              <button className='btn-finalizar' onClick={handleCrearMarca}>Agregar</button>
+            )}
+          </div>
         </div>
-      </div>
+      ) : (
+        <p>No cuentas con los permisos.</p>
+      )}
+      {userRole && userRole.rol && (userRole.rol === "Supervisor de Ventas") ? (
 
-      <div>
-        <h4>Listado de Marcas</h4>
-        <table className='registroEmp'>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Nombre</th>
-              <th>Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {marcas.map((marca) => (
-              <tr key={marca.idMarca}>
-                <td>{marca.idMarca}</td>
-                <td>{marca.nombre}</td>
-                <td className='btn-ventas'>
-                  <div className='botones'>
-                    <button className='btn-finalizar' onClick={() => handleEditarMarca(marca.idMarca)}>Editar</button>
-                    <button className='btn-cancelar' onClick={() => handleEliminarMarca(marca.idMarca)}>Eliminar</button>
-                  </div>
-                </td>
+        <div>
+          <h4>Listado de Marcas</h4>
+          <table className='registroEmp'>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {marcas.map((marca) => (
+                <tr key={marca.idMarca}>
+                  <td>{marca.idMarca}</td>
+                  <td>{marca.nombre}</td>
+                  <td className='btn-ventas'>
+                    <div className='botones'>
+                      <button className='btn-finalizar' data-testid={`editar-${marca.idMarca}`} onClick={() => handleEditarMarca(marca.idMarca)}>Editar</button>
+                      <button className='btn-cancelar' data-testid={`eliminar-${marca.idMarca}`} onClick={() => handleEliminarMarca(marca.idMarca)}>Eliminar</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p> </p>
+      )}
     </div>
   );
 };

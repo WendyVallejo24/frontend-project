@@ -10,7 +10,9 @@ const LoginForm = () => {
   const navigate = useNavigate();
   //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
 
-  const URL_API = 'http://localhost:8080/';
+  //const URL_API = 'http://localhost:8080/';
+  const URL_API = 'http://ordermanager.com/';
+
 
   useEffect(() => {
     // Lógica de inicialización aquí
@@ -19,9 +21,12 @@ const LoginForm = () => {
 
   const init = async () => {
     try {
-      // Lógica para inicializar con una solicitud GET
       const responseGet = await axios.get(URL_API + 'initEmpleados');
-      console.log('Respuesta de inicialización con GET', responseGet.data);
+      if (responseGet) {
+        console.log('Respuesta de inicialización con GET', responseGet.data);
+      } else {
+        console.error('Error en la inicialización: no se recibió respuesta');
+      }
     } catch (error) {
       console.error('Error en la inicialización', error.message);
     }
@@ -47,7 +52,12 @@ const LoginForm = () => {
         const userRole = response.data; // Almacena todo el objeto de respuesta
         localStorage.setItem('userRole', JSON.stringify(userRole));
 
-        navigate('/pedidos', { state: { userRole } });
+        if (userRole.rol === 'Supervisor de Ventas') {
+          navigate('/registroEmpleado', { state: { userRole } });
+        } else if (userRole.rol === 'Vendedor') {
+          navigate('/pedidos', { state: { userRole } });
+        }
+        //navigate('/pedidos', { state: { userRole } });
       } else {
         console.error('La respuesta del servidor no contiene un rol válido.', response.data);
       }

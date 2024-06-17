@@ -11,7 +11,9 @@ const EliminarEmpleado = () => {
   const [empleadoId, setEmpleadoId] = useState('');
   const [userRole, setUserRole] = useState({});
   //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
-  const URL_API = 'http://localhost:8080/'; 
+  //const URL_API = 'http://localhost:8080/';
+  const URL_API = 'http://ordermanager.com/';
+
 
   const buscarEmpleado = async () => {
     try {
@@ -41,6 +43,7 @@ const EliminarEmpleado = () => {
         console.log('Empleado eliminado con éxito');
         // Actualizar la lista de resultados después de la eliminación
         setResultados([]);
+        alert("Empleado eliminado con éxito");
       } else {
         // Manejar errores
         console.error('Error al eliminar el empleado');
@@ -61,14 +64,19 @@ const EliminarEmpleado = () => {
   }, []);
 
   return (
-    <div className='contenedor'>
+    <div className='registro'>
       <MenuHamburguesa />
-      <h1>Eliminar Empleado</h1>
+      {userRole && userRole.rol && userRole.rol === "Supervisor de Ventas" ? (
+
+        <h1>Eliminar Empleado</h1>
+      ) : (
+        <p></p>
+      )}
       <Link to="/registroEmpleado">Volver al Registro de Empleados</Link><br /><br />
-      
-      {userRole && userRole.rol && userRole.rol === "Encargado_Departamento" ? (
+
+      {userRole && userRole.rol && userRole.rol === "Supervisor de Ventas" ? (
         <form>
-          <div>
+          <div className='input'>
             <label>Nombre:</label>
             <input
               type='text'
@@ -78,7 +86,7 @@ const EliminarEmpleado = () => {
               placeholder='Ingrese el nombre'
             />
           </div>
-          <div>
+          <div className='input'>
             <label>Apellidos:</label>
             <input
               type='text'
@@ -88,9 +96,11 @@ const EliminarEmpleado = () => {
               placeholder='Ingrese los apellidos'
             />
           </div>
-          <button type='button' onClick={buscarEmpleado} className='buscador'>
-            Buscar Empleado
-          </button>
+          <div className='input'>
+            <button type='button' onClick={buscarEmpleado} >
+              Buscar Empleado
+            </button>
+          </div>
         </form>
       ) : (
         <p>No cuentas con los permisos.</p>
@@ -119,7 +129,7 @@ const EliminarEmpleado = () => {
               ))}
             </tbody>
           </table>
-          <div>
+          <div className='input'>
             <label>ID del empleado a eliminar:</label>
             <input
               type='text'

@@ -7,7 +7,9 @@ import { IoMdArrowDropdownCircle } from "react-icons/io";
 import DetallesVentaModal from './DetallesVentaModal';
 
 //const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-const API_URL = 'http://localhost:8080';
+//const API_URL = 'http://localhost:8080';
+const API_URL = 'http://ordermanager.com/';
+
 
 const VistaNotaVentaPedidoEnProcesoComponent = () => {
   const [notasVentaEnProceso, setNotasVentaEnProceso] = useState([]);
@@ -105,18 +107,20 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
         // Otros datos necesarios para la solicitud, si los hay
       });
 
+      console.log('Respuesta del servidor:', response.data);
+
       // Después de la acción, actualizar los datos
       await fetchNotasVentaEnProceso();
       alert('Pagado y entregado con éxito', response.data);
     } catch (error) {
       console.error('Error en la solicitud', error);
-      // Manejar el error según tus necesidades
+      alert('Error al pagar y entregar el pedido');
     }
   };
 
   const handleAbonar = (nota) => {
     if (nota.resto <= 0) {
-      console.error('La nota ya se encuentra pagada.');
+      //console.error('La nota ya se encuentra pagada.');
       alert('La nota ya se encuentra pagada.');
       return;
     }
@@ -131,12 +135,12 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
   const handleConfirmAbono = async () => {
     try {
       if (!selectedNota) {
-        alert('No se ha seleccionado una nota para abonar.');
+        alert('No se ha seleccionado nota para abonar.');
         return;
       }
 
       if (!abonoAmount || abonoAmount <= 0) {
-        alert('La cantidad de abono debe ser un número positivo.');
+        alert("La cantidad de abono debe ser un número positivo.");
         return;
       }
 
@@ -160,120 +164,137 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
   return (
     <div className='registro'>
       <MenuHamburguesa />
-      <h1 className='responsive-title'>Estado de pedido y de pago</h1>
-      <div className='btns'>
-        <h4>Buscar nota:</h4>
-        <input
-          className='input-producto'
-          type="text"
-          placeholder="Nombre del cliente"
-          value={filtroNombreCliente}
-          onChange={(e) => setFiltroNombreCliente(e.target.value)}
-        />
-
-      </div>
-      <div className="rectangulos-container">
-        {notasFiltradas.map((nota) => (
-          // console.log(nota),
-          <div key={nota.idAnticipo} className="rectangulo">
-            <div className="botones">
-              <h4>Acciones del pedido:</h4>
-              <div className='r-1'>
-                <button className='btn-finalizar rh' onClick={() => handleCancelarPedido(nota)}>Cancelar Pedido</button>
-                <button className='btn-finalizar rh' onClick={() => handleEntregarPedido(nota)}>Entregar Pedido</button>
-                <button className='btn-finalizar rh' onClick={() => handlePagarYEntregarPedido(nota)}>Pagar y entregar</button>
-                {nota.estadoPago === 'Pendiente' && (
-                  <button 
-                  className='btn-finalizar rh'
-                  onClick={() => handleAbonar(nota)}
-                  >
-                    Abonar
-                  </button>
-                )}
-              </div>
-            </div>
-            <div className="rectangulo-header" style={{ backgroundColor: '#f6f6f6' }}>
-              <div className='r-1'>
-                <p><b>Número de Nota: </b>{nota.numeroNota}</p>
-                <p><b>Fecha de Nota: </b>{nota.fechaNota}</p>
-                <p><b>Estado Pago: </b>{nota.estadoPago}</p>
-                <p><b>Último pago: </b>{nota.fechaAnticipo}</p>
-              </div>
-              <div className='r-1'>
-                <p><b>Empleado: </b>{nota.nombreCompletoEmpleado}</p>
-                {/* <p><b>Estado: </b>{nota.estado}</p> */}
-              </div>
-            </div>
-
-            <div className="rectangulo-header" style={{ backgroundColor: '#eee' }}>
-              <div className='r2'>
-                <b>Datos Cliente:</b>
-              </div>
-              <div className='r-1'>
-                <p><b>Nombre Cliente: </b>{nota.nombreCompletoCliente}</p>
-                <p><b>Teléfono: </b>{nota.telefono}</p>
-              </div>
-              <div className='r-2'>
-                <p><b>Dirección: </b>{nota.direccion}</p>
-              </div>
-            </div>
-
-            <div className="rectangulo-header" style={{ backgroundColor: '#ddd' }}>
-              <div className='r-1'>
-                <p><b>Fecha Anticipo: </b>{nota.fechaAnticipo}</p>
-                <p><b>Estado Pedido: </b>{nota.estado}</p>
-              </div>
-              <div className='r-1'>
-                <p><b>Total: </b>{nota.total}</p>
-                <p><b>Abonado: </b>{nota.monto}</p>
-                <p><b>Debe: </b>{nota.resto}</p>
-              </div>
-            </div>
-            <div className="rectangulo-header" style={{ backgroundColor: '#c6c6c6' }}>
-              <div className='r-1'>
-                <button className='btn-detalles' onClick={() => handleVerDetalles(nota)}>
-                  Ver Detalles
-                  <IoMdArrowDropdownCircle className='icon' />
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-        {/* Ventana emergente para los detalles de la venta */}
-        {showDetalles && selectedNota && (
-          <DetallesVentaModal
-            numeroNota={selectedNota.numeroNota}
-            onClose={() => setShowDetalles(false)}
+      {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+        <h1 className='responsive-title'>Estado del pedido</h1>
+      ) : (
+        <p></p>
+      )}
+      {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+        <div className='btns'>
+          <h4>Buscar nota:</h4>
+          <input
+            className='input-producto'
+            type="text"
+            placeholder="Nombre del cliente"
+            value={filtroNombreCliente}
+            onChange={(e) => setFiltroNombreCliente(e.target.value)}
           />
-        )}
-        {/* Ventana emergente para el abono */}
-        {showModal && (
-          <div className="Overlay">
-            <div className="Modal">
-              <span className="close" onClick={handleModalClose}>
-                &times;
-              </span>
-              <h2>Abonar</h2>
-              <p>Introduce la cantidad de dinero a abonar:</p>
-              <input
-                className='input-producto'
-                type="number"
-                value={abonoAmount}
-                onChange={(e) => {
-                  const inputValue = e.target.value;
-                  if (/^[0-9]*$/.test(inputValue)) {
-                    setAbonoAmount(inputValue);
-                  }
-                }}
-              />
-              <div className='botones'>
-                <button className='btn-finalizar' onClick={handleConfirmAbono}>Confirmar Abono</button>
-                <button className='btn-cancelar' onClick={handleModalClose}>Cancelar</button>
+
+        </div>
+      ) : (
+        <p>No cuentas con los permisos.</p>
+      )}
+
+      {userRole && userRole.rol && userRole.rol.includes("Vendedor") ? (
+
+        <div className="rectangulos-container">
+          {notasFiltradas.map((nota) => (
+            // console.log(nota),
+            <div key={nota.idAnticipo} className="rectangulo">
+              <div className="botones">
+                <h4>Acciones del pedido:</h4>
+                <div className='r-1'>
+                  <button className='btn-finalizar rh' onClick={() => handleCancelarPedido(nota)}>Cancelar Pedido</button>
+                  <button className='btn-finalizar rh' onClick={() => handleEntregarPedido(nota)}>Entregar Pedido</button>
+                  <button className='btn-finalizar rh' onClick={() => handlePagarYEntregarPedido(nota)}>Pagar y entregar</button>
+                  {nota.estadoPago === 'Pendiente' && (
+                    <button
+                      type='button'
+                      data-testid={`abonar-${nota.idAnticipo}}`}
+                      className='btn-finalizar rh'
+                      onClick={() => handleAbonar(nota)}
+                    >
+                      Abonar
+                    </button>
+                  )}
+                </div>
+              </div>
+              <div className="rectangulo-header" style={{ backgroundColor: '#f6f6f6' }}>
+                <div className='r-1'>
+                  <p><b>Número de Nota: </b>{nota.numeroNota}</p>
+                  <p><b>Fecha de Nota: </b>{nota.fechaNota}</p>
+                  <p><b>Estado Pago: </b>{nota.estadoPago}</p>
+                  <p><b>Último pago: </b>{nota.fechaAnticipo}</p>
+                </div>
+                <div className='r-1'>
+                  <p><b>Empleado: </b>{nota.nombreCompletoEmpleado}</p>
+                  {/* <p><b>Estado: </b>{nota.estado}</p> */}
+                </div>
+              </div>
+
+              <div className="rectangulo-header" style={{ backgroundColor: '#eee' }}>
+                <div className='r2'>
+                  <b>Datos Cliente:</b>
+                </div>
+                <div className='r-1'>
+                  <p><b>Nombre Cliente: </b>{nota.nombreCompletoCliente}</p>
+                  <p><b>Teléfono: </b>{nota.telefono}</p>
+                </div>
+                <div className='r-2'>
+                  <p><b>Dirección: </b>{nota.direccion}</p>
+                </div>
+              </div>
+
+              <div className="rectangulo-header" style={{ backgroundColor: '#ddd' }}>
+                <div className='r-1'>
+                  <p><b>Fecha Anticipo: </b>{nota.fechaAnticipo}</p>
+                  <p><b>Estado Pedido: </b>{nota.estado}</p>
+                </div>
+                <div className='r-1'>
+                  <p><b>Total: </b>{nota.total}</p>
+                  <p><b>Abonado: </b>{nota.monto}</p>
+                  <p><b>Debe: </b>{nota.resto}</p>
+                </div>
+              </div>
+              <div className="rectangulo-header" style={{ backgroundColor: '#c6c6c6' }}>
+                <div className='r-1'>
+                  <button className='btn-detalles' onClick={() => handleVerDetalles(nota)}>
+                    Ver Detalles
+                    <IoMdArrowDropdownCircle className='icon' />
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
+          ))}
+          {/* Ventana emergente para los detalles de la venta */}
+          {showDetalles && selectedNota && (
+            <DetallesVentaModal
+              numeroNota={selectedNota.numeroNota}
+              onClose={() => setShowDetalles(false)}
+            />
+          )}
+          {/* Ventana emergente para el abono */}
+          {showModal && (
+            <div className="Overlay">
+              <div className="Modal">
+                <span className="close" onClick={handleModalClose}>
+                  &times;
+                </span>
+                <h2>Abonar</h2>
+                <label htmlFor="abonoInput">Introduce la cantidad de dinero a abonar:</label>
+                <input
+                  id="abonoInput"
+                  className='input-producto'
+                  type="number"
+                  value={abonoAmount}
+                  onChange={(e) => {
+                    const inputValue = e.target.value;
+                    if (/^[0-9]*$/.test(inputValue)) {
+                      setAbonoAmount(inputValue);
+                    }
+                  }}
+                />
+                <div className='botones'>
+                  <button className='btn-finalizar' onClick={handleConfirmAbono}>Confirmar Abono</button>
+                  <button className='btn-cancelar' onClick={handleModalClose}>Cancelar</button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      ) : (
+        <p></p>
+      )}
     </div>
   );
 };
