@@ -2,17 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './login.css';
 import { useNavigate } from 'react-router-dom';
+import { URL_API } from '../config';
 import imgFerreteria from './img/usuarioFerret.jpg';
 
 const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
-
-  //const URL_API = 'http://localhost:8080/';
-  const URL_API = 'http://ordermanager.com/';
-
 
   useEffect(() => {
     // Lógica de inicialización aquí

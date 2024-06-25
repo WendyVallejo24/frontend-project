@@ -3,6 +3,7 @@ import MenuHamburguesa from '../MenuHamburguesa';
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { URL_API } from '../../config';
 
 const AgregarEmpleado = () => {
 
@@ -17,7 +18,7 @@ const AgregarEmpleado = () => {
     const [userRole, setUserRole] = useState({});
     //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
     //const URL_API = 'http://localhost:8080/api/empleados/crearConDTO';
-    const URL_API = 'http://ordermanager.com/api/empleados/crearConDTO';
+    const API_URL = `${URL_API}api/empleados/crearConDTO`;
 
 
     const handleInputChange = (e) => {
@@ -30,7 +31,7 @@ const AgregarEmpleado = () => {
 
         try {
             console.log('Antes de la llamada a fetch:', empleado);
-            const response = await axios.post(URL_API, empleado);
+            const response = await axios.post(API_URL, empleado);
             console.log('Después de la llamada a fetch:', response);
 
             if (response.status === 201) { // Verifica si la respuesta tiene un estado 200

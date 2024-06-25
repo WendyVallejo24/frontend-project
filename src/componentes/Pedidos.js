@@ -10,14 +10,11 @@ import './pantallasGerente/style/salesReport.css';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import './Ventas.css';
+import { URL_API } from '../config';
 import AddClientModal from './AddClientModal';
 
 const id_empleado = localStorage.getItem('idEmpleado');
 const nombre = localStorage.getItem('nombreEmpleado');
-
-//const URL_API = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net/';
-const URL_API = 'http://ordermanager.com/';
-//const URL_API = "http://localhost:8080/";
 
 const Calendar = ({ value, onChange }) => {
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);

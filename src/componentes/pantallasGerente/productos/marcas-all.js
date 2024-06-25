@@ -3,11 +3,7 @@ import axios from 'axios';
 import MenuHamburguesa from '../../MenuHamburguesa';
 import '../style/catalogo.css';
 import '../style/salesReport.css';
-
-//const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-//const API_URL = 'http://localhost:8080';
-const API_URL = 'http://ordermanager.com/';
-
+import { URL_API } from '../../../config';
 
 const MarcaList = () => {
   const [marcas, setMarcas] = useState([]);
@@ -15,11 +11,10 @@ const MarcaList = () => {
   const [idMarca, setIdMarca] = useState('');
   const [marcaSeleccionada, setMarcaSeleccionada] = useState(null);
   const [modoEdicion, setModoEdicion] = useState(false);
-  const [userRole, setUserRole] = useState({});
 
   const fetchMarcas = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/marcas`);
+      const response = await axios.get(`${URL_API}api/marcas`);
       setMarcas(response.data);
     } catch (error) {
       console.error('Error al obtener marcas', error);
@@ -43,7 +38,7 @@ const MarcaList = () => {
         nombre: nombreMarca.toLowerCase(),
       };
 
-      const response = await axios.post(`${API_URL}/api/marcas`, nuevaMarca);
+      const response = await axios.post(`${URL_API}api/marcas`, nuevaMarca);
       console.log('Marca creada:', response.data);
       alert('Marca creada con éxito.');
       setIdMarca('');
@@ -83,7 +78,7 @@ const MarcaList = () => {
         nombre: nombreMarca.toLowerCase(),
       }
       const response = await axios.put(
-        `${API_URL}/api/marcas/${marcaSeleccionada.idMarca}`,
+        `${URL_API}api/marcas/${marcaSeleccionada.idMarca}`,
         marcaActualizada
       );
       console.log('Marca actualizada:', response.data);
@@ -100,7 +95,7 @@ const MarcaList = () => {
 
   const handleEliminarMarca = async (idMarca) => {
     try {
-      await axios.delete(`${API_URL}/api/marcas/${idMarca}`);
+      await axios.delete(`${URL_API}api/marcas/${idMarca}`);
       alert("Marca eliminda con éxito")
       fetchMarcas();
     } catch (error) {
@@ -111,6 +106,16 @@ const MarcaList = () => {
 
   useEffect(() => {
     fetchMarcas();
+  }, []);
+
+  const [userRole, setUserRole] = useState({});
+  useEffect(() => {
+    // Modificación 2: Parsear el rol al cargar el componente
+    const storedRole = localStorage.getItem('userRole');
+
+    const parsedRole = storedRole ? JSON.parse(storedRole) : null;
+
+    setUserRole(parsedRole);
   }, []);
 
   return (

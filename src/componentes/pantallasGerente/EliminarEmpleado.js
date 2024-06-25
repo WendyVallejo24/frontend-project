@@ -3,6 +3,7 @@ import './style/EliminarEmpleado.css';
 import MenuHamburguesa from '../MenuHamburguesa';
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
+import { URL_API } from '../../config';
 
 const EliminarEmpleado = () => {
   const [nombre, setNombre] = useState('');
@@ -10,10 +11,6 @@ const EliminarEmpleado = () => {
   const [resultados, setResultados] = useState([]);
   const [empleadoId, setEmpleadoId] = useState('');
   const [userRole, setUserRole] = useState({});
-  //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
-  //const URL_API = 'http://localhost:8080/';
-  const URL_API = 'http://ordermanager.com/';
-
 
   const buscarEmpleado = async () => {
     try {

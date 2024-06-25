@@ -2,10 +2,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import MenuHamburguesa from '../../MenuHamburguesa';
-
-//const API_URL = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net"
-//const API_URL = 'http://localhost:8080';
-const API_URL = 'http://ordermanager.com/';
+import { URL_API } from '../../../config';
 
 
 const UpdateProduct = ({ productId }) => {
@@ -18,7 +15,7 @@ const UpdateProduct = ({ productId }) => {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.put(API_URL + `/${productId}`, {
+      const response = await axios.put(URL_API + `${productId}`, {
         nombre: nuevoNombre,
       });
       console.log('Producto actualizado:', response.data);

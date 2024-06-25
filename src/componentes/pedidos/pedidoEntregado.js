@@ -4,12 +4,8 @@ import '../pantallasGerente/style/catalogo.css';
 import '../pantallasGerente/style/salesReport.css';
 import '../Calendar.js'; // Asegúrate de importar el componente Calendar si es necesario
 import Calendar from '../Calendar.js';
+import { URL_API } from '../../config';
 import axios from 'axios';
-
-//const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-//const API_URL = 'http://localhost:8080';
-const API_URL = 'http://ordermanager.com/';
-
 
 const PedidoEntregado = () => {
     const [notasVentaPedidoEntregado, setNotasVentaPedidoEntregado] = useState([]);
@@ -17,12 +13,11 @@ const PedidoEntregado = () => {
     const [filtroFecha, setFiltroFecha] = useState('');
     const [filtroEstadoPago, setFiltroEstadoPago] = useState('');
     const [estadosPago, setEstadosPago] = useState([]);
-    const [userRole, setUserRole] = useState({});
 
     useEffect(() => {
         const fetchNotasVentaPedidoEntregado = async () => {
             try {
-                const response = await fetch(`${API_URL}/api/vista-nota-venta-pedido-entregado`);
+                const response = await fetch(`${URL_API}api/vista-nota-venta-pedido-entregado`);
                 const data = await response.json();
                 setNotasVentaPedidoEntregado(data);
             } catch (error) {
@@ -32,7 +27,7 @@ const PedidoEntregado = () => {
 
         const fetchEstadosPago = async () => {
             try {
-                const response = await axios.get(`${API_URL}/api/estadopago`);
+                const response = await axios.get(`${URL_API}api/estadopago`);
                 setEstadosPago(response.data);
                 console.log('Estados de Pago:', response.data); // Agrega esta línea para depurar
             } catch (error) {
@@ -70,6 +65,16 @@ const PedidoEntregado = () => {
         });
     };
 
+    const [userRole,  setUserRole] = useState({});
+    useEffect(() => {
+        // Modificación 2: Parsear el rol al cargar el componente
+        const storedRole = localStorage.getItem('userRole');
+
+        const parsedRole = storedRole ? JSON.parse(storedRole) : null;
+
+        setUserRole(parsedRole);
+    }, []);
+    
     return (
         <div className='contenedor-pedidos-entregados'>
             <MenuHamburguesa />

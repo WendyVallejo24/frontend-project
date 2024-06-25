@@ -5,11 +5,7 @@ import '../pantallasGerente/style/catalogo.css';
 import '../pantallasGerente/style/salesReport.css';
 import { IoMdArrowDropdownCircle } from "react-icons/io";
 import DetallesVentaModal from './DetallesVentaModal';
-
-//const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-//const API_URL = 'http://localhost:8080';
-const API_URL = 'http://ordermanager.com/';
-
+import { URL_API } from '../../config';
 
 const VistaNotaVentaPedidoEnProcesoComponent = () => {
   const [notasVentaEnProceso, setNotasVentaEnProceso] = useState([]);
@@ -19,7 +15,6 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
   const [selectedNota, setSelectedNota] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [abonoAmount, setAbonoAmount] = useState(0);
-  const [userRole, setUserRole] = useState({});
 
   useEffect(() => {
     fetchNotasVentaEnProceso();
@@ -27,7 +22,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
 
   const fetchNotasVentaEnProceso = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/vista-nota-venta-pedido-en-proceso`);
+      const response = await axios.get(`${URL_API}api/vista-nota-venta-pedido-en-proceso`);
       setNotasVentaEnProceso(response.data);
       setNotasFiltradas(response.data);
     } catch (error) {
@@ -54,7 +49,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
 
   const handleCancelarPedido = async (nota) => {
     try {
-      const response = await axios.post(`${API_URL}/api/pedido/modificarpedido`, {
+      const response = await axios.post(`${URL_API}api/pedido/modificarpedido`, {
         nNota: nota.numeroNota,
         idEstadoPedido: 3, // 3 representa el estado de pedido "Cancelado"
       });
@@ -75,7 +70,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
 
   const handleEntregarPedido = async (nota) => {
     try {
-      const response = await axios.post(`${API_URL}/api/pedido/modificarpedido`, {
+      const response = await axios.post(`${URL_API}api/pedido/modificarpedido`, {
         nNota: nota.numeroNota,
         idEstadoPedido: 1, // 1 representa el estado de pedido "Entregado"
       });
@@ -101,7 +96,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
       const restoAPagar = nota.resto;
 
       // Realizar la solicitud al servidor para pagar y entregar el pedido
-      const response = await axios.post(`${API_URL}/api/pedido/pagarentregarpedido`, {
+      const response = await axios.post(`${URL_API}api/pedido/pagarentregarpedido`, {
         idPedido: 1,
         nNota: nota.numeroNota,
         pago: restoAPagar,
@@ -150,7 +145,7 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
         pago: parseFloat(abonoAmount),
       };
 
-      const response = await axios.post(`${API_URL}/api/notasventas/pagarnota`, abonarNota);
+      const response = await axios.post(`${URL_API}api/notasventas/pagarnota`, abonarNota);
       console.log(response.data);
       console.log(`Abono de: ${abonoAmount}`);
       alert(`Abono de: ${abonoAmount}`);
@@ -161,6 +156,16 @@ const VistaNotaVentaPedidoEnProcesoComponent = () => {
       console.error('Error en la solicitud:', error);
     }
   };
+
+  const [userRole,  setUserRole] = useState({});
+    useEffect(() => {
+        // Modificación 2: Parsear el rol al cargar el componente
+        const storedRole = localStorage.getItem('userRole');
+
+        const parsedRole = storedRole ? JSON.parse(storedRole) : null;
+
+        setUserRole(parsedRole);
+    }, []);
 
   return (
     <div className='registro'>

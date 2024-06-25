@@ -4,24 +4,18 @@ import '../pantallasGerente/style/catalogo.css';
 import '../pantallasGerente/style/salesReport.css';
 import '../Calendar.js';
 import Calendar from '../Calendar.js';
-import axios from 'axios';
-
-//const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-//const API_URL = 'http://localhost:8080';
-const API_URL = 'http://ordermanager.com/';
-
+import { URL_API } from '../../config';
+//import axios from 'axios';
 
 const PedidoCancelado = () => {
     const [notasVentaCanceladas, setNotasVentaCanceladas] = useState([]);
     const [filtroCliente, setFiltroCliente] = useState('');
     const [filtroFecha, setFiltroFecha] = useState('');
-
-    const [userRole, setUserRole] = useState({});
     
     useEffect(() => {
         const fetchNotasVentaCanceladas = async () => {
             try {
-                const response = await fetch(`${API_URL}/api/vista-nota-venta-pedido-cancelado`);
+                const response = await fetch(`${URL_API}api/vista-nota-venta-pedido-cancelado`);
                 const data = await response.json();
                 setNotasVentaCanceladas(data);
             } catch (error) {
@@ -52,6 +46,16 @@ const PedidoCancelado = () => {
         });
     };
 
+    const [userRole,  setUserRole] = useState({});
+    useEffect(() => {
+        // Modificación 2: Parsear el rol al cargar el componente
+        const storedRole = localStorage.getItem('userRole');
+
+        const parsedRole = storedRole ? JSON.parse(storedRole) : null;
+
+        setUserRole(parsedRole);
+    }, []);
+    
     return (
         <div className='registro'>
             <MenuHamburguesa />
@@ -114,7 +118,7 @@ const PedidoCancelado = () => {
                     </table>
                 </div>
             ) : (
-                <p> </p>
+                <p>No cuentas con los permisos.</p>
             )}
         </div>
     );

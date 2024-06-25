@@ -3,11 +3,7 @@ import axios from 'axios';
 import MenuHamburguesa from '../../MenuHamburguesa';
 import '../style/catalogo.css';
 import '../style/salesReport.css';
-
-//const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-//const API_URL = 'http://localhost:8080';
-const API_URL = 'http://ordermanager.com/';
-
+import { URL_API } from '../../../config';
 
 const Catalogo = () => {
     const [productos, setProductos] = useState([]);
@@ -18,7 +14,7 @@ const Catalogo = () => {
     useEffect(() => {
         const fetchProductos = async () => {
             try {
-                const response = await axios.get(`${API_URL}/api/productos`);
+                const response = await axios.get(`${URL_API}api/productos`);
                 setProductos(response.data);
             } catch (error) {
                 console.error('Error al obtener productos', error);
@@ -30,7 +26,7 @@ const Catalogo = () => {
 
     const handleBuscarProducto = async () => {
         try {
-            const response = await axios.get(`${API_URL}/api/productos/buscar?nombre=${nombreBusqueda.toLowerCase()}`);
+            const response = await axios.get(`${URL_API}api/productos/buscar?nombre=${nombreBusqueda.toLowerCase()}`);
             setProductosEncontrados(response.data);
             setErrorBusqueda(null);
         } catch (error) {

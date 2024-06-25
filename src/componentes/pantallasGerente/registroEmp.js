@@ -3,11 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import './style/registroEmp.css';
 import '../pantallasGerente/style/salesReport.css';
 import MenuHamburguesa from '../MenuHamburguesa';
-
-//const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/"
-//const URL_API = 'http://localhost:8080/';
-const URL_API = 'http://ordermanager.com/';
-
+import { URL_API } from '../../config';
 
 const RegistroEmp = () => {
     const [empleados, setEmpleados] = useState([]);

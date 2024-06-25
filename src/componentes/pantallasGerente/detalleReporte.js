@@ -3,15 +3,13 @@ import './style/registroEmp.css';
 import '../pantallasGerente/style/salesReport.css';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
+import { URL_API } from '../../config';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 const DetalleReporte = () => {
   const { id } = useParams();
   const [reporte, setReporte] = useState(null);
-  //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
-  //const URL_API = 'http://localhost:8080/';
-  const URL_API = 'http://ordermanager.com/';
 
 
   useEffect(() => {

@@ -3,9 +3,7 @@ import axios from 'axios';
 import MenuHamburguesa from '../../MenuHamburguesa';
 import '../style/catalogo.css';
 import '../style/salesReport.css';
-
-//const API_URL = 'http://localhost:8080';
-const API_URL = 'http://ordermanager.com/';
+import { URL_API } from '../../../config';
 
 
 const UnidadMedidaList = () => {
@@ -14,11 +12,10 @@ const UnidadMedidaList = () => {
   const [idUnidadMedida, setIdUnidadMedida] = useState('');
   const [unidadMedidaSeleccionada, setUnidadMedidaSeleccionada] = useState('');
   const [modoEdicion, setModoEdicion] = useState(false);
-  const [userRole, setUserRole] = useState({});
 
   const fetchUnidadesMedida = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/unidadesMedida`);
+      const response = await axios.get(`${URL_API}api/unidadesMedida`);
       setUnidadesMedida(response.data);
     } catch (error) {
       console.error('Error al obtener unidades de medida', error);
@@ -42,7 +39,7 @@ const UnidadMedidaList = () => {
         nombre: nombreUnidadMedida.toLowerCase(),
       };
 
-      const response = await axios.post(`${API_URL}/api/unidadesMedida`, nuevaUnidadMedida);
+      const response = await axios.post(`${URL_API}api/unidadesMedida`, nuevaUnidadMedida);
       console.log('Unidad de medida creada:', response.data);
       alert('Unidad de medida creada con éxito.');
       setIdUnidadMedida('');
@@ -77,7 +74,7 @@ const UnidadMedidaList = () => {
       };
 
       const response = await axios.put(
-        `${API_URL}/api/unidadesMedida/${unidadMedidaSeleccionada.idUnidadMedida}`,
+        `${URL_API}api/unidadesMedida/${unidadMedidaSeleccionada.idUnidadMedida}`,
         unidadMedidaActualizada
       );
 
@@ -95,7 +92,7 @@ const UnidadMedidaList = () => {
 
   const handleEliminarUnidadMedida = async (idUnidadMed) => {
     try {
-      await axios.delete(`${API_URL}/api/unidadesMedida/${idUnidadMed}`);
+      await axios.delete(`${URL_API}api/unidadesMedida/${idUnidadMed}`);
       alert('Unidad de medida eliminada con éxito.');
       fetchUnidadesMedida();
     } catch (error) {
@@ -106,6 +103,16 @@ const UnidadMedidaList = () => {
 
   useEffect(() => {
     fetchUnidadesMedida();
+  }, []);
+
+  const [userRole, setUserRole] = useState({});
+  useEffect(() => {
+    // Modificación 2: Parsear el rol al cargar el componente
+    const storedRole = localStorage.getItem('userRole');
+
+    const parsedRole = storedRole ? JSON.parse(storedRole) : null;
+
+    setUserRole(parsedRole);
   }, []);
 
   return (

@@ -3,9 +3,7 @@ import axios from 'axios';
 import MenuHamburguesa from '../../MenuHamburguesa';
 import '../style/catalogo.css';
 import '../style/salesReport.css';
-
-//const API_URL = 'http://localhost:8080';
-const API_URL = 'http://ordermanager.com/';
+import { URL_API } from '../../../config';
 
 
 const CategoriaList = () => {
@@ -17,7 +15,7 @@ const CategoriaList = () => {
 
     const fetchCategorias = async () => {
         try {
-            const response = await axios.get(`${API_URL}/api/categorias`);
+            const response = await axios.get(`${URL_API}api/categorias`);
             setCategorias(response.data);
         } catch (error) {
             console.error('Error al obtener categorías', error);
@@ -42,7 +40,7 @@ const CategoriaList = () => {
                 nombre: nombreCategoria.toLowerCase(),
             };
 
-            const response = await axios.post(`${API_URL}/api/categorias`, nuevaCategoria);
+            const response = await axios.post(`${URL_API}api/categorias`, nuevaCategoria);
             console.log('Categoría creada:', response.data);
             alert('Categoría creada con éxito.');
             setIdCategoria('');
@@ -79,7 +77,7 @@ const CategoriaList = () => {
             };
 
             const response = await axios.put(
-                `${API_URL}/api/categorias/${categoriaSeleccionada.idCategoria}`,
+                `${URL_API}api/categorias/${categoriaSeleccionada.idCategoria}`,
                 categoriaActualizada
             );
 
@@ -96,7 +94,7 @@ const CategoriaList = () => {
 
     const handleEliminarCategoria = async (idCategoria) => {
         try {
-            await axios.delete(`${API_URL}/api/categorias/${idCategoria}`);
+            await axios.delete(`${URL_API}api/categorias/${idCategoria}`);
             alert('Categoría eliminada con éxito.');
             fetchCategorias();
         } catch (error) {
@@ -108,7 +106,15 @@ const CategoriaList = () => {
         fetchCategorias();
     }, []);
 
-    const [userRole, setUserRole] = useState({});
+    const [userRole,  setUserRole] = useState({});
+    useEffect(() => {
+        // Modificación 2: Parsear el rol al cargar el componente
+        const storedRole = localStorage.getItem('userRole');
+
+        const parsedRole = storedRole ? JSON.parse(storedRole) : null;
+
+        setUserRole(parsedRole);
+    }, []);
 
     return (
         <div className='registro'>

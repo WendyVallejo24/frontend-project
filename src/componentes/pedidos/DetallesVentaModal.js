@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
-//onst API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-//const API_URL = 'http://localhost:8080';
-const API_URL = 'http://ordermanager.com/';
-
+import { URL_API } from '../../config';
 
 const DetallesVentaModal = ({ numeroNota, onClose }) => {
   const [detallesVenta, setDetallesVenta] = useState([]);
@@ -12,7 +8,7 @@ const DetallesVentaModal = ({ numeroNota, onClose }) => {
   useEffect(() => {
     const fetchDetallesVenta = async () => {
       try {
-        const response = await axios.get(`${API_URL}/api/detallesventas/byNumeroNota/${numeroNota}`);
+        const response = await axios.get(`${URL_API}api/detallesventas/byNumeroNota/${numeroNota}`);
         setDetallesVenta(response.data);
       } catch (error) {
         console.error('Error fetching detalles venta:', error);

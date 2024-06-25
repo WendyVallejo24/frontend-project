@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';  // Import axios library
+import axios from 'axios';
 import './style/registroEmp.css';
 import MenuHamburguesa from '../MenuHamburguesa';
+import { URL_API } from '../../config';
 
 const CrearReporteMensual = () => {
     const [reportId, setReportId] = useState('');  // State to hold the report ID
     const [userRole, setUserRole] = useState({});
-
-    //const URL_API = "https://abarrotesapi-service-api-yacruz.cloud.okteto.net/";
-
-    //const URL_API = 'http://localhost:8080/';
-    const URL_API = 'http://ordermanager.com/';
-
 
     // Method to update the report
     const handleUpdateClick = async () => {

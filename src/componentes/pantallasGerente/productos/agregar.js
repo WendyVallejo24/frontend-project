@@ -5,10 +5,7 @@ import MenuHamburguesa from '../../MenuHamburguesa';
 import '../style/catalogo.css';
 import '../style/salesReport.css';
 import '../style/registroEmp.css';
-
-//const API_URL = 'https://abarrotesapi-service-api-yacruz.cloud.okteto.net';
-//const API_URL = 'http://localhost:8080';
-const API_URL = 'http://ordermanager.com/';
+import { URL_API } from '../../../config';
 
 
 const CreateProduct = () => {
@@ -68,7 +65,7 @@ const CreateProduct = () => {
                 },
             };
 
-            const response = await axios.post(`${API_URL}/api/productos`, nuevoProducto);
+            const response = await axios.post(`${URL_API}api/productos`, nuevoProducto);
             console.log('Producto creado:', response.data);
             alert('Producto creado con éxito.');
             fetchProductos();
@@ -141,7 +138,7 @@ const CreateProduct = () => {
             };
 
             const response = await axios.put(
-                `${API_URL}/api/productos/${productoSeleccionado.codigo}`,
+                `${URL_API}api/productos/${productoSeleccionado.codigo}`,
                 productoActualizado
             );
             console.log('Producto actualizado:', response.data);
@@ -168,7 +165,7 @@ const CreateProduct = () => {
 
     const fetchProductos = async () => {
         try {
-            const response = await axios.get(`${API_URL}/api/productos`);
+            const response = await axios.get(`${URL_API}api/productos`);
             // console.log('Productos obtenidos:', response.data);
             setProductos(response.data);
         } catch (error) {
@@ -183,7 +180,7 @@ const CreateProduct = () => {
     useEffect(() => {
         const fetchMarcas = async () => {
             try {
-                const response = await axios.get(`${API_URL}/api/marcas`);
+                const response = await axios.get(`${URL_API}api/marcas`);
                 setMarcas(response.data);
             } catch (error) {
                 console.error('Error al obtener marcas', error);
@@ -196,7 +193,7 @@ const CreateProduct = () => {
     useEffect(() => {
         const fetchCategorias = async () => {
             try {
-                const response = await axios.get(`${API_URL}/api/categorias`);
+                const response = await axios.get(`${URL_API}api/categorias`);
                 setCategorias(response.data);
             } catch (error) {
                 console.error('Error al obtener categorías', error);
@@ -209,7 +206,7 @@ const CreateProduct = () => {
     useEffect(() => {
         const fetchUnidadMedidas = async () => {
             try {
-                const response = await axios.get(`${API_URL}/api/unidadesMedida`);
+                const response = await axios.get(`${URL_API}api/unidadesMedida`);
                 setUnidadMedidas(response.data);
             } catch (error) {
                 console.error('Error al obtener unidades de medida', error);
