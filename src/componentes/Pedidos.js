@@ -13,9 +13,6 @@ import './Ventas.css';
 import { URL_API } from '../config';
 import AddClientModal from './AddClientModal';
 
-const id_empleado = localStorage.getItem('idEmpleado');
-const nombre = localStorage.getItem('nombreEmpleado');
-
 const Calendar = ({ value, onChange }) => {
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
@@ -393,6 +390,18 @@ const Pedidos = ({ handleCreateClient }) => {
 
         setUserRole(parsedRole);
         console.log('User Role:', userRole);
+    }, []);
+
+
+    const id_empleado = localStorage.getItem('idEmpleado');
+    const nombreEmpleado = localStorage.getItem('nombreEmpleado');
+    const [nombre, setNombre] = useState(nombreEmpleado || '');
+
+    useEffect(() =>{
+        const storedNombreEmpleado = localStorage.getItem('nombreEmpleado');
+        if (storedNombreEmpleado) {
+            setNombre(storedNombreEmpleado);
+        }
     }, []);
 
     return (
