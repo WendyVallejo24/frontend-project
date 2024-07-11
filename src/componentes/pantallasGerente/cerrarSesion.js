@@ -16,6 +16,7 @@ const CerrarSesion = () => {
       localStorage.removeItem('nombreEmpleado');
       localStorage.removeItem('idEmpleado');
       localStorage.removeItem('userRole');
+      localStorage.removeItem('token');
 
       // Redirigir a la página de inicio de sesión
       navigate('/');

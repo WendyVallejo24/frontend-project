@@ -39,11 +39,12 @@ const LoginForm = () => {
 
       if (response.data.success && response.data.rol) {
         // Extraer nombre y id_empleado de la respuesta
-        const { nombre, id_empleado } = response.data;
+        const { nombre, id_empleado, token } = response.data;
 
         // Almacenar el nombre y el id_empleado en localStorage
         localStorage.setItem('nombreEmpleado', nombre);
         localStorage.setItem('idEmpleado', id_empleado);
+        localStorage.setItem('token', token);
 
         const userRole = response.data; // Almacena todo el objeto de respuesta
         localStorage.setItem('userRole', JSON.stringify(userRole));

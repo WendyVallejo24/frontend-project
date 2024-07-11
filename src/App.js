@@ -20,36 +20,35 @@ import DetalleReporte from './componentes/pantallasGerente/detalleReporte';
 import CrearReporteSemanal from './componentes/pantallasGerente/crearReporteSemanal';
 import CrearReporteMensual from './componentes/pantallasGerente/crearReporteMensual';
 import CerrarSesion from './componentes/pantallasGerente/cerrarSesion';
+import PrivateRoute from './componentes/PrivateRoute';
 
 function App() {
   return (
-    <div>
     <Router>
       
       <Routes>
         <Route path="/" element={<LoginForm />} />
-        <Route path="/registroEmpleado" element={<RegistroEmp />} />
-        <Route path="/agregarEmpleado" element={<AgregarEmpleado />} />
-        <Route path="/eliminarEmpleado" element={<EliminarEmpleado />} />
-        <Route path="/catalogo" element={<Catalogo />} />
-        <Route path="/agregarProducto" element={<CreateProduct />} />
-        <Route path="/modificarProducto" element={<UpdateProduct />} />
-        <Route path="/marcas" element={<MarcaList />} />
-        <Route path="/categoria" element={<CategoriaList />} />
-        <Route path="/unidadMedida" element={<UnidadMedidaList />} />
-        <Route path="/pedidos" element={<Pedidos />} />
-        <Route path="/pedidoProceso" element={<PedidoEnProcesoComponent />} />
-        <Route path="/pedidoCancelado" element={<PedidoCancelado />} />
-        <Route path="/pedidoEntregado" element={<PedidoEntregado />} />
-        <Route path="/informeReportes" element={<InformeReportes />} />
-        <Route path="/detalleReporte/:id" element={<DetalleReporte />} ></Route>
-        <Route path="/crearReporteSemanal" element={<CrearReporteSemanal />} />
-        <Route path="/crearReporteMensual" element={<CrearReporteMensual />} />
-        <Route path="/cerrarSesion" element={<CerrarSesion />} />
+        <Route  path="/registroEmpleado" element={<PrivateRoute element={RegistroEmp} />} />
+        <Route  path="/agregarEmpleado" element={<PrivateRoute element={AgregarEmpleado} />} />
+        <Route  path="/eliminarEmpleado" element={<PrivateRoute element={EliminarEmpleado} />} />
+        <Route  path="/catalogo" element={<PrivateRoute element={Catalogo} />} />
+        <Route  path="/agregarProducto" element={<PrivateRoute element={CreateProduct} />} />
+        <Route  path="/modificarProducto" element={<PrivateRoute element={UpdateProduct} />} />
+        <Route  path="/marcas" element={<PrivateRoute element={MarcaList} />} />
+        <Route  path="/categoria" element={<PrivateRoute element={CategoriaList} />} />
+        <Route  path="/unidadMedida" element={<PrivateRoute element={UnidadMedidaList} />} />
+        <Route  path="/pedidos" element={<PrivateRoute element={Pedidos} />} />
+        <Route  path="/pedidoProceso" element={<PrivateRoute element={PedidoEnProcesoComponent} />} />
+        <Route  path="/pedidoCancelado" element={<PrivateRoute element={PedidoCancelado} />} />
+        <Route  path="/pedidoEntregado" element={<PrivateRoute element={PedidoEntregado} />} />
+        <Route  path="/informeReportes" element={<PrivateRoute element={InformeReportes} />} />
+        <Route  path="/detalleReporte/:id" element={<PrivateRoute element={DetalleReporte} />} />
+        <Route  path="/crearReporteSemanal" element={<PrivateRoute element={CrearReporteSemanal} />} />
+        <Route  path="/crearReporteMensual" element={<PrivateRoute element={CrearReporteMensual} />} />
+        <Route  path="/cerrarSesion" element={<PrivateRoute element={CerrarSesion} />} />
       </Routes>
     </Router>
-    </div>
   );
-};
+}
 
 export default App;
