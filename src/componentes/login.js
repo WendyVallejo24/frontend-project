@@ -12,21 +12,21 @@ const LoginForm = () => {
 
   useEffect(() => {
     // Lógica de inicialización aquí
+    const init = async () => {
+      try {
+        const responseGet = await axios.get(URL_API + 'initEmpleados');
+        if (responseGet) {
+          console.log('Respuesta de inicialización con GET', responseGet.data);
+        } else {
+          console.error('Error en la inicialización: no se recibió respuesta');
+        }
+      } catch (error) {
+        console.error('Error en la inicialización', error.message);
+      }
+    };
+    
     init();
   }, []); // El segundo parámetro es un arreglo de dependencias, en este caso, vacío para que se ejecute solo una vez al montar el componente
-
-  const init = async () => {
-    try {
-      const responseGet = await axios.get(URL_API + 'initEmpleados');
-      if (responseGet) {
-        console.log('Respuesta de inicialización con GET', responseGet.data);
-      } else {
-        console.error('Error en la inicialización: no se recibió respuesta');
-      }
-    } catch (error) {
-      console.error('Error en la inicialización', error.message);
-    }
-  };
 
   const handleLogin = async () => {
     try {
